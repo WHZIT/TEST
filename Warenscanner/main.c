@@ -11,7 +11,7 @@ void main(void)
 	usart_init(usart_handle);
 	usart_configure(usart_handle, 9600, 0, 1, 8, NULL, 0);
 	while(1)
-	{
+	{5555555555555554343434
 		if (usart_read(usart_handle, receive_array, 2) > 0)
 		{
 			usart_write(usart_handle, (uint8_t*)receive_array, sizeof(receive_array));

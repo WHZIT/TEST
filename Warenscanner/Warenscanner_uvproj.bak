@@ -314,6 +314,11 @@
               <FileType>5</FileType>
               <FilePath>.\usart.h</FilePath>
             </File>
+            <File>
+              <FileName>global_defines.h</FileName>
+              <FileType>5</FileType>
+              <FilePath>.\global_defines.h</FilePath>
+            </File>
           </Files>
         </Group>
         <Group>
