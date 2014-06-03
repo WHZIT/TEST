@@ -6,7 +6,7 @@ void main(void)
 	uint8_t usart_handle;
 	char usart_string[] ="Testtext \n\r";
 	uint8_t receive_array[2];
-	
+	benis
 	usart_handle=usart_open(0);
 	usart_init(usart_handle);
 	usart_configure(usart_handle, 9600, 0, 1, 8, NULL, 0);
