@@ -15,6 +15,6 @@ void main(void)
 		if (usart_read(usart_handle, receive_array, 2) > 0)
 		{
 			usart_write(usart_handle, (uint8_t*)receive_array, sizeof(receive_array));
-		}
+		}benis benis
 	}
 }werewrewr
