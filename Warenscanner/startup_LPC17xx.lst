@@ -1,0 +1,486 @@
+ARM GAS  ../CMSIS/CM3_V1P30_LPC17xx/startup/startup_LPC17xx.s 			page 1
+
+
+   1              	/*****************************************************************************/
+   2              	/* startup_LPC17xx.s: Startup file for LPC17xx device series                 */
+   3              	/*****************************************************************************/
+   4              	/* Version: CodeSourcery Sourcery G++ Lite (with CS3)                        */
+   5              	/*****************************************************************************/
+   6              	/***********************************************//**
+   7              	 * @file startup_LPC17xx.s
+   8              	 * @brief CodeSourcery Sourcery G++ Lite (with CS3) \n
+   9              	 *   modified by Ch.Troll
+  10              	 * @version V1.0
+  11              	 * @date    2011-02-08
+  12              	 * @authors  CodeSourcery \n
+  13              	 *          Prof. Troll \n
+  14              	 *          WH Zwickau  \n
+  15              	 *          Fak. Elektrotechnik - Informationstechnik\n
+  16              	 *          Modul: Embedded Systems\n 
+  17              	 *          mail:  Chritian.Troll@fh-zwickau.de 
+  18              	 * \verbatim
+  19              	***********************************************/
+  20              	
+  21              	
+  22              	/* 
+  23              	//*** <<< Use Configuration Wizard in Context Menu >>> *** 
+  24              	*/
+  25              	
+  26              	/*
+  27              	// <e> start with main 
+  28              	// </e>
+  29              	*/
+  30              	   .equ RAM_MODE,  1
+  31              	
+  32              	
+  33              	
+  34              	
+  35              	/*
+  36              	// <h> Stack Configuration
+  37              	//   <o> Stack Size (in Bytes) <0x0-0xFFFFFFFF:8>
+  38              	// </h>
+  39              	*/
+  40              	
+  41              	    .equ    Stack_Size, 0x00000100
+  42              	    .section ".stack", "w"
+  43              	    .align  3
+  44              	    .globl  __cs3_stack_mem
+  45              	    .globl  __cs3_stack_size
+  46              	__cs3_stack_mem:
+  47              	    .if     Stack_Size
+  48 0000 00000000 	    .space  Stack_Size
+  48      00000000 
+  48      00000000 
+  48      00000000 
+  48      00000000 
+  49              	    .endif
+  50              	    .size   __cs3_stack_mem,  . - __cs3_stack_mem
+  51              	    .set    __cs3_stack_size, . - __cs3_stack_mem
+  52              	
+  53              	
+ARM GAS  ../CMSIS/CM3_V1P30_LPC17xx/startup/startup_LPC17xx.s 			page 2
+
+
+  54              	/*
+  55              	// <h> Heap Configuration
+  56              	//   <o>  Heap Size (in Bytes) <0x0-0xFFFFFFFF:8>
+  57              	// </h>
+  58              	*/
+  59              	
+  60              	    .equ    Heap_Size,  0x00001000
+  61              	    
+  62              	    .section ".heap", "w"
+  63              	    .align  3
+  64              	    .globl  __cs3_heap_start
+  65              	    .globl  __cs3_heap_end
+  66              	__cs3_heap_start:
+  67              	    .if     Heap_Size
+  68 0000 00000000 	    .space  Heap_Size
+  68      00000000 
+  68      00000000 
+  68      00000000 
+  68      00000000 
+  69              	    .endif
+  70              	__cs3_heap_end:
+  71              	
+  72              	
+  73              	/* Vector Table */
+  74              	
+  75              	    .section ".cs3.interrupt_vector"
+  76              	    .globl  __cs3_interrupt_vector_cortex_m
+  77              	    .type   __cs3_interrupt_vector_cortex_m, %object
+  78              	
+  79              	__cs3_interrupt_vector_cortex_m:
+  80 0000 00000000 	    .long   __cs3_stack                 /* Top of Stack                 */
+  81 0004 00000000 	    .long   __cs3_reset                 /* Reset Handler                */
+  82 0008 00000000 	    .long   NMI_Handler                 /* NMI Handler                  */
+  83 000c 00000000 	    .long   HardFault_Handler           /* Hard Fault Handler           */
+  84 0010 00000000 	    .long   MemManage_Handler           /* MPU Fault Handler            */
+  85 0014 00000000 	    .long   BusFault_Handler            /* Bus Fault Handler            */
+  86 0018 00000000 	    .long   UsageFault_Handler          /* Usage Fault Handler          */
+  87 001c 00000000 	    .long   0                           /* Reserved                     */
+  88 0020 00000000 	    .long   0                           /* Reserved                     */
+  89 0024 00000000 	    .long   0                           /* Reserved                     */
+  90 0028 00000000 	    .long   0                           /* Reserved                     */
+  91 002c 00000000 	    .long   SVC_Handler                 /* SVCall Handler               */
+  92 0030 00000000 	    .long   DebugMon_Handler            /* Debug Monitor Handler        */
+  93 0034 00000000 	    .long   0                           /* Reserved                     */
+  94 0038 00000000 	    .long   PendSV_Handler              /* PendSV Handler               */
+  95 003c 00000000 	    .long   SysTick_Handler             /* SysTick Handler              */
+  96              	
+  97              	    /* External Interrupts */
+  98 0040 00000000 	    .long   WDT_IRQHandler              /* 16: Watchdog Timer               */
+  99 0044 00000000 	    .long   TIMER0_IRQHandler           /* 17: Timer0                       */
+ 100 0048 00000000 	    .long   TIMER1_IRQHandler           /* 18: Timer1                       */
+ 101 004c 00000000 	    .long   TIMER2_IRQHandler           /* 19: Timer2                       */
+ 102 0050 00000000 	    .long   TIMER3_IRQHandler           /* 20: Timer3                       */
+ 103 0054 00000000 	    .long   UART0_IRQHandler            /* 21: UART0                        */
+ 104 0058 00000000 	    .long   UART1_IRQHandler            /* 22: UART1                        */
+ 105 005c 00000000 	    .long   UART2_IRQHandler            /* 23: UART2                        */
+ 106 0060 00000000 	    .long   UART3_IRQHandler            /* 24: UART3                        */
+ARM GAS  ../CMSIS/CM3_V1P30_LPC17xx/startup/startup_LPC17xx.s 			page 3
+
+
+ 107 0064 00000000 	    .long   PWM1_IRQHandler             /* 25: PWM1                         */
+ 108 0068 00000000 	    .long   I2C0_IRQHandler             /* 26: I2C0                         */
+ 109 006c 00000000 	    .long   I2C1_IRQHandler             /* 27: I2C1                         */
+ 110 0070 00000000 	    .long   I2C2_IRQHandler             /* 28: I2C2                         */
+ 111 0074 00000000 	    .long   SPI_IRQHandler              /* 29: SPI                          */
+ 112 0078 00000000 	    .long   SSP0_IRQHandler             /* 30: SSP0                         */
+ 113 007c 00000000 	    .long   SSP1_IRQHandler             /* 31: SSP1                         */
+ 114 0080 00000000 	    .long   PLL0_IRQHandler             /* 32: PLL0 Lock (Main PLL)         */
+ 115 0084 00000000 	    .long   RTC_IRQHandler              /* 33: Real Time Clock              */
+ 116 0088 00000000 	    .long   EINT0_IRQHandler            /* 34: External Interrupt 0         */
+ 117 008c 00000000 	    .long   EINT1_IRQHandler            /* 35: External Interrupt 1         */
+ 118 0090 00000000 	    .long   EINT2_IRQHandler            /* 36: External Interrupt 2         */
+ 119 0094 00000000 	    .long   EINT3_IRQHandler            /* 37: External Interrupt 3         */
+ 120 0098 00000000 	    .long   ADC_IRQHandler              /* 38: A/D Converter                */
+ 121 009c 00000000 	    .long   BOD_IRQHandler              /* 39: Brown-Out Detect             */
+ 122 00a0 00000000 	    .long   USB_IRQHandler              /* 40: USB                          */
+ 123 00a4 00000000 	    .long   CAN_IRQHandler              /* 41: CAN                          */
+ 124 00a8 00000000 	    .long   DMA_IRQHandler              /* 42: General Purpose DMA          */
+ 125 00ac 00000000 	    .long   I2S_IRQHandler              /* 43: I2S                          */
+ 126 00b0 00000000 	    .long   ENET_IRQHandler             /* 44: Ethernet                     */
+ 127 00b4 00000000 	    .long   RIT_IRQHandler              /* 45: Repetitive Interrupt Timer   */
+ 128 00b8 00000000 	    .long   MCPWM_IRQHandler            /* 46: Motor Control PWM            */
+ 129 00bc 00000000 	    .long   QEI_IRQHandler              /* 47: Quadrature Encoder Interface */
+ 130 00c0 00000000 	    .long   PLL1_IRQHandler             /* 48: PLL1 Lock (USB PLL)          */
+ 131              	
+ 132              	    .size   __cs3_interrupt_vector_cortex_m, . - __cs3_interrupt_vector_cortex_m
+ 133              	
+ 134              	
+ 135              	    .thumb
+ 136              	
+ 137              	
+ 138              	/* Reset Handler */
+ 139              	
+ 140              	    .section .cs3.reset,"x",%progbits
+ 141              	    .thumb_func
+ 142              	    .globl  __cs3_reset_cortex_m
+ 143              	    .type   __cs3_reset_cortex_m, %function
+ 144              	__cs3_reset_cortex_m:
+ 145              	    .fnstart
+ 146              	.if (RAM_MODE)
+ 147              	/* Copy data from ROM to RAM */
+ 148 0000 0C49     		LDR     R1, = _etext 					/* source */
+ 149 0002 0D4A     		LDR     R2, = __cs3_region_start_ram	/* destination*/
+ 150 0004 0D4B     	    LDR     R3, = _edata					/* end of destination */
+ 151 0006 9A42     		CMP     R2,R3
+ 152 0008 06D0     		BEQ     DATAIsEmpty
+ 153              	LoopZ0:
+ 154 000a 9A42     		CMP     R2, R3
+ 155 000c 04D2     		BHS		DATAIsEmpty
+ 156 000e 0868     		LDR     R0, [R1]
+ 157 0010 1060     	    STR   	R0, [R2]
+ 158 0012 0431     		ADD		R1, #4
+ 159 0014 0432     	    ADD		R2, #4
+ 160 0016 F8D3     		BLO     LoopZ0      
+ 161              	DATAIsEmpty:
+ 162              	/* Clear .bss section (Zero init) */
+ 163 0018 0020     		MOV     R0, #0
+ARM GAS  ../CMSIS/CM3_V1P30_LPC17xx/startup/startup_LPC17xx.s 			page 4
+
+
+ 164 001a 0949     		LDR     R1, = _sbss /*__bss_start__*/
+ 165 001c 094A     		LDR     R2, = _ebss /*__bss_end__ */
+ 166 001e 9142     		CMP     R1,R2
+ 167 0020 04D0     		BEQ     BSSIsEmpty
+ 168              	LoopZI:
+ 169 0022 9142     		CMP     R1, R2
+ 170 0024 02D2     		BHS		BSSIsEmpty
+ 171 0026 0860     		STR   	R0, [R1]
+ 172 0028 0431     		ADD		R1, #4
+ 173 002a FAD3     		BLO     LoopZI                    
+ 174              	BSSIsEmpty:
+ 175 002c 0648     	    LDR     R0, =SystemInit
+ 176 002e 8047     	    BLX     R0   
+ 177 0030 0648     	    LDR     R0,=main
+ 178 0032 0047     	    BX      R0
+ 179              	.else
+ 180              	    LDR     R0, =SystemInit
+ 181              	    BLX     R0
+ 182              		LDR     R0,=_start
+ 183              	    BX      R0
+ 184              	.endif
+ 185              	/*
+ 186              	    LDR     R0, =__Init_Data
+ 187              	    BLX     R0
+ 188              	    LDR     R0, =SystemInit
+ 189              	    BLX     R0
+ 190              	    LDR     R0,=main
+ 191              	    BX      R0
+ 192              	*/
+ 193 0034 00000000 	    .pool
+ 193      00000000 
+ 193      00000000 
+ 193      00000000 
+ 193      00000000 
+ 194              	    .cantunwind
+ 195              	    .fnend
+ 196              	    .size   __cs3_reset_cortex_m,.-__cs3_reset_cortex_m
+ 197              	
+ 198              	    .section ".text"
+ 199              	
+ 200              	/* Exception Handlers */
+ 201              	
+ 202              	    .weak   NMI_Handler
+ 203              	    .type   NMI_Handler, %function
+ 204              	NMI_Handler:
+ 205 0000 FEE7     	    B       .
+ 206              	    .size   NMI_Handler, . - NMI_Handler
+ 207              	
+ 208              	    .weak   HardFault_Handler
+ 209              	    .type   HardFault_Handler, %function
+ 210              	HardFault_Handler:
+ 211 0002 FEE7     	    B       .
+ 212              	    .size   HardFault_Handler, . - HardFault_Handler
+ 213              	
+ 214              	    .weak   MemManage_Handler
+ 215              	    .type   MemManage_Handler, %function
+ 216              	MemManage_Handler:
+ARM GAS  ../CMSIS/CM3_V1P30_LPC17xx/startup/startup_LPC17xx.s 			page 5
+
+
+ 217 0004 FEE7     	    B       .
+ 218              	    .size   MemManage_Handler, . - MemManage_Handler
+ 219              	
+ 220              	    .weak   BusFault_Handler
+ 221              	    .type   BusFault_Handler, %function
+ 222              	BusFault_Handler:
+ 223 0006 FEE7     	    B       .
+ 224              	    .size   BusFault_Handler, . - BusFault_Handler
+ 225              	
+ 226              	    .weak   UsageFault_Handler
+ 227              	    .type   UsageFault_Handler, %function
+ 228              	UsageFault_Handler:
+ 229 0008 FEE7     	    B       .
+ 230              	    .size   UsageFault_Handler, . - UsageFault_Handler
+ 231              	
+ 232              	    .weak   SVC_Handler
+ 233              	    .type   SVC_Handler, %function
+ 234              	SVC_Handler:
+ 235 000a FEE7     	    B       .
+ 236              	    .size   SVC_Handler, . - SVC_Handler
+ 237              	
+ 238              	    .weak   DebugMon_Handler
+ 239              	    .type   DebugMon_Handler, %function
+ 240              	DebugMon_Handler:
+ 241 000c FEE7     	    B       .
+ 242              	    .size   DebugMon_Handler, . - DebugMon_Handler
+ 243              	
+ 244              	    .weak   PendSV_Handler
+ 245              	    .type   PendSV_Handler, %function
+ 246              	PendSV_Handler:
+ 247 000e FEE7     	    B       .
+ 248              	    .size   PendSV_Handler, . - PendSV_Handler
+ 249              	
+ 250              	    .weak   SysTick_Handler
+ 251              	    .type   SysTick_Handler, %function
+ 252              	SysTick_Handler:
+ 253 0010 FEE7     	    B       .
+ 254              	    .size   SysTick_Handler, . - SysTick_Handler
+ 255              	
+ 256              	
+ 257              	/* IRQ Handlers */
+ 258              	
+ 259              	    .globl  Default_Handler
+ 260              	    .type   Default_Handler, %function
+ 261              	Default_Handler:
+ 262 0012 FEE7     	    B       .
+ 263              	    .size   Default_Handler, . - Default_Handler
+ 264              	
+ 265              	    .macro  IRQ handler
+ 266              	    .weak   \handler
+ 267              	    .set    \handler, Default_Handler
+ 268              	    .endm
+ 269              	
+ 270              	    IRQ     WDT_IRQHandler
+ 270              	>  .weak WDT_IRQHandler
+ 270              	>  .set WDT_IRQHandler,Default_Handler
+ 271              	    IRQ     TIMER0_IRQHandler
+ARM GAS  ../CMSIS/CM3_V1P30_LPC17xx/startup/startup_LPC17xx.s 			page 6
+
+
+ 271              	>  .weak TIMER0_IRQHandler
+ 271              	>  .set TIMER0_IRQHandler,Default_Handler
+ 272              	    IRQ     TIMER1_IRQHandler
+ 272              	>  .weak TIMER1_IRQHandler
+ 272              	>  .set TIMER1_IRQHandler,Default_Handler
+ 273              	    IRQ     TIMER2_IRQHandler
+ 273              	>  .weak TIMER2_IRQHandler
+ 273              	>  .set TIMER2_IRQHandler,Default_Handler
+ 274              	    IRQ     TIMER3_IRQHandler
+ 274              	>  .weak TIMER3_IRQHandler
+ 274              	>  .set TIMER3_IRQHandler,Default_Handler
+ 275              	    IRQ     UART0_IRQHandler
+ 275              	>  .weak UART0_IRQHandler
+ 275              	>  .set UART0_IRQHandler,Default_Handler
+ 276              	    IRQ     UART1_IRQHandler
+ 276              	>  .weak UART1_IRQHandler
+ 276              	>  .set UART1_IRQHandler,Default_Handler
+ 277              	    IRQ     UART2_IRQHandler
+ 277              	>  .weak UART2_IRQHandler
+ 277              	>  .set UART2_IRQHandler,Default_Handler
+ 278              	    IRQ     UART3_IRQHandler
+ 278              	>  .weak UART3_IRQHandler
+ 278              	>  .set UART3_IRQHandler,Default_Handler
+ 279              	    IRQ     PWM1_IRQHandler
+ 279              	>  .weak PWM1_IRQHandler
+ 279              	>  .set PWM1_IRQHandler,Default_Handler
+ 280              	    IRQ     I2C0_IRQHandler
+ 280              	>  .weak I2C0_IRQHandler
+ 280              	>  .set I2C0_IRQHandler,Default_Handler
+ 281              	    IRQ     I2C1_IRQHandler
+ 281              	>  .weak I2C1_IRQHandler
+ 281              	>  .set I2C1_IRQHandler,Default_Handler
+ 282              	    IRQ     I2C2_IRQHandler
+ 282              	>  .weak I2C2_IRQHandler
+ 282              	>  .set I2C2_IRQHandler,Default_Handler
+ 283              	    IRQ     SPI_IRQHandler
+ 283              	>  .weak SPI_IRQHandler
+ 283              	>  .set SPI_IRQHandler,Default_Handler
+ 284              	    IRQ     SSP0_IRQHandler
+ 284              	>  .weak SSP0_IRQHandler
+ 284              	>  .set SSP0_IRQHandler,Default_Handler
+ 285              	    IRQ     SSP1_IRQHandler
+ 285              	>  .weak SSP1_IRQHandler
+ 285              	>  .set SSP1_IRQHandler,Default_Handler
+ 286              	    IRQ     PLL0_IRQHandler
+ 286              	>  .weak PLL0_IRQHandler
+ 286              	>  .set PLL0_IRQHandler,Default_Handler
+ 287              	    IRQ     RTC_IRQHandler
+ 287              	>  .weak RTC_IRQHandler
+ 287              	>  .set RTC_IRQHandler,Default_Handler
+ 288              	    IRQ     EINT0_IRQHandler
+ 288              	>  .weak EINT0_IRQHandler
+ 288              	>  .set EINT0_IRQHandler,Default_Handler
+ 289              	    IRQ     EINT1_IRQHandler
+ 289              	>  .weak EINT1_IRQHandler
+ 289              	>  .set EINT1_IRQHandler,Default_Handler
+ 290              	    IRQ     EINT2_IRQHandler
+ARM GAS  ../CMSIS/CM3_V1P30_LPC17xx/startup/startup_LPC17xx.s 			page 7
+
+
+ 290              	>  .weak EINT2_IRQHandler
+ 290              	>  .set EINT2_IRQHandler,Default_Handler
+ 291              	    IRQ     EINT3_IRQHandler
+ 291              	>  .weak EINT3_IRQHandler
+ 291              	>  .set EINT3_IRQHandler,Default_Handler
+ 292              	    IRQ     ADC_IRQHandler
+ 292              	>  .weak ADC_IRQHandler
+ 292              	>  .set ADC_IRQHandler,Default_Handler
+ 293              	    IRQ     BOD_IRQHandler
+ 293              	>  .weak BOD_IRQHandler
+ 293              	>  .set BOD_IRQHandler,Default_Handler
+ 294              	    IRQ     USB_IRQHandler
+ 294              	>  .weak USB_IRQHandler
+ 294              	>  .set USB_IRQHandler,Default_Handler
+ 295              	    IRQ     CAN_IRQHandler
+ 295              	>  .weak CAN_IRQHandler
+ 295              	>  .set CAN_IRQHandler,Default_Handler
+ 296              	    IRQ     DMA_IRQHandler
+ 296              	>  .weak DMA_IRQHandler
+ 296              	>  .set DMA_IRQHandler,Default_Handler
+ 297              	    IRQ     I2S_IRQHandler
+ 297              	>  .weak I2S_IRQHandler
+ 297              	>  .set I2S_IRQHandler,Default_Handler
+ 298              	    IRQ     ENET_IRQHandler
+ 298              	>  .weak ENET_IRQHandler
+ 298              	>  .set ENET_IRQHandler,Default_Handler
+ 299              	    IRQ     RIT_IRQHandler
+ 299              	>  .weak RIT_IRQHandler
+ 299              	>  .set RIT_IRQHandler,Default_Handler
+ 300              	    IRQ     MCPWM_IRQHandler
+ 300              	>  .weak MCPWM_IRQHandler
+ 300              	>  .set MCPWM_IRQHandler,Default_Handler
+ 301              	    IRQ     QEI_IRQHandler
+ 301              	>  .weak QEI_IRQHandler
+ 301              	>  .set QEI_IRQHandler,Default_Handler
+ 302              	    IRQ     PLL1_IRQHandler
+ 302              	>  .weak PLL1_IRQHandler
+ 302              	>  .set PLL1_IRQHandler,Default_Handler
+ 303              	
+ 304              	/** \endverbatim
+ 305              	*/
+ 306              	    .end
+ARM GAS  ../CMSIS/CM3_V1P30_LPC17xx/startup/startup_LPC17xx.s 			page 8
+
+
+DEFINED SYMBOLS
+../CMSIS/CM3_V1P30_LPC17xx/startup/startup_LPC17xx.s:30     *ABS*:00000001 RAM_MODE
+../CMSIS/CM3_V1P30_LPC17xx/startup/startup_LPC17xx.s:41     *ABS*:00000100 Stack_Size
+../CMSIS/CM3_V1P30_LPC17xx/startup/startup_LPC17xx.s:43     .stack:00000000 $d
+../CMSIS/CM3_V1P30_LPC17xx/startup/startup_LPC17xx.s:46     .stack:00000000 __cs3_stack_mem
+                            *ABS*:00000100 __cs3_stack_size
+../CMSIS/CM3_V1P30_LPC17xx/startup/startup_LPC17xx.s:60     *ABS*:00001000 Heap_Size
+../CMSIS/CM3_V1P30_LPC17xx/startup/startup_LPC17xx.s:63     .heap:00000000 $d
+../CMSIS/CM3_V1P30_LPC17xx/startup/startup_LPC17xx.s:66     .heap:00000000 __cs3_heap_start
+../CMSIS/CM3_V1P30_LPC17xx/startup/startup_LPC17xx.s:70     .heap:00001000 __cs3_heap_end
+../CMSIS/CM3_V1P30_LPC17xx/startup/startup_LPC17xx.s:79     .cs3.interrupt_vector:00000000 __cs3_interrupt_vector_cortex_m
+../CMSIS/CM3_V1P30_LPC17xx/startup/startup_LPC17xx.s:204    .text:00000000 NMI_Handler
+../CMSIS/CM3_V1P30_LPC17xx/startup/startup_LPC17xx.s:210    .text:00000002 HardFault_Handler
+../CMSIS/CM3_V1P30_LPC17xx/startup/startup_LPC17xx.s:216    .text:00000004 MemManage_Handler
+../CMSIS/CM3_V1P30_LPC17xx/startup/startup_LPC17xx.s:222    .text:00000006 BusFault_Handler
+../CMSIS/CM3_V1P30_LPC17xx/startup/startup_LPC17xx.s:228    .text:00000008 UsageFault_Handler
+../CMSIS/CM3_V1P30_LPC17xx/startup/startup_LPC17xx.s:234    .text:0000000a SVC_Handler
+../CMSIS/CM3_V1P30_LPC17xx/startup/startup_LPC17xx.s:240    .text:0000000c DebugMon_Handler
+../CMSIS/CM3_V1P30_LPC17xx/startup/startup_LPC17xx.s:246    .text:0000000e PendSV_Handler
+../CMSIS/CM3_V1P30_LPC17xx/startup/startup_LPC17xx.s:252    .text:00000010 SysTick_Handler
+../CMSIS/CM3_V1P30_LPC17xx/startup/startup_LPC17xx.s:261    .text:00000012 WDT_IRQHandler
+../CMSIS/CM3_V1P30_LPC17xx/startup/startup_LPC17xx.s:261    .text:00000012 TIMER0_IRQHandler
+../CMSIS/CM3_V1P30_LPC17xx/startup/startup_LPC17xx.s:261    .text:00000012 TIMER1_IRQHandler
+../CMSIS/CM3_V1P30_LPC17xx/startup/startup_LPC17xx.s:261    .text:00000012 TIMER2_IRQHandler
+../CMSIS/CM3_V1P30_LPC17xx/startup/startup_LPC17xx.s:261    .text:00000012 TIMER3_IRQHandler
+../CMSIS/CM3_V1P30_LPC17xx/startup/startup_LPC17xx.s:261    .text:00000012 UART0_IRQHandler
+../CMSIS/CM3_V1P30_LPC17xx/startup/startup_LPC17xx.s:261    .text:00000012 UART1_IRQHandler
+../CMSIS/CM3_V1P30_LPC17xx/startup/startup_LPC17xx.s:261    .text:00000012 UART2_IRQHandler
+../CMSIS/CM3_V1P30_LPC17xx/startup/startup_LPC17xx.s:261    .text:00000012 UART3_IRQHandler
+../CMSIS/CM3_V1P30_LPC17xx/startup/startup_LPC17xx.s:261    .text:00000012 PWM1_IRQHandler
+../CMSIS/CM3_V1P30_LPC17xx/startup/startup_LPC17xx.s:261    .text:00000012 I2C0_IRQHandler
+../CMSIS/CM3_V1P30_LPC17xx/startup/startup_LPC17xx.s:261    .text:00000012 I2C1_IRQHandler
+../CMSIS/CM3_V1P30_LPC17xx/startup/startup_LPC17xx.s:261    .text:00000012 I2C2_IRQHandler
+../CMSIS/CM3_V1P30_LPC17xx/startup/startup_LPC17xx.s:261    .text:00000012 SPI_IRQHandler
+../CMSIS/CM3_V1P30_LPC17xx/startup/startup_LPC17xx.s:261    .text:00000012 SSP0_IRQHandler
+../CMSIS/CM3_V1P30_LPC17xx/startup/startup_LPC17xx.s:261    .text:00000012 SSP1_IRQHandler
+../CMSIS/CM3_V1P30_LPC17xx/startup/startup_LPC17xx.s:261    .text:00000012 PLL0_IRQHandler
+../CMSIS/CM3_V1P30_LPC17xx/startup/startup_LPC17xx.s:261    .text:00000012 RTC_IRQHandler
+../CMSIS/CM3_V1P30_LPC17xx/startup/startup_LPC17xx.s:261    .text:00000012 EINT0_IRQHandler
+../CMSIS/CM3_V1P30_LPC17xx/startup/startup_LPC17xx.s:261    .text:00000012 EINT1_IRQHandler
+../CMSIS/CM3_V1P30_LPC17xx/startup/startup_LPC17xx.s:261    .text:00000012 EINT2_IRQHandler
+../CMSIS/CM3_V1P30_LPC17xx/startup/startup_LPC17xx.s:261    .text:00000012 EINT3_IRQHandler
+../CMSIS/CM3_V1P30_LPC17xx/startup/startup_LPC17xx.s:261    .text:00000012 ADC_IRQHandler
+../CMSIS/CM3_V1P30_LPC17xx/startup/startup_LPC17xx.s:261    .text:00000012 BOD_IRQHandler
+../CMSIS/CM3_V1P30_LPC17xx/startup/startup_LPC17xx.s:261    .text:00000012 USB_IRQHandler
+../CMSIS/CM3_V1P30_LPC17xx/startup/startup_LPC17xx.s:261    .text:00000012 CAN_IRQHandler
+../CMSIS/CM3_V1P30_LPC17xx/startup/startup_LPC17xx.s:261    .text:00000012 DMA_IRQHandler
+../CMSIS/CM3_V1P30_LPC17xx/startup/startup_LPC17xx.s:261    .text:00000012 I2S_IRQHandler
+../CMSIS/CM3_V1P30_LPC17xx/startup/startup_LPC17xx.s:261    .text:00000012 ENET_IRQHandler
+../CMSIS/CM3_V1P30_LPC17xx/startup/startup_LPC17xx.s:261    .text:00000012 RIT_IRQHandler
+../CMSIS/CM3_V1P30_LPC17xx/startup/startup_LPC17xx.s:261    .text:00000012 MCPWM_IRQHandler
+../CMSIS/CM3_V1P30_LPC17xx/startup/startup_LPC17xx.s:261    .text:00000012 QEI_IRQHandler
+../CMSIS/CM3_V1P30_LPC17xx/startup/startup_LPC17xx.s:261    .text:00000012 PLL1_IRQHandler
+../CMSIS/CM3_V1P30_LPC17xx/startup/startup_LPC17xx.s:144    .cs3.reset:00000000 __cs3_reset_cortex_m
+../CMSIS/CM3_V1P30_LPC17xx/startup/startup_LPC17xx.s:148    .cs3.reset:00000000 $t
+../CMSIS/CM3_V1P30_LPC17xx/startup/startup_LPC17xx.s:161    .cs3.reset:00000018 DATAIsEmpty
+../CMSIS/CM3_V1P30_LPC17xx/startup/startup_LPC17xx.s:153    .cs3.reset:0000000a LoopZ0
+ARM GAS  ../CMSIS/CM3_V1P30_LPC17xx/startup/startup_LPC17xx.s 			page 9
+
+
+../CMSIS/CM3_V1P30_LPC17xx/startup/startup_LPC17xx.s:174    .cs3.reset:0000002c BSSIsEmpty
+../CMSIS/CM3_V1P30_LPC17xx/startup/startup_LPC17xx.s:168    .cs3.reset:00000022 LoopZI
+../CMSIS/CM3_V1P30_LPC17xx/startup/startup_LPC17xx.s:193    .cs3.reset:00000034 $d
+             .ARM.exidx.cs3.reset:00000000 $d
+../CMSIS/CM3_V1P30_LPC17xx/startup/startup_LPC17xx.s:205    .text:00000000 $t
+../CMSIS/CM3_V1P30_LPC17xx/startup/startup_LPC17xx.s:261    .text:00000012 Default_Handler
+                   .debug_aranges:0000000c $d
+
+UNDEFINED SYMBOLS
+__cs3_stack
+__cs3_reset
+_etext
+__cs3_region_start_ram
+_edata
+_sbss
+_ebss
+SystemInit
+main

@@ -1,0 +1,1 @@
+-c -mcpu=cortex-m3 -mthumb -gdwarf-2 -MD -Wall -O0 -mapcs-frame -I../CMSIS -IC:/Programme/Keil/ARM/CMSIS/Include -IC:/Programme/Keil/ARM/Inc/NXP/LPC17xx -Wa,-alhms="./core_cm3.lst" -o ./core_cm3.o "../CMSIS/CM3_V1P30_Core/core_cm3.c"

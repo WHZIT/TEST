@@ -1,0 +1,1927 @@
+ARM GAS  c:\Temp\ccFh3jpk.s 			page 1
+
+
+   1              		.syntax unified
+   2              		.cpu cortex-m3
+   3              		.fpu softvfp
+   4              		.eabi_attribute 20, 1
+   5              		.eabi_attribute 21, 1
+   6              		.eabi_attribute 23, 3
+   7              		.eabi_attribute 24, 1
+   8              		.eabi_attribute 25, 1
+   9              		.eabi_attribute 26, 1
+  10              		.eabi_attribute 30, 6
+  11              		.eabi_attribute 18, 4
+  12              		.thumb
+  13              		.file	"system_LPC17xx.c"
+  14              		.section	.debug_abbrev,"",%progbits
+  15              	.Ldebug_abbrev0:
+  16              		.section	.debug_info,"",%progbits
+  17              	.Ldebug_info0:
+  18              		.section	.debug_line,"",%progbits
+  19              	.Ldebug_line0:
+  20 0000 86010000 		.text
+  20      02001601 
+  20      00000201 
+  20      FB0E0D00 
+  20      01010101 
+  21              	.Ltext0:
+  22              		.cfi_sections	.debug_frame
+  23              		.global	SystemFrequency
+  24              		.data
+  25              		.align	2
+  26              		.type	SystemFrequency, %object
+  27              		.size	SystemFrequency, 4
+  28              	SystemFrequency:
+  29 0000 00093D00 		.word	4000000
+  30              		.text
+  31              		.align	2
+  32              		.global	SystemInit
+  33              		.thumb
+  34              		.thumb_func
+  35              		.type	SystemInit, %function
+  36              	SystemInit:
+  37              	.LFB56:
+  38              		.file 1 "../CMSIS/CM3_V1P30_LPC17xx/system_LPC17xx.c"
+   1:../CMSIS/CM3_V1P30_LPC17xx/system_LPC17xx.c **** /******************************************************************************
+   2:../CMSIS/CM3_V1P30_LPC17xx/system_LPC17xx.c ****  * @file:    system_LPC17xx.c
+   3:../CMSIS/CM3_V1P30_LPC17xx/system_LPC17xx.c ****  * @purpose: CMSIS Cortex-M3 Device Peripheral Access Layer Source File
+   4:../CMSIS/CM3_V1P30_LPC17xx/system_LPC17xx.c ****  *           for the NXP LPC17xx Device Series 
+   5:../CMSIS/CM3_V1P30_LPC17xx/system_LPC17xx.c ****  * @version: V1.1
+   6:../CMSIS/CM3_V1P30_LPC17xx/system_LPC17xx.c ****  * @date:    18th May 2009
+   7:../CMSIS/CM3_V1P30_LPC17xx/system_LPC17xx.c ****  *----------------------------------------------------------------------------
+   8:../CMSIS/CM3_V1P30_LPC17xx/system_LPC17xx.c ****  *
+   9:../CMSIS/CM3_V1P30_LPC17xx/system_LPC17xx.c ****  * Copyright (C) 2008 ARM Limited. All rights reserved.
+  10:../CMSIS/CM3_V1P30_LPC17xx/system_LPC17xx.c ****  *
+  11:../CMSIS/CM3_V1P30_LPC17xx/system_LPC17xx.c ****  * ARM Limited (ARM) is supplying this software for use with Cortex-M3 
+  12:../CMSIS/CM3_V1P30_LPC17xx/system_LPC17xx.c ****  * processor based microcontrollers.  This file can be freely distributed 
+  13:../CMSIS/CM3_V1P30_LPC17xx/system_LPC17xx.c ****  * within development tools that are supporting such ARM based processors. 
+  14:../CMSIS/CM3_V1P30_LPC17xx/system_LPC17xx.c ****  *
+  15:../CMSIS/CM3_V1P30_LPC17xx/system_LPC17xx.c ****  * THIS SOFTWARE IS PROVIDED "AS IS".  NO WARRANTIES, WHETHER EXPRESS, IMPLIED
+ARM GAS  c:\Temp\ccFh3jpk.s 			page 2
+
+
+  16:../CMSIS/CM3_V1P30_LPC17xx/system_LPC17xx.c ****  * OR STATUTORY, INCLUDING, BUT NOT LIMITED TO, IMPLIED WARRANTIES OF
+  17:../CMSIS/CM3_V1P30_LPC17xx/system_LPC17xx.c ****  * MERCHANTABILITY AND FITNESS FOR A PARTICULAR PURPOSE APPLY TO THIS SOFTWARE.
+  18:../CMSIS/CM3_V1P30_LPC17xx/system_LPC17xx.c ****  * ARM SHALL NOT, IN ANY CIRCUMSTANCES, BE LIABLE FOR SPECIAL, INCIDENTAL, OR
+  19:../CMSIS/CM3_V1P30_LPC17xx/system_LPC17xx.c ****  * CONSEQUENTIAL DAMAGES, FOR ANY REASON WHATSOEVER.
+  20:../CMSIS/CM3_V1P30_LPC17xx/system_LPC17xx.c ****  *
+  21:../CMSIS/CM3_V1P30_LPC17xx/system_LPC17xx.c ****  ******************************************************************************/
+  22:../CMSIS/CM3_V1P30_LPC17xx/system_LPC17xx.c **** 
+  23:../CMSIS/CM3_V1P30_LPC17xx/system_LPC17xx.c **** 
+  24:../CMSIS/CM3_V1P30_LPC17xx/system_LPC17xx.c **** #include <stdint.h>
+  25:../CMSIS/CM3_V1P30_LPC17xx/system_LPC17xx.c **** #include "LPC17xx.h"
+  26:../CMSIS/CM3_V1P30_LPC17xx/system_LPC17xx.c **** 
+  27:../CMSIS/CM3_V1P30_LPC17xx/system_LPC17xx.c **** /*
+  28:../CMSIS/CM3_V1P30_LPC17xx/system_LPC17xx.c **** //-------- <<< Use Configuration Wizard in Context Menu >>> ------------------
+  29:../CMSIS/CM3_V1P30_LPC17xx/system_LPC17xx.c **** */
+  30:../CMSIS/CM3_V1P30_LPC17xx/system_LPC17xx.c **** 
+  31:../CMSIS/CM3_V1P30_LPC17xx/system_LPC17xx.c **** /*--------------------- Clock Configuration ----------------------------------
+  32:../CMSIS/CM3_V1P30_LPC17xx/system_LPC17xx.c **** //
+  33:../CMSIS/CM3_V1P30_LPC17xx/system_LPC17xx.c **** // <e> Clock Configuration
+  34:../CMSIS/CM3_V1P30_LPC17xx/system_LPC17xx.c **** //   <h> System Controls and Status Register (SCS)
+  35:../CMSIS/CM3_V1P30_LPC17xx/system_LPC17xx.c **** //     <o1.4>    OSCRANGE: Main Oscillator Range Select
+  36:../CMSIS/CM3_V1P30_LPC17xx/system_LPC17xx.c **** //                     <0=>  1 MHz to 20 MHz
+  37:../CMSIS/CM3_V1P30_LPC17xx/system_LPC17xx.c **** //                     <1=> 15 MHz to 24 MHz
+  38:../CMSIS/CM3_V1P30_LPC17xx/system_LPC17xx.c **** //     <e1.5>       OSCEN: Main Oscillator Enable
+  39:../CMSIS/CM3_V1P30_LPC17xx/system_LPC17xx.c **** //     </e>
+  40:../CMSIS/CM3_V1P30_LPC17xx/system_LPC17xx.c **** //   </h>
+  41:../CMSIS/CM3_V1P30_LPC17xx/system_LPC17xx.c **** //
+  42:../CMSIS/CM3_V1P30_LPC17xx/system_LPC17xx.c **** //   <h> Clock Source Select Register (CLKSRCSEL)
+  43:../CMSIS/CM3_V1P30_LPC17xx/system_LPC17xx.c **** //     <o2.0..1>   CLKSRC: PLL Clock Source Selection
+  44:../CMSIS/CM3_V1P30_LPC17xx/system_LPC17xx.c **** //                     <0=> Internal RC oscillator
+  45:../CMSIS/CM3_V1P30_LPC17xx/system_LPC17xx.c **** //                     <1=> Main oscillator
+  46:../CMSIS/CM3_V1P30_LPC17xx/system_LPC17xx.c **** //                     <2=> RTC oscillator
+  47:../CMSIS/CM3_V1P30_LPC17xx/system_LPC17xx.c **** //   </h>
+  48:../CMSIS/CM3_V1P30_LPC17xx/system_LPC17xx.c **** //
+  49:../CMSIS/CM3_V1P30_LPC17xx/system_LPC17xx.c **** //   <e3> PLL0 Configuration (Main PLL)
+  50:../CMSIS/CM3_V1P30_LPC17xx/system_LPC17xx.c **** //     <h> PLL0 Configuration Register (PLL0CFG)
+  51:../CMSIS/CM3_V1P30_LPC17xx/system_LPC17xx.c **** //                     <i> F_cco0 = (2 * M * F_in) / N
+  52:../CMSIS/CM3_V1P30_LPC17xx/system_LPC17xx.c **** //                     <i> F_in must be in the range of 32 kHz to 50 MHz
+  53:../CMSIS/CM3_V1P30_LPC17xx/system_LPC17xx.c **** //                     <i> F_cco0 must be in the range of 275 MHz to 550 MHz
+  54:../CMSIS/CM3_V1P30_LPC17xx/system_LPC17xx.c **** //       <o4.0..14>  MSEL: PLL Multiplier Selection
+  55:../CMSIS/CM3_V1P30_LPC17xx/system_LPC17xx.c **** //                     <6-32768><#-1>
+  56:../CMSIS/CM3_V1P30_LPC17xx/system_LPC17xx.c **** //                     <i> M Value
+  57:../CMSIS/CM3_V1P30_LPC17xx/system_LPC17xx.c **** //       <o4.16..23> NSEL: PLL Divider Selection
+  58:../CMSIS/CM3_V1P30_LPC17xx/system_LPC17xx.c **** //                     <1-256><#-1>
+  59:../CMSIS/CM3_V1P30_LPC17xx/system_LPC17xx.c **** //                     <i> N Value
+  60:../CMSIS/CM3_V1P30_LPC17xx/system_LPC17xx.c **** //     </h>
+  61:../CMSIS/CM3_V1P30_LPC17xx/system_LPC17xx.c **** //   </e>
+  62:../CMSIS/CM3_V1P30_LPC17xx/system_LPC17xx.c **** //
+  63:../CMSIS/CM3_V1P30_LPC17xx/system_LPC17xx.c **** //   <e5> PLL1 Configuration (USB PLL)
+  64:../CMSIS/CM3_V1P30_LPC17xx/system_LPC17xx.c **** //     <h> PLL1 Configuration Register (PLL1CFG)
+  65:../CMSIS/CM3_V1P30_LPC17xx/system_LPC17xx.c **** //                     <i> F_usb = M * F_osc or F_usb = F_cco1 / (2 * P)
+  66:../CMSIS/CM3_V1P30_LPC17xx/system_LPC17xx.c **** //                     <i> F_cco1 = F_osc * M * 2 * P
+  67:../CMSIS/CM3_V1P30_LPC17xx/system_LPC17xx.c **** //                     <i> F_cco1 must be in the range of 156 MHz to 320 MHz
+  68:../CMSIS/CM3_V1P30_LPC17xx/system_LPC17xx.c **** //       <o6.0..4>   MSEL: PLL Multiplier Selection
+  69:../CMSIS/CM3_V1P30_LPC17xx/system_LPC17xx.c **** //                     <1-32><#-1>
+  70:../CMSIS/CM3_V1P30_LPC17xx/system_LPC17xx.c **** //                     <i> M Value (for USB maximum value is 4)
+  71:../CMSIS/CM3_V1P30_LPC17xx/system_LPC17xx.c **** //       <o6.5..6>   PSEL: PLL Divider Selection
+  72:../CMSIS/CM3_V1P30_LPC17xx/system_LPC17xx.c **** //                     <0=> 1
+ARM GAS  c:\Temp\ccFh3jpk.s 			page 3
+
+
+  73:../CMSIS/CM3_V1P30_LPC17xx/system_LPC17xx.c **** //                     <1=> 2
+  74:../CMSIS/CM3_V1P30_LPC17xx/system_LPC17xx.c **** //                     <2=> 4
+  75:../CMSIS/CM3_V1P30_LPC17xx/system_LPC17xx.c **** //                     <3=> 8
+  76:../CMSIS/CM3_V1P30_LPC17xx/system_LPC17xx.c **** //                     <i> P Value
+  77:../CMSIS/CM3_V1P30_LPC17xx/system_LPC17xx.c **** //     </h>
+  78:../CMSIS/CM3_V1P30_LPC17xx/system_LPC17xx.c **** //   </e>
+  79:../CMSIS/CM3_V1P30_LPC17xx/system_LPC17xx.c **** //
+  80:../CMSIS/CM3_V1P30_LPC17xx/system_LPC17xx.c **** //   <h> CPU Clock Configuration Register (CCLKCFG)
+  81:../CMSIS/CM3_V1P30_LPC17xx/system_LPC17xx.c **** //     <o7.0..7>  CCLKSEL: Divide Value for CPU Clock from PLL0
+  82:../CMSIS/CM3_V1P30_LPC17xx/system_LPC17xx.c **** //                     <3-256><#-1>
+  83:../CMSIS/CM3_V1P30_LPC17xx/system_LPC17xx.c **** //   </h>
+  84:../CMSIS/CM3_V1P30_LPC17xx/system_LPC17xx.c **** //
+  85:../CMSIS/CM3_V1P30_LPC17xx/system_LPC17xx.c **** //   <h> USB Clock Configuration Register (USBCLKCFG)
+  86:../CMSIS/CM3_V1P30_LPC17xx/system_LPC17xx.c **** //     <o8.0..3>   USBSEL: Divide Value for USB Clock from PLL1
+  87:../CMSIS/CM3_V1P30_LPC17xx/system_LPC17xx.c **** //                     <0-15>
+  88:../CMSIS/CM3_V1P30_LPC17xx/system_LPC17xx.c **** //                     <i> Divide is USBSEL + 1
+  89:../CMSIS/CM3_V1P30_LPC17xx/system_LPC17xx.c **** //   </h>
+  90:../CMSIS/CM3_V1P30_LPC17xx/system_LPC17xx.c **** //
+  91:../CMSIS/CM3_V1P30_LPC17xx/system_LPC17xx.c **** //   <h> Peripheral Clock Selection Register 0 (PCLKSEL0)
+  92:../CMSIS/CM3_V1P30_LPC17xx/system_LPC17xx.c **** //     <o9.0..1>    PCLK_WDT: Peripheral Clock Selection for WDT
+  93:../CMSIS/CM3_V1P30_LPC17xx/system_LPC17xx.c **** //                     <0=> Pclk = Cclk / 4
+  94:../CMSIS/CM3_V1P30_LPC17xx/system_LPC17xx.c **** //                     <1=> Pclk = Cclk
+  95:../CMSIS/CM3_V1P30_LPC17xx/system_LPC17xx.c **** //                     <2=> Pclk = Cclk / 2
+  96:../CMSIS/CM3_V1P30_LPC17xx/system_LPC17xx.c **** //                     <3=> Pclk = Hclk / 8
+  97:../CMSIS/CM3_V1P30_LPC17xx/system_LPC17xx.c **** //     <o9.2..3>    PCLK_TIMER0: Peripheral Clock Selection for TIMER0
+  98:../CMSIS/CM3_V1P30_LPC17xx/system_LPC17xx.c **** //                     <0=> Pclk = Cclk / 4
+  99:../CMSIS/CM3_V1P30_LPC17xx/system_LPC17xx.c **** //                     <1=> Pclk = Cclk
+ 100:../CMSIS/CM3_V1P30_LPC17xx/system_LPC17xx.c **** //                     <2=> Pclk = Cclk / 2
+ 101:../CMSIS/CM3_V1P30_LPC17xx/system_LPC17xx.c **** //                     <3=> Pclk = Hclk / 8
+ 102:../CMSIS/CM3_V1P30_LPC17xx/system_LPC17xx.c **** //     <o9.4..5>    PCLK_TIMER1: Peripheral Clock Selection for TIMER1
+ 103:../CMSIS/CM3_V1P30_LPC17xx/system_LPC17xx.c **** //                     <0=> Pclk = Cclk / 4
+ 104:../CMSIS/CM3_V1P30_LPC17xx/system_LPC17xx.c **** //                     <1=> Pclk = Cclk
+ 105:../CMSIS/CM3_V1P30_LPC17xx/system_LPC17xx.c **** //                     <2=> Pclk = Cclk / 2
+ 106:../CMSIS/CM3_V1P30_LPC17xx/system_LPC17xx.c **** //                     <3=> Pclk = Hclk / 8
+ 107:../CMSIS/CM3_V1P30_LPC17xx/system_LPC17xx.c **** //     <o9.6..7>    PCLK_UART0: Peripheral Clock Selection for UART0
+ 108:../CMSIS/CM3_V1P30_LPC17xx/system_LPC17xx.c **** //                     <0=> Pclk = Cclk / 4
+ 109:../CMSIS/CM3_V1P30_LPC17xx/system_LPC17xx.c **** //                     <1=> Pclk = Cclk
+ 110:../CMSIS/CM3_V1P30_LPC17xx/system_LPC17xx.c **** //                     <2=> Pclk = Cclk / 2
+ 111:../CMSIS/CM3_V1P30_LPC17xx/system_LPC17xx.c **** //                     <3=> Pclk = Hclk / 8
+ 112:../CMSIS/CM3_V1P30_LPC17xx/system_LPC17xx.c **** //     <o9.8..9>    PCLK_UART1: Peripheral Clock Selection for UART1
+ 113:../CMSIS/CM3_V1P30_LPC17xx/system_LPC17xx.c **** //                     <0=> Pclk = Cclk / 4
+ 114:../CMSIS/CM3_V1P30_LPC17xx/system_LPC17xx.c **** //                     <1=> Pclk = Cclk
+ 115:../CMSIS/CM3_V1P30_LPC17xx/system_LPC17xx.c **** //                     <2=> Pclk = Cclk / 2
+ 116:../CMSIS/CM3_V1P30_LPC17xx/system_LPC17xx.c **** //                     <3=> Pclk = Hclk / 8
+ 117:../CMSIS/CM3_V1P30_LPC17xx/system_LPC17xx.c **** //     <o9.12..13>  PCLK_PWM1: Peripheral Clock Selection for PWM1
+ 118:../CMSIS/CM3_V1P30_LPC17xx/system_LPC17xx.c **** //                     <0=> Pclk = Cclk / 4
+ 119:../CMSIS/CM3_V1P30_LPC17xx/system_LPC17xx.c **** //                     <1=> Pclk = Cclk
+ 120:../CMSIS/CM3_V1P30_LPC17xx/system_LPC17xx.c **** //                     <2=> Pclk = Cclk / 2
+ 121:../CMSIS/CM3_V1P30_LPC17xx/system_LPC17xx.c **** //                     <3=> Pclk = Hclk / 8
+ 122:../CMSIS/CM3_V1P30_LPC17xx/system_LPC17xx.c **** //     <o9.14..15>  PCLK_I2C0: Peripheral Clock Selection for I2C0
+ 123:../CMSIS/CM3_V1P30_LPC17xx/system_LPC17xx.c **** //                     <0=> Pclk = Cclk / 4
+ 124:../CMSIS/CM3_V1P30_LPC17xx/system_LPC17xx.c **** //                     <1=> Pclk = Cclk
+ 125:../CMSIS/CM3_V1P30_LPC17xx/system_LPC17xx.c **** //                     <2=> Pclk = Cclk / 2
+ 126:../CMSIS/CM3_V1P30_LPC17xx/system_LPC17xx.c **** //                     <3=> Pclk = Hclk / 8
+ 127:../CMSIS/CM3_V1P30_LPC17xx/system_LPC17xx.c **** //     <o9.16..17>  PCLK_SPI: Peripheral Clock Selection for SPI
+ 128:../CMSIS/CM3_V1P30_LPC17xx/system_LPC17xx.c **** //                     <0=> Pclk = Cclk / 4
+ 129:../CMSIS/CM3_V1P30_LPC17xx/system_LPC17xx.c **** //                     <1=> Pclk = Cclk
+ARM GAS  c:\Temp\ccFh3jpk.s 			page 4
+
+
+ 130:../CMSIS/CM3_V1P30_LPC17xx/system_LPC17xx.c **** //                     <2=> Pclk = Cclk / 2
+ 131:../CMSIS/CM3_V1P30_LPC17xx/system_LPC17xx.c **** //                     <3=> Pclk = Hclk / 8
+ 132:../CMSIS/CM3_V1P30_LPC17xx/system_LPC17xx.c **** //     <o9.20..21>  PCLK_SSP1: Peripheral Clock Selection for SSP1
+ 133:../CMSIS/CM3_V1P30_LPC17xx/system_LPC17xx.c **** //                     <0=> Pclk = Cclk / 4
+ 134:../CMSIS/CM3_V1P30_LPC17xx/system_LPC17xx.c **** //                     <1=> Pclk = Cclk
+ 135:../CMSIS/CM3_V1P30_LPC17xx/system_LPC17xx.c **** //                     <2=> Pclk = Cclk / 2
+ 136:../CMSIS/CM3_V1P30_LPC17xx/system_LPC17xx.c **** //                     <3=> Pclk = Hclk / 8
+ 137:../CMSIS/CM3_V1P30_LPC17xx/system_LPC17xx.c **** //     <o9.22..23>  PCLK_DAC: Peripheral Clock Selection for DAC
+ 138:../CMSIS/CM3_V1P30_LPC17xx/system_LPC17xx.c **** //                     <0=> Pclk = Cclk / 4
+ 139:../CMSIS/CM3_V1P30_LPC17xx/system_LPC17xx.c **** //                     <1=> Pclk = Cclk
+ 140:../CMSIS/CM3_V1P30_LPC17xx/system_LPC17xx.c **** //                     <2=> Pclk = Cclk / 2
+ 141:../CMSIS/CM3_V1P30_LPC17xx/system_LPC17xx.c **** //                     <3=> Pclk = Hclk / 8
+ 142:../CMSIS/CM3_V1P30_LPC17xx/system_LPC17xx.c **** //     <o9.24..25>  PCLK_ADC: Peripheral Clock Selection for ADC
+ 143:../CMSIS/CM3_V1P30_LPC17xx/system_LPC17xx.c **** //                     <0=> Pclk = Cclk / 4
+ 144:../CMSIS/CM3_V1P30_LPC17xx/system_LPC17xx.c **** //                     <1=> Pclk = Cclk
+ 145:../CMSIS/CM3_V1P30_LPC17xx/system_LPC17xx.c **** //                     <2=> Pclk = Cclk / 2
+ 146:../CMSIS/CM3_V1P30_LPC17xx/system_LPC17xx.c **** //                     <3=> Pclk = Hclk / 8
+ 147:../CMSIS/CM3_V1P30_LPC17xx/system_LPC17xx.c **** //     <o9.26..27>  PCLK_CAN1: Peripheral Clock Selection for CAN1
+ 148:../CMSIS/CM3_V1P30_LPC17xx/system_LPC17xx.c **** //                     <0=> Pclk = Cclk / 4
+ 149:../CMSIS/CM3_V1P30_LPC17xx/system_LPC17xx.c **** //                     <1=> Pclk = Cclk
+ 150:../CMSIS/CM3_V1P30_LPC17xx/system_LPC17xx.c **** //                     <2=> Pclk = Cclk / 2
+ 151:../CMSIS/CM3_V1P30_LPC17xx/system_LPC17xx.c **** //                     <3=> Pclk = Hclk / 6
+ 152:../CMSIS/CM3_V1P30_LPC17xx/system_LPC17xx.c **** //     <o9.28..29>  PCLK_CAN2: Peripheral Clock Selection for CAN2
+ 153:../CMSIS/CM3_V1P30_LPC17xx/system_LPC17xx.c **** //                     <0=> Pclk = Cclk / 4
+ 154:../CMSIS/CM3_V1P30_LPC17xx/system_LPC17xx.c **** //                     <1=> Pclk = Cclk
+ 155:../CMSIS/CM3_V1P30_LPC17xx/system_LPC17xx.c **** //                     <2=> Pclk = Cclk / 2
+ 156:../CMSIS/CM3_V1P30_LPC17xx/system_LPC17xx.c **** //                     <3=> Pclk = Hclk / 6
+ 157:../CMSIS/CM3_V1P30_LPC17xx/system_LPC17xx.c **** //     <o9.30..31>  PCLK_ACF: Peripheral Clock Selection for ACF
+ 158:../CMSIS/CM3_V1P30_LPC17xx/system_LPC17xx.c **** //                     <0=> Pclk = Cclk / 4
+ 159:../CMSIS/CM3_V1P30_LPC17xx/system_LPC17xx.c **** //                     <1=> Pclk = Cclk
+ 160:../CMSIS/CM3_V1P30_LPC17xx/system_LPC17xx.c **** //                     <2=> Pclk = Cclk / 2
+ 161:../CMSIS/CM3_V1P30_LPC17xx/system_LPC17xx.c **** //                     <3=> Pclk = Hclk / 6
+ 162:../CMSIS/CM3_V1P30_LPC17xx/system_LPC17xx.c **** //   </h>
+ 163:../CMSIS/CM3_V1P30_LPC17xx/system_LPC17xx.c **** //
+ 164:../CMSIS/CM3_V1P30_LPC17xx/system_LPC17xx.c **** //   <h> Peripheral Clock Selection Register 1 (PCLKSEL1)
+ 165:../CMSIS/CM3_V1P30_LPC17xx/system_LPC17xx.c **** //     <o10.0..1>   PCLK_QEI: Peripheral Clock Selection for the Quadrature Encoder Interface
+ 166:../CMSIS/CM3_V1P30_LPC17xx/system_LPC17xx.c **** //                     <0=> Pclk = Cclk / 4
+ 167:../CMSIS/CM3_V1P30_LPC17xx/system_LPC17xx.c **** //                     <1=> Pclk = Cclk
+ 168:../CMSIS/CM3_V1P30_LPC17xx/system_LPC17xx.c **** //                     <2=> Pclk = Cclk / 2
+ 169:../CMSIS/CM3_V1P30_LPC17xx/system_LPC17xx.c **** //                     <3=> Pclk = Hclk / 8
+ 170:../CMSIS/CM3_V1P30_LPC17xx/system_LPC17xx.c **** //     <o10.2..3>   PCLK_GPIO: Peripheral Clock Selection for GPIOs
+ 171:../CMSIS/CM3_V1P30_LPC17xx/system_LPC17xx.c **** //                     <0=> Pclk = Cclk / 4
+ 172:../CMSIS/CM3_V1P30_LPC17xx/system_LPC17xx.c **** //                     <1=> Pclk = Cclk
+ 173:../CMSIS/CM3_V1P30_LPC17xx/system_LPC17xx.c **** //                     <2=> Pclk = Cclk / 2
+ 174:../CMSIS/CM3_V1P30_LPC17xx/system_LPC17xx.c **** //                     <3=> Pclk = Hclk / 8
+ 175:../CMSIS/CM3_V1P30_LPC17xx/system_LPC17xx.c **** //     <o10.4..5>   PCLK_PCB: Peripheral Clock Selection for the Pin Connect Block
+ 176:../CMSIS/CM3_V1P30_LPC17xx/system_LPC17xx.c **** //                     <0=> Pclk = Cclk / 4
+ 177:../CMSIS/CM3_V1P30_LPC17xx/system_LPC17xx.c **** //                     <1=> Pclk = Cclk
+ 178:../CMSIS/CM3_V1P30_LPC17xx/system_LPC17xx.c **** //                     <2=> Pclk = Cclk / 2
+ 179:../CMSIS/CM3_V1P30_LPC17xx/system_LPC17xx.c **** //                     <3=> Pclk = Hclk / 8
+ 180:../CMSIS/CM3_V1P30_LPC17xx/system_LPC17xx.c **** //     <o10.6..7>   PCLK_I2C1: Peripheral Clock Selection for I2C1
+ 181:../CMSIS/CM3_V1P30_LPC17xx/system_LPC17xx.c **** //                     <0=> Pclk = Cclk / 4
+ 182:../CMSIS/CM3_V1P30_LPC17xx/system_LPC17xx.c **** //                     <1=> Pclk = Cclk
+ 183:../CMSIS/CM3_V1P30_LPC17xx/system_LPC17xx.c **** //                     <2=> Pclk = Cclk / 2
+ 184:../CMSIS/CM3_V1P30_LPC17xx/system_LPC17xx.c **** //                     <3=> Pclk = Hclk / 8
+ 185:../CMSIS/CM3_V1P30_LPC17xx/system_LPC17xx.c **** //     <o10.10..11> PCLK_SSP0: Peripheral Clock Selection for SSP0
+ 186:../CMSIS/CM3_V1P30_LPC17xx/system_LPC17xx.c **** //                     <0=> Pclk = Cclk / 4
+ARM GAS  c:\Temp\ccFh3jpk.s 			page 5
+
+
+ 187:../CMSIS/CM3_V1P30_LPC17xx/system_LPC17xx.c **** //                     <1=> Pclk = Cclk
+ 188:../CMSIS/CM3_V1P30_LPC17xx/system_LPC17xx.c **** //                     <2=> Pclk = Cclk / 2
+ 189:../CMSIS/CM3_V1P30_LPC17xx/system_LPC17xx.c **** //                     <3=> Pclk = Hclk / 8
+ 190:../CMSIS/CM3_V1P30_LPC17xx/system_LPC17xx.c **** //     <o10.12..13> PCLK_TIMER2: Peripheral Clock Selection for TIMER2
+ 191:../CMSIS/CM3_V1P30_LPC17xx/system_LPC17xx.c **** //                     <0=> Pclk = Cclk / 4
+ 192:../CMSIS/CM3_V1P30_LPC17xx/system_LPC17xx.c **** //                     <1=> Pclk = Cclk
+ 193:../CMSIS/CM3_V1P30_LPC17xx/system_LPC17xx.c **** //                     <2=> Pclk = Cclk / 2
+ 194:../CMSIS/CM3_V1P30_LPC17xx/system_LPC17xx.c **** //                     <3=> Pclk = Hclk / 8
+ 195:../CMSIS/CM3_V1P30_LPC17xx/system_LPC17xx.c **** //     <o10.14..15> PCLK_TIMER3: Peripheral Clock Selection for TIMER3
+ 196:../CMSIS/CM3_V1P30_LPC17xx/system_LPC17xx.c **** //                     <0=> Pclk = Cclk / 4
+ 197:../CMSIS/CM3_V1P30_LPC17xx/system_LPC17xx.c **** //                     <1=> Pclk = Cclk
+ 198:../CMSIS/CM3_V1P30_LPC17xx/system_LPC17xx.c **** //                     <2=> Pclk = Cclk / 2
+ 199:../CMSIS/CM3_V1P30_LPC17xx/system_LPC17xx.c **** //                     <3=> Pclk = Hclk / 8
+ 200:../CMSIS/CM3_V1P30_LPC17xx/system_LPC17xx.c **** //     <o10.16..17> PCLK_UART2: Peripheral Clock Selection for UART2
+ 201:../CMSIS/CM3_V1P30_LPC17xx/system_LPC17xx.c **** //                     <0=> Pclk = Cclk / 4
+ 202:../CMSIS/CM3_V1P30_LPC17xx/system_LPC17xx.c **** //                     <1=> Pclk = Cclk
+ 203:../CMSIS/CM3_V1P30_LPC17xx/system_LPC17xx.c **** //                     <2=> Pclk = Cclk / 2
+ 204:../CMSIS/CM3_V1P30_LPC17xx/system_LPC17xx.c **** //                     <3=> Pclk = Hclk / 8
+ 205:../CMSIS/CM3_V1P30_LPC17xx/system_LPC17xx.c **** //     <o10.18..19> PCLK_UART3: Peripheral Clock Selection for UART3
+ 206:../CMSIS/CM3_V1P30_LPC17xx/system_LPC17xx.c **** //                     <0=> Pclk = Cclk / 4
+ 207:../CMSIS/CM3_V1P30_LPC17xx/system_LPC17xx.c **** //                     <1=> Pclk = Cclk
+ 208:../CMSIS/CM3_V1P30_LPC17xx/system_LPC17xx.c **** //                     <2=> Pclk = Cclk / 2
+ 209:../CMSIS/CM3_V1P30_LPC17xx/system_LPC17xx.c **** //                     <3=> Pclk = Hclk / 8
+ 210:../CMSIS/CM3_V1P30_LPC17xx/system_LPC17xx.c **** //     <o10.20..21> PCLK_I2C2: Peripheral Clock Selection for I2C2
+ 211:../CMSIS/CM3_V1P30_LPC17xx/system_LPC17xx.c **** //                     <0=> Pclk = Cclk / 4
+ 212:../CMSIS/CM3_V1P30_LPC17xx/system_LPC17xx.c **** //                     <1=> Pclk = Cclk
+ 213:../CMSIS/CM3_V1P30_LPC17xx/system_LPC17xx.c **** //                     <2=> Pclk = Cclk / 2
+ 214:../CMSIS/CM3_V1P30_LPC17xx/system_LPC17xx.c **** //                     <3=> Pclk = Hclk / 8
+ 215:../CMSIS/CM3_V1P30_LPC17xx/system_LPC17xx.c **** //     <o10.22..23> PCLK_I2S: Peripheral Clock Selection for I2S
+ 216:../CMSIS/CM3_V1P30_LPC17xx/system_LPC17xx.c **** //                     <0=> Pclk = Cclk / 4
+ 217:../CMSIS/CM3_V1P30_LPC17xx/system_LPC17xx.c **** //                     <1=> Pclk = Cclk
+ 218:../CMSIS/CM3_V1P30_LPC17xx/system_LPC17xx.c **** //                     <2=> Pclk = Cclk / 2
+ 219:../CMSIS/CM3_V1P30_LPC17xx/system_LPC17xx.c **** //                     <3=> Pclk = Hclk / 8
+ 220:../CMSIS/CM3_V1P30_LPC17xx/system_LPC17xx.c **** //     <o10.26..27> PCLK_RIT: Peripheral Clock Selection for the Repetitive Interrupt Timer
+ 221:../CMSIS/CM3_V1P30_LPC17xx/system_LPC17xx.c **** //                     <0=> Pclk = Cclk / 4
+ 222:../CMSIS/CM3_V1P30_LPC17xx/system_LPC17xx.c **** //                     <1=> Pclk = Cclk
+ 223:../CMSIS/CM3_V1P30_LPC17xx/system_LPC17xx.c **** //                     <2=> Pclk = Cclk / 2
+ 224:../CMSIS/CM3_V1P30_LPC17xx/system_LPC17xx.c **** //                     <3=> Pclk = Hclk / 8
+ 225:../CMSIS/CM3_V1P30_LPC17xx/system_LPC17xx.c **** //     <o10.28..29> PCLK_SYSCON: Peripheral Clock Selection for the System Control Block
+ 226:../CMSIS/CM3_V1P30_LPC17xx/system_LPC17xx.c **** //                     <0=> Pclk = Cclk / 4
+ 227:../CMSIS/CM3_V1P30_LPC17xx/system_LPC17xx.c **** //                     <1=> Pclk = Cclk
+ 228:../CMSIS/CM3_V1P30_LPC17xx/system_LPC17xx.c **** //                     <2=> Pclk = Cclk / 2
+ 229:../CMSIS/CM3_V1P30_LPC17xx/system_LPC17xx.c **** //                     <3=> Pclk = Hclk / 8
+ 230:../CMSIS/CM3_V1P30_LPC17xx/system_LPC17xx.c **** //     <o10.30..31> PCLK_MC: Peripheral Clock Selection for the Motor Control PWM
+ 231:../CMSIS/CM3_V1P30_LPC17xx/system_LPC17xx.c **** //                     <0=> Pclk = Cclk / 4
+ 232:../CMSIS/CM3_V1P30_LPC17xx/system_LPC17xx.c **** //                     <1=> Pclk = Cclk
+ 233:../CMSIS/CM3_V1P30_LPC17xx/system_LPC17xx.c **** //                     <2=> Pclk = Cclk / 2
+ 234:../CMSIS/CM3_V1P30_LPC17xx/system_LPC17xx.c **** //                     <3=> Pclk = Hclk / 8
+ 235:../CMSIS/CM3_V1P30_LPC17xx/system_LPC17xx.c **** //   </h>
+ 236:../CMSIS/CM3_V1P30_LPC17xx/system_LPC17xx.c **** //
+ 237:../CMSIS/CM3_V1P30_LPC17xx/system_LPC17xx.c **** //   <h> Power Control for Peripherals Register (PCONP)
+ 238:../CMSIS/CM3_V1P30_LPC17xx/system_LPC17xx.c **** //     <o11.1>      PCTIM0: Timer/Counter 0 power/clock enable
+ 239:../CMSIS/CM3_V1P30_LPC17xx/system_LPC17xx.c **** //     <o11.2>      PCTIM1: Timer/Counter 1 power/clock enable
+ 240:../CMSIS/CM3_V1P30_LPC17xx/system_LPC17xx.c **** //     <o11.3>      PCUART0: UART 0 power/clock enable
+ 241:../CMSIS/CM3_V1P30_LPC17xx/system_LPC17xx.c **** //     <o11.4>      PCUART1: UART 1 power/clock enable
+ 242:../CMSIS/CM3_V1P30_LPC17xx/system_LPC17xx.c **** //     <o11.6>      PCPWM1: PWM 1 power/clock enable
+ 243:../CMSIS/CM3_V1P30_LPC17xx/system_LPC17xx.c **** //     <o11.7>      PCI2C0: I2C interface 0 power/clock enable
+ARM GAS  c:\Temp\ccFh3jpk.s 			page 6
+
+
+ 244:../CMSIS/CM3_V1P30_LPC17xx/system_LPC17xx.c **** //     <o11.8>      PCSPI: SPI interface power/clock enable
+ 245:../CMSIS/CM3_V1P30_LPC17xx/system_LPC17xx.c **** //     <o11.9>      PCRTC: RTC power/clock enable
+ 246:../CMSIS/CM3_V1P30_LPC17xx/system_LPC17xx.c **** //     <o11.10>     PCSSP1: SSP interface 1 power/clock enable
+ 247:../CMSIS/CM3_V1P30_LPC17xx/system_LPC17xx.c **** //     <o11.12>     PCAD: A/D converter power/clock enable
+ 248:../CMSIS/CM3_V1P30_LPC17xx/system_LPC17xx.c **** //     <o11.13>     PCCAN1: CAN controller 1 power/clock enable
+ 249:../CMSIS/CM3_V1P30_LPC17xx/system_LPC17xx.c **** //     <o11.14>     PCCAN2: CAN controller 2 power/clock enable
+ 250:../CMSIS/CM3_V1P30_LPC17xx/system_LPC17xx.c **** //     <o11.15>     PCGPIO: GPIOs power/clock enable
+ 251:../CMSIS/CM3_V1P30_LPC17xx/system_LPC17xx.c **** //     <o11.16>     PCRIT: Repetitive interrupt timer power/clock enable
+ 252:../CMSIS/CM3_V1P30_LPC17xx/system_LPC17xx.c **** //     <o11.17>     PCMC: Motor control PWM power/clock enable
+ 253:../CMSIS/CM3_V1P30_LPC17xx/system_LPC17xx.c **** //     <o11.18>     PCQEI: Quadrature encoder interface power/clock enable
+ 254:../CMSIS/CM3_V1P30_LPC17xx/system_LPC17xx.c **** //     <o11.19>     PCI2C1: I2C interface 1 power/clock enable
+ 255:../CMSIS/CM3_V1P30_LPC17xx/system_LPC17xx.c **** //     <o11.21>     PCSSP0: SSP interface 0 power/clock enable
+ 256:../CMSIS/CM3_V1P30_LPC17xx/system_LPC17xx.c **** //     <o11.22>     PCTIM2: Timer 2 power/clock enable
+ 257:../CMSIS/CM3_V1P30_LPC17xx/system_LPC17xx.c **** //     <o11.23>     PCTIM3: Timer 3 power/clock enable
+ 258:../CMSIS/CM3_V1P30_LPC17xx/system_LPC17xx.c **** //     <o11.24>     PCUART2: UART 2 power/clock enable
+ 259:../CMSIS/CM3_V1P30_LPC17xx/system_LPC17xx.c **** //     <o11.25>     PCUART3: UART 3 power/clock enable
+ 260:../CMSIS/CM3_V1P30_LPC17xx/system_LPC17xx.c **** //     <o11.26>     PCI2C2: I2C interface 2 power/clock enable
+ 261:../CMSIS/CM3_V1P30_LPC17xx/system_LPC17xx.c **** //     <o11.27>     PCI2S: I2S interface power/clock enable
+ 262:../CMSIS/CM3_V1P30_LPC17xx/system_LPC17xx.c **** //     <o11.29>     PCGPDMA: GP DMA function power/clock enable
+ 263:../CMSIS/CM3_V1P30_LPC17xx/system_LPC17xx.c **** //     <o11.30>     PCENET: Ethernet block power/clock enable
+ 264:../CMSIS/CM3_V1P30_LPC17xx/system_LPC17xx.c **** //     <o11.31>     PCUSB: USB interface power/clock enable
+ 265:../CMSIS/CM3_V1P30_LPC17xx/system_LPC17xx.c **** //   </h>
+ 266:../CMSIS/CM3_V1P30_LPC17xx/system_LPC17xx.c **** //
+ 267:../CMSIS/CM3_V1P30_LPC17xx/system_LPC17xx.c **** //   <h> Clock Output Configuration Register (CLKOUTCFG)
+ 268:../CMSIS/CM3_V1P30_LPC17xx/system_LPC17xx.c **** //     <o12.0..3>   CLKOUTSEL: Selects clock source for CLKOUT
+ 269:../CMSIS/CM3_V1P30_LPC17xx/system_LPC17xx.c **** //                     <0=> CPU clock
+ 270:../CMSIS/CM3_V1P30_LPC17xx/system_LPC17xx.c **** //                     <1=> Main oscillator
+ 271:../CMSIS/CM3_V1P30_LPC17xx/system_LPC17xx.c **** //                     <2=> Internal RC oscillator
+ 272:../CMSIS/CM3_V1P30_LPC17xx/system_LPC17xx.c **** //                     <3=> USB clock
+ 273:../CMSIS/CM3_V1P30_LPC17xx/system_LPC17xx.c **** //                     <4=> RTC oscillator
+ 274:../CMSIS/CM3_V1P30_LPC17xx/system_LPC17xx.c **** //     <o12.4..7>   CLKOUTDIV: Selects clock divider for CLKOUT
+ 275:../CMSIS/CM3_V1P30_LPC17xx/system_LPC17xx.c **** //                     <1-16><#-1>
+ 276:../CMSIS/CM3_V1P30_LPC17xx/system_LPC17xx.c **** //     <o12.8>      CLKOUT_EN: CLKOUT enable control
+ 277:../CMSIS/CM3_V1P30_LPC17xx/system_LPC17xx.c **** //   </h>
+ 278:../CMSIS/CM3_V1P30_LPC17xx/system_LPC17xx.c **** //
+ 279:../CMSIS/CM3_V1P30_LPC17xx/system_LPC17xx.c **** // </e>
+ 280:../CMSIS/CM3_V1P30_LPC17xx/system_LPC17xx.c **** */
+ 281:../CMSIS/CM3_V1P30_LPC17xx/system_LPC17xx.c **** #define CLOCK_SETUP           1
+ 282:../CMSIS/CM3_V1P30_LPC17xx/system_LPC17xx.c **** #define SCS_Val               0x00000020
+ 283:../CMSIS/CM3_V1P30_LPC17xx/system_LPC17xx.c **** #define CLKSRCSEL_Val         0x00000001
+ 284:../CMSIS/CM3_V1P30_LPC17xx/system_LPC17xx.c **** #define PLL0_SETUP            1
+ 285:../CMSIS/CM3_V1P30_LPC17xx/system_LPC17xx.c **** #define PLL0CFG_Val           0x0000000B
+ 286:../CMSIS/CM3_V1P30_LPC17xx/system_LPC17xx.c **** #define PLL1_SETUP            1
+ 287:../CMSIS/CM3_V1P30_LPC17xx/system_LPC17xx.c **** #define PLL1CFG_Val           0x00000023
+ 288:../CMSIS/CM3_V1P30_LPC17xx/system_LPC17xx.c **** #define CCLKCFG_Val           0x00000003
+ 289:../CMSIS/CM3_V1P30_LPC17xx/system_LPC17xx.c **** #define USBCLKCFG_Val         0x00000000
+ 290:../CMSIS/CM3_V1P30_LPC17xx/system_LPC17xx.c **** #define PCLKSEL0_Val          0x00000000
+ 291:../CMSIS/CM3_V1P30_LPC17xx/system_LPC17xx.c **** #define PCLKSEL1_Val          0x00000000
+ 292:../CMSIS/CM3_V1P30_LPC17xx/system_LPC17xx.c **** #define PCONP_Val             0x052887DE
+ 293:../CMSIS/CM3_V1P30_LPC17xx/system_LPC17xx.c **** #define CLKOUTCFG_Val         0x00000000
+ 294:../CMSIS/CM3_V1P30_LPC17xx/system_LPC17xx.c **** 
+ 295:../CMSIS/CM3_V1P30_LPC17xx/system_LPC17xx.c **** 
+ 296:../CMSIS/CM3_V1P30_LPC17xx/system_LPC17xx.c **** /*--------------------- Flash Accelerator Configuration ----------------------
+ 297:../CMSIS/CM3_V1P30_LPC17xx/system_LPC17xx.c **** //
+ 298:../CMSIS/CM3_V1P30_LPC17xx/system_LPC17xx.c **** // <e> Flash Accelerator Configuration
+ 299:../CMSIS/CM3_V1P30_LPC17xx/system_LPC17xx.c **** //   <o1.0..1>   FETCHCFG: Fetch Configuration
+ 300:../CMSIS/CM3_V1P30_LPC17xx/system_LPC17xx.c **** //               <0=> Instruction fetches from flash are not buffered
+ARM GAS  c:\Temp\ccFh3jpk.s 			page 7
+
+
+ 301:../CMSIS/CM3_V1P30_LPC17xx/system_LPC17xx.c **** //               <1=> One buffer is used for all instruction fetch buffering
+ 302:../CMSIS/CM3_V1P30_LPC17xx/system_LPC17xx.c **** //               <2=> All buffers may be used for instruction fetch buffering
+ 303:../CMSIS/CM3_V1P30_LPC17xx/system_LPC17xx.c **** //               <3=> Reserved (do not use this setting)
+ 304:../CMSIS/CM3_V1P30_LPC17xx/system_LPC17xx.c **** //   <o1.2..3>   DATACFG: Data Configuration
+ 305:../CMSIS/CM3_V1P30_LPC17xx/system_LPC17xx.c **** //               <0=> Data accesses from flash are not buffered
+ 306:../CMSIS/CM3_V1P30_LPC17xx/system_LPC17xx.c **** //               <1=> One buffer is used for all data access buffering
+ 307:../CMSIS/CM3_V1P30_LPC17xx/system_LPC17xx.c **** //               <2=> All buffers may be used for data access buffering
+ 308:../CMSIS/CM3_V1P30_LPC17xx/system_LPC17xx.c **** //               <3=> Reserved (do not use this setting)
+ 309:../CMSIS/CM3_V1P30_LPC17xx/system_LPC17xx.c **** //   <o1.4>      ACCEL: Acceleration Enable
+ 310:../CMSIS/CM3_V1P30_LPC17xx/system_LPC17xx.c **** //   <o1.5>      PREFEN: Prefetch Enable
+ 311:../CMSIS/CM3_V1P30_LPC17xx/system_LPC17xx.c **** //   <o1.6>      PREFOVR: Prefetch Override
+ 312:../CMSIS/CM3_V1P30_LPC17xx/system_LPC17xx.c **** //   <o1.12..15> FLASHTIM: Flash Access Time
+ 313:../CMSIS/CM3_V1P30_LPC17xx/system_LPC17xx.c **** //               <0=> 1 CPU clock (for CPU clock up to 20 MHz)
+ 314:../CMSIS/CM3_V1P30_LPC17xx/system_LPC17xx.c **** //               <1=> 2 CPU clocks (for CPU clock up to 40 MHz)
+ 315:../CMSIS/CM3_V1P30_LPC17xx/system_LPC17xx.c **** //               <2=> 3 CPU clocks (for CPU clock up to 60 MHz)
+ 316:../CMSIS/CM3_V1P30_LPC17xx/system_LPC17xx.c **** //               <3=> 4 CPU clocks (for CPU clock up to 80 MHz)
+ 317:../CMSIS/CM3_V1P30_LPC17xx/system_LPC17xx.c **** //               <4=> 5 CPU clocks (for CPU clock up to 100 MHz)
+ 318:../CMSIS/CM3_V1P30_LPC17xx/system_LPC17xx.c **** //               <5=> 6 CPU clocks (for any CPU clock)
+ 319:../CMSIS/CM3_V1P30_LPC17xx/system_LPC17xx.c **** // </e>
+ 320:../CMSIS/CM3_V1P30_LPC17xx/system_LPC17xx.c **** */
+ 321:../CMSIS/CM3_V1P30_LPC17xx/system_LPC17xx.c **** #define FLASH_SETUP           1
+ 322:../CMSIS/CM3_V1P30_LPC17xx/system_LPC17xx.c **** #define FLASHCFG_Val          0x0000303A
+ 323:../CMSIS/CM3_V1P30_LPC17xx/system_LPC17xx.c **** 
+ 324:../CMSIS/CM3_V1P30_LPC17xx/system_LPC17xx.c **** /*
+ 325:../CMSIS/CM3_V1P30_LPC17xx/system_LPC17xx.c **** //-------- <<< end of configuration section >>> ------------------------------
+ 326:../CMSIS/CM3_V1P30_LPC17xx/system_LPC17xx.c **** */
+ 327:../CMSIS/CM3_V1P30_LPC17xx/system_LPC17xx.c **** 
+ 328:../CMSIS/CM3_V1P30_LPC17xx/system_LPC17xx.c **** /*----------------------------------------------------------------------------
+ 329:../CMSIS/CM3_V1P30_LPC17xx/system_LPC17xx.c ****   Check the register settings
+ 330:../CMSIS/CM3_V1P30_LPC17xx/system_LPC17xx.c ****  *----------------------------------------------------------------------------*/
+ 331:../CMSIS/CM3_V1P30_LPC17xx/system_LPC17xx.c **** #define CHECK_RANGE(val, min, max)                ((val < min) || (val > max))
+ 332:../CMSIS/CM3_V1P30_LPC17xx/system_LPC17xx.c **** #define CHECK_RSVD(val, mask)                     (val & mask)
+ 333:../CMSIS/CM3_V1P30_LPC17xx/system_LPC17xx.c **** 
+ 334:../CMSIS/CM3_V1P30_LPC17xx/system_LPC17xx.c **** /* Clock Configuration -------------------------------------------------------*/
+ 335:../CMSIS/CM3_V1P30_LPC17xx/system_LPC17xx.c **** #if (CHECK_RSVD((SCS_Val),       ~0x00000030))
+ 336:../CMSIS/CM3_V1P30_LPC17xx/system_LPC17xx.c ****    #error "SCS: Invalid values of reserved bits!"
+ 337:../CMSIS/CM3_V1P30_LPC17xx/system_LPC17xx.c **** #endif
+ 338:../CMSIS/CM3_V1P30_LPC17xx/system_LPC17xx.c **** 
+ 339:../CMSIS/CM3_V1P30_LPC17xx/system_LPC17xx.c **** #if (CHECK_RANGE((CLKSRCSEL_Val), 0, 2))
+ 340:../CMSIS/CM3_V1P30_LPC17xx/system_LPC17xx.c ****    #error "CLKSRCSEL: Value out of range!"
+ 341:../CMSIS/CM3_V1P30_LPC17xx/system_LPC17xx.c **** #endif
+ 342:../CMSIS/CM3_V1P30_LPC17xx/system_LPC17xx.c **** 
+ 343:../CMSIS/CM3_V1P30_LPC17xx/system_LPC17xx.c **** #if (CHECK_RSVD((PLL0CFG_Val),   ~0x00FF7FFF))
+ 344:../CMSIS/CM3_V1P30_LPC17xx/system_LPC17xx.c ****    #error "PLL0CFG: Invalid values of reserved bits!"
+ 345:../CMSIS/CM3_V1P30_LPC17xx/system_LPC17xx.c **** #endif
+ 346:../CMSIS/CM3_V1P30_LPC17xx/system_LPC17xx.c **** 
+ 347:../CMSIS/CM3_V1P30_LPC17xx/system_LPC17xx.c **** #if (CHECK_RSVD((PLL1CFG_Val),   ~0x0000007F))
+ 348:../CMSIS/CM3_V1P30_LPC17xx/system_LPC17xx.c ****    #error "PLL1CFG: Invalid values of reserved bits!"
+ 349:../CMSIS/CM3_V1P30_LPC17xx/system_LPC17xx.c **** #endif
+ 350:../CMSIS/CM3_V1P30_LPC17xx/system_LPC17xx.c **** 
+ 351:../CMSIS/CM3_V1P30_LPC17xx/system_LPC17xx.c **** #if ((CCLKCFG_Val != 0) && (((CCLKCFG_Val - 1) % 2)))
+ 352:../CMSIS/CM3_V1P30_LPC17xx/system_LPC17xx.c ****    #error "CCLKCFG: CCLKSEL field does not contain only odd values or 0!"
+ 353:../CMSIS/CM3_V1P30_LPC17xx/system_LPC17xx.c **** #endif
+ 354:../CMSIS/CM3_V1P30_LPC17xx/system_LPC17xx.c **** 
+ 355:../CMSIS/CM3_V1P30_LPC17xx/system_LPC17xx.c **** #if (CHECK_RSVD((USBCLKCFG_Val), ~0x0000000F))
+ 356:../CMSIS/CM3_V1P30_LPC17xx/system_LPC17xx.c ****    #error "USBCLKCFG: Invalid values of reserved bits!"
+ 357:../CMSIS/CM3_V1P30_LPC17xx/system_LPC17xx.c **** #endif
+ARM GAS  c:\Temp\ccFh3jpk.s 			page 8
+
+
+ 358:../CMSIS/CM3_V1P30_LPC17xx/system_LPC17xx.c **** 
+ 359:../CMSIS/CM3_V1P30_LPC17xx/system_LPC17xx.c **** #if (CHECK_RSVD((PCLKSEL0_Val),   0x000C0C00))
+ 360:../CMSIS/CM3_V1P30_LPC17xx/system_LPC17xx.c ****    #error "PCLKSEL0: Invalid values of reserved bits!"
+ 361:../CMSIS/CM3_V1P30_LPC17xx/system_LPC17xx.c **** #endif
+ 362:../CMSIS/CM3_V1P30_LPC17xx/system_LPC17xx.c **** 
+ 363:../CMSIS/CM3_V1P30_LPC17xx/system_LPC17xx.c **** #if (CHECK_RSVD((PCLKSEL1_Val),   0x03000300))
+ 364:../CMSIS/CM3_V1P30_LPC17xx/system_LPC17xx.c ****    #error "PCLKSEL1: Invalid values of reserved bits!"
+ 365:../CMSIS/CM3_V1P30_LPC17xx/system_LPC17xx.c **** #endif
+ 366:../CMSIS/CM3_V1P30_LPC17xx/system_LPC17xx.c **** 
+ 367:../CMSIS/CM3_V1P30_LPC17xx/system_LPC17xx.c **** #if (CHECK_RSVD((PCONP_Val),      0x10100821))
+ 368:../CMSIS/CM3_V1P30_LPC17xx/system_LPC17xx.c ****    #error "PCONP: Invalid values of reserved bits!"
+ 369:../CMSIS/CM3_V1P30_LPC17xx/system_LPC17xx.c **** #endif
+ 370:../CMSIS/CM3_V1P30_LPC17xx/system_LPC17xx.c **** 
+ 371:../CMSIS/CM3_V1P30_LPC17xx/system_LPC17xx.c **** #if (CHECK_RSVD((CLKOUTCFG_Val), ~0x000001FF))
+ 372:../CMSIS/CM3_V1P30_LPC17xx/system_LPC17xx.c ****    #error "CLKOUTCFG: Invalid values of reserved bits!"
+ 373:../CMSIS/CM3_V1P30_LPC17xx/system_LPC17xx.c **** #endif
+ 374:../CMSIS/CM3_V1P30_LPC17xx/system_LPC17xx.c **** 
+ 375:../CMSIS/CM3_V1P30_LPC17xx/system_LPC17xx.c **** /* Flash Accelerator Configuration -------------------------------------------*/
+ 376:../CMSIS/CM3_V1P30_LPC17xx/system_LPC17xx.c **** #if (CHECK_RSVD((FLASHCFG_Val), ~0x0000F07F))
+ 377:../CMSIS/CM3_V1P30_LPC17xx/system_LPC17xx.c ****    #error "FLASHCFG: Invalid values of reserved bits!"
+ 378:../CMSIS/CM3_V1P30_LPC17xx/system_LPC17xx.c **** #endif
+ 379:../CMSIS/CM3_V1P30_LPC17xx/system_LPC17xx.c **** 
+ 380:../CMSIS/CM3_V1P30_LPC17xx/system_LPC17xx.c **** 
+ 381:../CMSIS/CM3_V1P30_LPC17xx/system_LPC17xx.c **** /*----------------------------------------------------------------------------
+ 382:../CMSIS/CM3_V1P30_LPC17xx/system_LPC17xx.c ****   DEFINES
+ 383:../CMSIS/CM3_V1P30_LPC17xx/system_LPC17xx.c ****  *----------------------------------------------------------------------------*/
+ 384:../CMSIS/CM3_V1P30_LPC17xx/system_LPC17xx.c ****     
+ 385:../CMSIS/CM3_V1P30_LPC17xx/system_LPC17xx.c **** /*----------------------------------------------------------------------------
+ 386:../CMSIS/CM3_V1P30_LPC17xx/system_LPC17xx.c ****   Define clocks
+ 387:../CMSIS/CM3_V1P30_LPC17xx/system_LPC17xx.c ****  *----------------------------------------------------------------------------*/
+ 388:../CMSIS/CM3_V1P30_LPC17xx/system_LPC17xx.c **** #define XTAL        (12000000UL)        /* Oscillator frequency               */
+ 389:../CMSIS/CM3_V1P30_LPC17xx/system_LPC17xx.c **** #define OSC_CLK     (      XTAL)        /* Main oscillator frequency          */
+ 390:../CMSIS/CM3_V1P30_LPC17xx/system_LPC17xx.c **** #define RTC_CLK     (   32000UL)        /* RTC oscillator frequency           */
+ 391:../CMSIS/CM3_V1P30_LPC17xx/system_LPC17xx.c **** #define IRC_OSC     ( 4000000UL)        /* Internal RC oscillator frequency   */
+ 392:../CMSIS/CM3_V1P30_LPC17xx/system_LPC17xx.c **** 
+ 393:../CMSIS/CM3_V1P30_LPC17xx/system_LPC17xx.c **** 
+ 394:../CMSIS/CM3_V1P30_LPC17xx/system_LPC17xx.c **** /*----------------------------------------------------------------------------
+ 395:../CMSIS/CM3_V1P30_LPC17xx/system_LPC17xx.c ****   Clock Variable definitions
+ 396:../CMSIS/CM3_V1P30_LPC17xx/system_LPC17xx.c ****  *----------------------------------------------------------------------------*/
+ 397:../CMSIS/CM3_V1P30_LPC17xx/system_LPC17xx.c **** uint32_t SystemFrequency = IRC_OSC; /*!< System Clock Frequency (Core Clock)  */
+ 398:../CMSIS/CM3_V1P30_LPC17xx/system_LPC17xx.c **** 
+ 399:../CMSIS/CM3_V1P30_LPC17xx/system_LPC17xx.c **** 
+ 400:../CMSIS/CM3_V1P30_LPC17xx/system_LPC17xx.c **** /**
+ 401:../CMSIS/CM3_V1P30_LPC17xx/system_LPC17xx.c ****  * Initialize the system
+ 402:../CMSIS/CM3_V1P30_LPC17xx/system_LPC17xx.c ****  *
+ 403:../CMSIS/CM3_V1P30_LPC17xx/system_LPC17xx.c ****  * @param  none
+ 404:../CMSIS/CM3_V1P30_LPC17xx/system_LPC17xx.c ****  * @return none
+ 405:../CMSIS/CM3_V1P30_LPC17xx/system_LPC17xx.c ****  *
+ 406:../CMSIS/CM3_V1P30_LPC17xx/system_LPC17xx.c ****  * @brief  Setup the microcontroller system.
+ 407:../CMSIS/CM3_V1P30_LPC17xx/system_LPC17xx.c ****  *         Initialize the System and update the SystemFrequency variable.
+ 408:../CMSIS/CM3_V1P30_LPC17xx/system_LPC17xx.c ****  */
+ 409:../CMSIS/CM3_V1P30_LPC17xx/system_LPC17xx.c **** void SystemInit (void)
+ 410:../CMSIS/CM3_V1P30_LPC17xx/system_LPC17xx.c **** {
+  39              		.loc 1 410 0
+  40              		.cfi_startproc
+  41              		@ args = 0, pretend = 0, frame = 0
+  42              		@ frame_needed = 1, uses_anonymous_args = 0
+ARM GAS  c:\Temp\ccFh3jpk.s 			page 9
+
+
+  43              		@ link register save eliminated.
+  44 0000 80B4     		push	{r7}
+  45              	.LCFI0:
+  46              		.cfi_def_cfa_offset 4
+  47 0002 00AF     		add	r7, sp, #0
+  48              		.cfi_offset 7, -4
+  49              	.LCFI1:
+  50              		.cfi_def_cfa_register 7
+ 411:../CMSIS/CM3_V1P30_LPC17xx/system_LPC17xx.c **** #if (CLOCK_SETUP)                       /* Clock Setup                        */
+ 412:../CMSIS/CM3_V1P30_LPC17xx/system_LPC17xx.c ****   LPC_SC->SCS       = SCS_Val;
+  51              		.loc 1 412 0
+  52 0004 4FF44043 		mov	r3, #49152
+  53 0008 C4F20F03 		movt	r3, 16399
+  54 000c 4FF02002 		mov	r2, #32
+  55 0010 C3F8A021 		str	r2, [r3, #416]
+ 413:../CMSIS/CM3_V1P30_LPC17xx/system_LPC17xx.c ****   if (SCS_Val & (1 << 5)) {             /* If Main Oscillator is enabled      */
+ 414:../CMSIS/CM3_V1P30_LPC17xx/system_LPC17xx.c ****     while ((LPC_SC->SCS & (1<<6)) == 0);/* Wait for Oscillator to be ready    */
+  56              		.loc 1 414 0
+  57 0014 00BF     		nop
+  58              	.L2:
+  59              		.loc 1 414 0 is_stmt 0 discriminator 1
+  60 0016 4FF44043 		mov	r3, #49152
+  61 001a C4F20F03 		movt	r3, 16399
+  62 001e D3F8A031 		ldr	r3, [r3, #416]
+  63 0022 03F04003 		and	r3, r3, #64
+  64 0026 002B     		cmp	r3, #0
+  65 0028 F5D0     		beq	.L2
+ 415:../CMSIS/CM3_V1P30_LPC17xx/system_LPC17xx.c ****   }
+ 416:../CMSIS/CM3_V1P30_LPC17xx/system_LPC17xx.c **** 
+ 417:../CMSIS/CM3_V1P30_LPC17xx/system_LPC17xx.c ****   LPC_SC->CCLKCFG   = CCLKCFG_Val;      /* Setup Clock Divider                */
+  66              		.loc 1 417 0 is_stmt 1
+  67 002a 4FF44043 		mov	r3, #49152
+  68 002e C4F20F03 		movt	r3, 16399
+  69 0032 4FF00302 		mov	r2, #3
+  70 0036 C3F80421 		str	r2, [r3, #260]
+ 418:../CMSIS/CM3_V1P30_LPC17xx/system_LPC17xx.c **** 
+ 419:../CMSIS/CM3_V1P30_LPC17xx/system_LPC17xx.c **** #if (PLL0_SETUP)
+ 420:../CMSIS/CM3_V1P30_LPC17xx/system_LPC17xx.c ****   LPC_SC->CLKSRCSEL = CLKSRCSEL_Val;    /* Select Clock Source for PLL0       */
+  71              		.loc 1 420 0
+  72 003a 4FF44043 		mov	r3, #49152
+  73 003e C4F20F03 		movt	r3, 16399
+  74 0042 4FF00102 		mov	r2, #1
+  75 0046 C3F80C21 		str	r2, [r3, #268]
+ 421:../CMSIS/CM3_V1P30_LPC17xx/system_LPC17xx.c ****   LPC_SC->PLL0CFG   = PLL0CFG_Val;
+  76              		.loc 1 421 0
+  77 004a 4FF44043 		mov	r3, #49152
+  78 004e C4F20F03 		movt	r3, 16399
+  79 0052 4FF00B02 		mov	r2, #11
+  80 0056 C3F88420 		str	r2, [r3, #132]
+ 422:../CMSIS/CM3_V1P30_LPC17xx/system_LPC17xx.c ****   LPC_SC->PLL0CON   = 0x01;             /* PLL0 Enable                        */
+  81              		.loc 1 422 0
+  82 005a 4FF44043 		mov	r3, #49152
+  83 005e C4F20F03 		movt	r3, 16399
+  84 0062 4FF00102 		mov	r2, #1
+  85 0066 C3F88020 		str	r2, [r3, #128]
+ 423:../CMSIS/CM3_V1P30_LPC17xx/system_LPC17xx.c ****   LPC_SC->PLL0FEED  = 0xAA;
+  86              		.loc 1 423 0
+ARM GAS  c:\Temp\ccFh3jpk.s 			page 10
+
+
+  87 006a 4FF44043 		mov	r3, #49152
+  88 006e C4F20F03 		movt	r3, 16399
+  89 0072 4FF0AA02 		mov	r2, #170
+  90 0076 C3F88C20 		str	r2, [r3, #140]
+ 424:../CMSIS/CM3_V1P30_LPC17xx/system_LPC17xx.c ****   LPC_SC->PLL0FEED  = 0x55;
+  91              		.loc 1 424 0
+  92 007a 4FF44043 		mov	r3, #49152
+  93 007e C4F20F03 		movt	r3, 16399
+  94 0082 4FF05502 		mov	r2, #85
+  95 0086 C3F88C20 		str	r2, [r3, #140]
+ 425:../CMSIS/CM3_V1P30_LPC17xx/system_LPC17xx.c ****   while (!(LPC_SC->PLL0STAT & (1<<26)));/* Wait for PLOCK0                    */
+  96              		.loc 1 425 0
+  97 008a 00BF     		nop
+  98              	.L3:
+  99              		.loc 1 425 0 is_stmt 0 discriminator 1
+ 100 008c 4FF44043 		mov	r3, #49152
+ 101 0090 C4F20F03 		movt	r3, 16399
+ 102 0094 D3F88830 		ldr	r3, [r3, #136]
+ 103 0098 03F08063 		and	r3, r3, #67108864
+ 104 009c 002B     		cmp	r3, #0
+ 105 009e F5D0     		beq	.L3
+ 426:../CMSIS/CM3_V1P30_LPC17xx/system_LPC17xx.c **** 
+ 427:../CMSIS/CM3_V1P30_LPC17xx/system_LPC17xx.c ****   LPC_SC->PLL0CON   = 0x03;             /* PLL0 Enable & Connect              */
+ 106              		.loc 1 427 0 is_stmt 1
+ 107 00a0 4FF44043 		mov	r3, #49152
+ 108 00a4 C4F20F03 		movt	r3, 16399
+ 109 00a8 4FF00302 		mov	r2, #3
+ 110 00ac C3F88020 		str	r2, [r3, #128]
+ 428:../CMSIS/CM3_V1P30_LPC17xx/system_LPC17xx.c ****   LPC_SC->PLL0FEED  = 0xAA;
+ 111              		.loc 1 428 0
+ 112 00b0 4FF44043 		mov	r3, #49152
+ 113 00b4 C4F20F03 		movt	r3, 16399
+ 114 00b8 4FF0AA02 		mov	r2, #170
+ 115 00bc C3F88C20 		str	r2, [r3, #140]
+ 429:../CMSIS/CM3_V1P30_LPC17xx/system_LPC17xx.c ****   LPC_SC->PLL0FEED  = 0x55;
+ 116              		.loc 1 429 0
+ 117 00c0 4FF44043 		mov	r3, #49152
+ 118 00c4 C4F20F03 		movt	r3, 16399
+ 119 00c8 4FF05502 		mov	r2, #85
+ 120 00cc C3F88C20 		str	r2, [r3, #140]
+ 430:../CMSIS/CM3_V1P30_LPC17xx/system_LPC17xx.c **** #endif
+ 431:../CMSIS/CM3_V1P30_LPC17xx/system_LPC17xx.c **** 
+ 432:../CMSIS/CM3_V1P30_LPC17xx/system_LPC17xx.c **** #if (PLL1_SETUP)
+ 433:../CMSIS/CM3_V1P30_LPC17xx/system_LPC17xx.c ****   LPC_SC->PLL1CFG   = PLL1CFG_Val;
+ 121              		.loc 1 433 0
+ 122 00d0 4FF44043 		mov	r3, #49152
+ 123 00d4 C4F20F03 		movt	r3, 16399
+ 124 00d8 4FF02302 		mov	r2, #35
+ 125 00dc C3F8A420 		str	r2, [r3, #164]
+ 434:../CMSIS/CM3_V1P30_LPC17xx/system_LPC17xx.c ****   LPC_SC->PLL1CON   = 0x01;             /* PLL1 Enable                        */
+ 126              		.loc 1 434 0
+ 127 00e0 4FF44043 		mov	r3, #49152
+ 128 00e4 C4F20F03 		movt	r3, 16399
+ 129 00e8 4FF00102 		mov	r2, #1
+ 130 00ec C3F8A020 		str	r2, [r3, #160]
+ 435:../CMSIS/CM3_V1P30_LPC17xx/system_LPC17xx.c ****   LPC_SC->PLL1FEED  = 0xAA;
+ 131              		.loc 1 435 0
+ARM GAS  c:\Temp\ccFh3jpk.s 			page 11
+
+
+ 132 00f0 4FF44043 		mov	r3, #49152
+ 133 00f4 C4F20F03 		movt	r3, 16399
+ 134 00f8 4FF0AA02 		mov	r2, #170
+ 135 00fc C3F8AC20 		str	r2, [r3, #172]
+ 436:../CMSIS/CM3_V1P30_LPC17xx/system_LPC17xx.c ****   LPC_SC->PLL1FEED  = 0x55;
+ 136              		.loc 1 436 0
+ 137 0100 4FF44043 		mov	r3, #49152
+ 138 0104 C4F20F03 		movt	r3, 16399
+ 139 0108 4FF05502 		mov	r2, #85
+ 140 010c C3F8AC20 		str	r2, [r3, #172]
+ 437:../CMSIS/CM3_V1P30_LPC17xx/system_LPC17xx.c ****   while (!(LPC_SC->PLL1STAT & (1<<10)));/* Wait for PLOCK1                    */
+ 141              		.loc 1 437 0
+ 142 0110 00BF     		nop
+ 143              	.L4:
+ 144              		.loc 1 437 0 is_stmt 0 discriminator 1
+ 145 0112 4FF44043 		mov	r3, #49152
+ 146 0116 C4F20F03 		movt	r3, 16399
+ 147 011a D3F8A830 		ldr	r3, [r3, #168]
+ 148 011e 03F48063 		and	r3, r3, #1024
+ 149 0122 002B     		cmp	r3, #0
+ 150 0124 F5D0     		beq	.L4
+ 438:../CMSIS/CM3_V1P30_LPC17xx/system_LPC17xx.c **** 
+ 439:../CMSIS/CM3_V1P30_LPC17xx/system_LPC17xx.c ****   LPC_SC->PLL1CON   = 0x03;             /* PLL1 Enable & Connect              */
+ 151              		.loc 1 439 0 is_stmt 1
+ 152 0126 4FF44043 		mov	r3, #49152
+ 153 012a C4F20F03 		movt	r3, 16399
+ 154 012e 4FF00302 		mov	r2, #3
+ 155 0132 C3F8A020 		str	r2, [r3, #160]
+ 440:../CMSIS/CM3_V1P30_LPC17xx/system_LPC17xx.c ****   LPC_SC->PLL1FEED  = 0xAA;
+ 156              		.loc 1 440 0
+ 157 0136 4FF44043 		mov	r3, #49152
+ 158 013a C4F20F03 		movt	r3, 16399
+ 159 013e 4FF0AA02 		mov	r2, #170
+ 160 0142 C3F8AC20 		str	r2, [r3, #172]
+ 441:../CMSIS/CM3_V1P30_LPC17xx/system_LPC17xx.c ****   LPC_SC->PLL1FEED  = 0x55;
+ 161              		.loc 1 441 0
+ 162 0146 4FF44043 		mov	r3, #49152
+ 163 014a C4F20F03 		movt	r3, 16399
+ 164 014e 4FF05502 		mov	r2, #85
+ 165 0152 C3F8AC20 		str	r2, [r3, #172]
+ 442:../CMSIS/CM3_V1P30_LPC17xx/system_LPC17xx.c **** #else
+ 443:../CMSIS/CM3_V1P30_LPC17xx/system_LPC17xx.c ****   LPC_SC->USBCLKCFG = USBCLKCFG_Val;    /* Setup USB Clock Divider            */
+ 444:../CMSIS/CM3_V1P30_LPC17xx/system_LPC17xx.c **** #endif
+ 445:../CMSIS/CM3_V1P30_LPC17xx/system_LPC17xx.c **** 
+ 446:../CMSIS/CM3_V1P30_LPC17xx/system_LPC17xx.c ****   LPC_SC->PCLKSEL0  = PCLKSEL0_Val;     /* Peripheral Clock Selection         */
+ 166              		.loc 1 446 0
+ 167 0156 4FF44043 		mov	r3, #49152
+ 168 015a C4F20F03 		movt	r3, 16399
+ 169 015e 4FF00002 		mov	r2, #0
+ 170 0162 C3F8A821 		str	r2, [r3, #424]
+ 447:../CMSIS/CM3_V1P30_LPC17xx/system_LPC17xx.c ****   LPC_SC->PCLKSEL1  = PCLKSEL1_Val;
+ 171              		.loc 1 447 0
+ 172 0166 4FF44043 		mov	r3, #49152
+ 173 016a C4F20F03 		movt	r3, 16399
+ 174 016e 4FF00002 		mov	r2, #0
+ 175 0172 C3F8AC21 		str	r2, [r3, #428]
+ 448:../CMSIS/CM3_V1P30_LPC17xx/system_LPC17xx.c **** 
+ARM GAS  c:\Temp\ccFh3jpk.s 			page 12
+
+
+ 449:../CMSIS/CM3_V1P30_LPC17xx/system_LPC17xx.c ****   LPC_SC->PCONP     = PCONP_Val;        /* Power Control for Peripherals      */
+ 176              		.loc 1 449 0
+ 177 0176 4FF44043 		mov	r3, #49152
+ 178 017a C4F20F03 		movt	r3, 16399
+ 179 017e 48F2DE72 		movw	r2, #34782
+ 180 0182 C0F22852 		movt	r2, 1320
+ 181 0186 C3F8C420 		str	r2, [r3, #196]
+ 450:../CMSIS/CM3_V1P30_LPC17xx/system_LPC17xx.c **** 
+ 451:../CMSIS/CM3_V1P30_LPC17xx/system_LPC17xx.c ****   LPC_SC->CLKOUTCFG = CLKOUTCFG_Val;    /* Clock Output Configuration         */
+ 182              		.loc 1 451 0
+ 183 018a 4FF44043 		mov	r3, #49152
+ 184 018e C4F20F03 		movt	r3, 16399
+ 185 0192 4FF00002 		mov	r2, #0
+ 186 0196 C3F8C821 		str	r2, [r3, #456]
+ 452:../CMSIS/CM3_V1P30_LPC17xx/system_LPC17xx.c **** #endif
+ 453:../CMSIS/CM3_V1P30_LPC17xx/system_LPC17xx.c **** 
+ 454:../CMSIS/CM3_V1P30_LPC17xx/system_LPC17xx.c ****   /* Determine clock frequency according to clock register values             */
+ 455:../CMSIS/CM3_V1P30_LPC17xx/system_LPC17xx.c ****   if (((LPC_SC->PLL0STAT >> 24)&3)==3) {/* If PLL0 enabled and connected      */
+ 187              		.loc 1 455 0
+ 188 019a 4FF44043 		mov	r3, #49152
+ 189 019e C4F20F03 		movt	r3, 16399
+ 190 01a2 D3F88830 		ldr	r3, [r3, #136]
+ 191 01a6 4FEA1363 		lsr	r3, r3, #24
+ 192 01aa 03F00303 		and	r3, r3, #3
+ 193 01ae 032B     		cmp	r3, #3
+ 194 01b0 40F0B180 		bne	.L5
+ 456:../CMSIS/CM3_V1P30_LPC17xx/system_LPC17xx.c ****     switch (LPC_SC->CLKSRCSEL & 0x03) {
+ 195              		.loc 1 456 0
+ 196 01b4 4FF44043 		mov	r3, #49152
+ 197 01b8 C4F20F03 		movt	r3, 16399
+ 198 01bc D3F80C31 		ldr	r3, [r3, #268]
+ 199 01c0 03F00303 		and	r3, r3, #3
+ 200 01c4 032B     		cmp	r3, #3
+ 201 01c6 00F2FB80 		bhi	.L16
+ 202 01ca 01A2     		adr	r2, .L10
+ 203 01cc 52F823F0 		ldr	pc, [r2, r3, lsl #2]
+ 204              		.align	2
+ 205              	.L10:
+ 206 01d0 E1010000 		.word	.L7+1
+ 207 01d4 49020000 		.word	.L8+1
+ 208 01d8 B3020000 		.word	.L9+1
+ 209 01dc E1010000 		.word	.L7+1
+ 210              	.L7:
+ 457:../CMSIS/CM3_V1P30_LPC17xx/system_LPC17xx.c ****       case 0:                           /* Internal RC oscillator => PLL0     */
+ 458:../CMSIS/CM3_V1P30_LPC17xx/system_LPC17xx.c ****       case 3:                           /* Reserved, default to Internal RC   */
+ 459:../CMSIS/CM3_V1P30_LPC17xx/system_LPC17xx.c ****         SystemFrequency = (IRC_OSC * 
+ 460:../CMSIS/CM3_V1P30_LPC17xx/system_LPC17xx.c ****                           (((2 * ((LPC_SC->PLL0STAT & 0x7FFF) + 1))) /
+ 211              		.loc 1 460 0
+ 212 01e0 4FF44043 		mov	r3, #49152
+ 213 01e4 C4F20F03 		movt	r3, 16399
+ 214 01e8 D3F88830 		ldr	r3, [r3, #136]
+ 215 01ec 4FEA4343 		lsl	r3, r3, #17
+ 216 01f0 4FEA5343 		lsr	r3, r3, #17
+ 217 01f4 03F10103 		add	r3, r3, #1
+ 218 01f8 4FEA4302 		lsl	r2, r3, #1
+ 461:../CMSIS/CM3_V1P30_LPC17xx/system_LPC17xx.c ****                           (((LPC_SC->PLL0STAT >> 16) & 0xFF) + 1))   /
+ 219              		.loc 1 461 0
+ARM GAS  c:\Temp\ccFh3jpk.s 			page 13
+
+
+ 220 01fc 4FF44043 		mov	r3, #49152
+ 221 0200 C4F20F03 		movt	r3, 16399
+ 222 0204 D3F88830 		ldr	r3, [r3, #136]
+ 223 0208 4FEA1343 		lsr	r3, r3, #16
+ 224 020c 03F0FF03 		and	r3, r3, #255
+ 225 0210 03F10103 		add	r3, r3, #1
+ 460:../CMSIS/CM3_V1P30_LPC17xx/system_LPC17xx.c ****                           (((2 * ((LPC_SC->PLL0STAT & 0x7FFF) + 1))) /
+ 226              		.loc 1 460 0
+ 227 0214 B2FBF3F2 		udiv	r2, r2, r3
+ 459:../CMSIS/CM3_V1P30_LPC17xx/system_LPC17xx.c ****         SystemFrequency = (IRC_OSC * 
+ 228              		.loc 1 459 0
+ 229 0218 4FF41063 		mov	r3, #2304
+ 230 021c C0F23D03 		movt	r3, 61
+ 231 0220 03FB02F2 		mul	r2, r3, r2
+ 462:../CMSIS/CM3_V1P30_LPC17xx/system_LPC17xx.c ****                           ((LPC_SC->CCLKCFG & 0xFF)+ 1));
+ 232              		.loc 1 462 0
+ 233 0224 4FF44043 		mov	r3, #49152
+ 234 0228 C4F20F03 		movt	r3, 16399
+ 235 022c D3F80431 		ldr	r3, [r3, #260]
+ 236 0230 03F0FF03 		and	r3, r3, #255
+ 237 0234 03F10103 		add	r3, r3, #1
+ 461:../CMSIS/CM3_V1P30_LPC17xx/system_LPC17xx.c ****                           (((LPC_SC->PLL0STAT >> 16) & 0xFF) + 1))   /
+ 238              		.loc 1 461 0
+ 239 0238 B2FBF3F2 		udiv	r2, r2, r3
+ 459:../CMSIS/CM3_V1P30_LPC17xx/system_LPC17xx.c ****         SystemFrequency = (IRC_OSC * 
+ 240              		.loc 1 459 0
+ 241 023c 40F20003 		movw	r3, #:lower16:SystemFrequency
+ 242 0240 C0F20003 		movt	r3, #:upper16:SystemFrequency
+ 243 0244 1A60     		str	r2, [r3, #0]
+ 463:../CMSIS/CM3_V1P30_LPC17xx/system_LPC17xx.c ****         break;
+ 244              		.loc 1 463 0
+ 245 0246 BCE0     		b	.L11
+ 246              	.L8:
+ 464:../CMSIS/CM3_V1P30_LPC17xx/system_LPC17xx.c ****       case 1:                           /* Main oscillator => PLL0            */
+ 465:../CMSIS/CM3_V1P30_LPC17xx/system_LPC17xx.c ****         SystemFrequency = (OSC_CLK * 
+ 466:../CMSIS/CM3_V1P30_LPC17xx/system_LPC17xx.c ****                           (((2 * ((LPC_SC->PLL0STAT & 0x7FFF) + 1))) /
+ 247              		.loc 1 466 0
+ 248 0248 4FF44043 		mov	r3, #49152
+ 249 024c C4F20F03 		movt	r3, 16399
+ 250 0250 D3F88830 		ldr	r3, [r3, #136]
+ 251 0254 4FEA4343 		lsl	r3, r3, #17
+ 252 0258 4FEA5343 		lsr	r3, r3, #17
+ 253 025c 03F10103 		add	r3, r3, #1
+ 254 0260 4FEA4302 		lsl	r2, r3, #1
+ 467:../CMSIS/CM3_V1P30_LPC17xx/system_LPC17xx.c ****                           (((LPC_SC->PLL0STAT >> 16) & 0xFF) + 1))   /
+ 255              		.loc 1 467 0
+ 256 0264 4FF44043 		mov	r3, #49152
+ 257 0268 C4F20F03 		movt	r3, 16399
+ 258 026c D3F88830 		ldr	r3, [r3, #136]
+ 259 0270 4FEA1343 		lsr	r3, r3, #16
+ 260 0274 03F0FF03 		and	r3, r3, #255
+ 261 0278 03F10103 		add	r3, r3, #1
+ 466:../CMSIS/CM3_V1P30_LPC17xx/system_LPC17xx.c ****                           (((2 * ((LPC_SC->PLL0STAT & 0x7FFF) + 1))) /
+ 262              		.loc 1 466 0
+ 263 027c B2FBF3F2 		udiv	r2, r2, r3
+ 465:../CMSIS/CM3_V1P30_LPC17xx/system_LPC17xx.c ****         SystemFrequency = (OSC_CLK * 
+ 264              		.loc 1 465 0
+ARM GAS  c:\Temp\ccFh3jpk.s 			page 14
+
+
+ 265 0280 4FF4D853 		mov	r3, #6912
+ 266 0284 C0F2B703 		movt	r3, 183
+ 267 0288 03FB02F2 		mul	r2, r3, r2
+ 468:../CMSIS/CM3_V1P30_LPC17xx/system_LPC17xx.c ****                           ((LPC_SC->CCLKCFG & 0xFF)+ 1));
+ 268              		.loc 1 468 0
+ 269 028c 4FF44043 		mov	r3, #49152
+ 270 0290 C4F20F03 		movt	r3, 16399
+ 271 0294 D3F80431 		ldr	r3, [r3, #260]
+ 272 0298 03F0FF03 		and	r3, r3, #255
+ 273 029c 03F10103 		add	r3, r3, #1
+ 467:../CMSIS/CM3_V1P30_LPC17xx/system_LPC17xx.c ****                           (((LPC_SC->PLL0STAT >> 16) & 0xFF) + 1))   /
+ 274              		.loc 1 467 0
+ 275 02a0 B2FBF3F2 		udiv	r2, r2, r3
+ 465:../CMSIS/CM3_V1P30_LPC17xx/system_LPC17xx.c ****         SystemFrequency = (OSC_CLK * 
+ 276              		.loc 1 465 0
+ 277 02a4 40F20003 		movw	r3, #:lower16:SystemFrequency
+ 278 02a8 C0F20003 		movt	r3, #:upper16:SystemFrequency
+ 279 02ac 1A60     		str	r2, [r3, #0]
+ 469:../CMSIS/CM3_V1P30_LPC17xx/system_LPC17xx.c ****         break;
+ 280              		.loc 1 469 0
+ 281 02ae 00BF     		nop
+ 282 02b0 87E0     		b	.L11
+ 283              	.L9:
+ 470:../CMSIS/CM3_V1P30_LPC17xx/system_LPC17xx.c ****       case 2:                           /* RTC oscillator => PLL0             */
+ 471:../CMSIS/CM3_V1P30_LPC17xx/system_LPC17xx.c ****         SystemFrequency = (RTC_CLK * 
+ 472:../CMSIS/CM3_V1P30_LPC17xx/system_LPC17xx.c ****                           (((2 * ((LPC_SC->PLL0STAT & 0x7FFF) + 1))) /
+ 284              		.loc 1 472 0
+ 285 02b2 4FF44043 		mov	r3, #49152
+ 286 02b6 C4F20F03 		movt	r3, 16399
+ 287 02ba D3F88830 		ldr	r3, [r3, #136]
+ 288 02be 4FEA4343 		lsl	r3, r3, #17
+ 289 02c2 4FEA5343 		lsr	r3, r3, #17
+ 290 02c6 03F10103 		add	r3, r3, #1
+ 291 02ca 4FEA4302 		lsl	r2, r3, #1
+ 473:../CMSIS/CM3_V1P30_LPC17xx/system_LPC17xx.c ****                           (((LPC_SC->PLL0STAT >> 16) & 0xFF) + 1))   /
+ 292              		.loc 1 473 0
+ 293 02ce 4FF44043 		mov	r3, #49152
+ 294 02d2 C4F20F03 		movt	r3, 16399
+ 295 02d6 D3F88830 		ldr	r3, [r3, #136]
+ 296 02da 4FEA1343 		lsr	r3, r3, #16
+ 297 02de 03F0FF03 		and	r3, r3, #255
+ 298 02e2 03F10103 		add	r3, r3, #1
+ 472:../CMSIS/CM3_V1P30_LPC17xx/system_LPC17xx.c ****                           (((2 * ((LPC_SC->PLL0STAT & 0x7FFF) + 1))) /
+ 299              		.loc 1 472 0
+ 300 02e6 B2FBF3F3 		udiv	r3, r2, r3
+ 471:../CMSIS/CM3_V1P30_LPC17xx/system_LPC17xx.c ****         SystemFrequency = (RTC_CLK * 
+ 301              		.loc 1 471 0
+ 302 02ea 4FF4FA42 		mov	r2, #32000
+ 303 02ee 02FB03F2 		mul	r2, r2, r3
+ 474:../CMSIS/CM3_V1P30_LPC17xx/system_LPC17xx.c ****                           ((LPC_SC->CCLKCFG & 0xFF)+ 1));
+ 304              		.loc 1 474 0
+ 305 02f2 4FF44043 		mov	r3, #49152
+ 306 02f6 C4F20F03 		movt	r3, 16399
+ 307 02fa D3F80431 		ldr	r3, [r3, #260]
+ 308 02fe 03F0FF03 		and	r3, r3, #255
+ 309 0302 03F10103 		add	r3, r3, #1
+ 473:../CMSIS/CM3_V1P30_LPC17xx/system_LPC17xx.c ****                           (((LPC_SC->PLL0STAT >> 16) & 0xFF) + 1))   /
+ARM GAS  c:\Temp\ccFh3jpk.s 			page 15
+
+
+ 310              		.loc 1 473 0
+ 311 0306 B2FBF3F2 		udiv	r2, r2, r3
+ 471:../CMSIS/CM3_V1P30_LPC17xx/system_LPC17xx.c ****         SystemFrequency = (RTC_CLK * 
+ 312              		.loc 1 471 0
+ 313 030a 40F20003 		movw	r3, #:lower16:SystemFrequency
+ 314 030e C0F20003 		movt	r3, #:upper16:SystemFrequency
+ 315 0312 1A60     		str	r2, [r3, #0]
+ 475:../CMSIS/CM3_V1P30_LPC17xx/system_LPC17xx.c ****         break;
+ 316              		.loc 1 475 0
+ 317 0314 55E0     		b	.L11
+ 318              	.L5:
+ 476:../CMSIS/CM3_V1P30_LPC17xx/system_LPC17xx.c ****     }
+ 477:../CMSIS/CM3_V1P30_LPC17xx/system_LPC17xx.c ****   } else {
+ 478:../CMSIS/CM3_V1P30_LPC17xx/system_LPC17xx.c ****     switch (LPC_SC->CLKSRCSEL & 0x03) {
+ 319              		.loc 1 478 0
+ 320 0316 4FF44043 		mov	r3, #49152
+ 321 031a C4F20F03 		movt	r3, 16399
+ 322 031e D3F80C31 		ldr	r3, [r3, #268]
+ 323 0322 03F00303 		and	r3, r3, #3
+ 324 0326 032B     		cmp	r3, #3
+ 325 0328 4BD8     		bhi	.L11
+ 326 032a 01A2     		adr	r2, .L15
+ 327 032c 52F823F0 		ldr	pc, [r2, r3, lsl #2]
+ 328              		.align	2
+ 329              	.L15:
+ 330 0330 41030000 		.word	.L12+1
+ 331 0334 6D030000 		.word	.L13+1
+ 332 0338 99030000 		.word	.L14+1
+ 333 033c 41030000 		.word	.L12+1
+ 334              	.L12:
+ 479:../CMSIS/CM3_V1P30_LPC17xx/system_LPC17xx.c ****       case 0:                           /* Internal RC oscillator => PLL0     */
+ 480:../CMSIS/CM3_V1P30_LPC17xx/system_LPC17xx.c ****       case 3:                           /* Reserved, default to Internal RC   */
+ 481:../CMSIS/CM3_V1P30_LPC17xx/system_LPC17xx.c ****         SystemFrequency = IRC_OSC / ((LPC_SC->CCLKCFG & 0xFF)+ 1);
+ 335              		.loc 1 481 0
+ 336 0340 4FF44043 		mov	r3, #49152
+ 337 0344 C4F20F03 		movt	r3, 16399
+ 338 0348 D3F80431 		ldr	r3, [r3, #260]
+ 339 034c 03F0FF03 		and	r3, r3, #255
+ 340 0350 03F10102 		add	r2, r3, #1
+ 341 0354 4FF41063 		mov	r3, #2304
+ 342 0358 C0F23D03 		movt	r3, 61
+ 343 035c B3FBF2F2 		udiv	r2, r3, r2
+ 344 0360 40F20003 		movw	r3, #:lower16:SystemFrequency
+ 345 0364 C0F20003 		movt	r3, #:upper16:SystemFrequency
+ 346 0368 1A60     		str	r2, [r3, #0]
+ 482:../CMSIS/CM3_V1P30_LPC17xx/system_LPC17xx.c ****         break;
+ 347              		.loc 1 482 0
+ 348 036a 2AE0     		b	.L11
+ 349              	.L13:
+ 483:../CMSIS/CM3_V1P30_LPC17xx/system_LPC17xx.c ****       case 1:                           /* Main oscillator => PLL0            */
+ 484:../CMSIS/CM3_V1P30_LPC17xx/system_LPC17xx.c ****         SystemFrequency = OSC_CLK / ((LPC_SC->CCLKCFG & 0xFF)+ 1);
+ 350              		.loc 1 484 0
+ 351 036c 4FF44043 		mov	r3, #49152
+ 352 0370 C4F20F03 		movt	r3, 16399
+ 353 0374 D3F80431 		ldr	r3, [r3, #260]
+ 354 0378 03F0FF03 		and	r3, r3, #255
+ 355 037c 03F10102 		add	r2, r3, #1
+ARM GAS  c:\Temp\ccFh3jpk.s 			page 16
+
+
+ 356 0380 4FF4D853 		mov	r3, #6912
+ 357 0384 C0F2B703 		movt	r3, 183
+ 358 0388 B3FBF2F2 		udiv	r2, r3, r2
+ 359 038c 40F20003 		movw	r3, #:lower16:SystemFrequency
+ 360 0390 C0F20003 		movt	r3, #:upper16:SystemFrequency
+ 361 0394 1A60     		str	r2, [r3, #0]
+ 485:../CMSIS/CM3_V1P30_LPC17xx/system_LPC17xx.c ****         break;
+ 362              		.loc 1 485 0
+ 363 0396 14E0     		b	.L11
+ 364              	.L14:
+ 486:../CMSIS/CM3_V1P30_LPC17xx/system_LPC17xx.c ****       case 2:                           /* RTC oscillator => PLL0             */
+ 487:../CMSIS/CM3_V1P30_LPC17xx/system_LPC17xx.c ****         SystemFrequency = RTC_CLK / ((LPC_SC->CCLKCFG & 0xFF)+ 1);
+ 365              		.loc 1 487 0
+ 366 0398 4FF44043 		mov	r3, #49152
+ 367 039c C4F20F03 		movt	r3, 16399
+ 368 03a0 D3F80431 		ldr	r3, [r3, #260]
+ 369 03a4 03F0FF03 		and	r3, r3, #255
+ 370 03a8 03F10103 		add	r3, r3, #1
+ 371 03ac 4FF4FA42 		mov	r2, #32000
+ 372 03b0 B2FBF3F2 		udiv	r2, r2, r3
+ 373 03b4 40F20003 		movw	r3, #:lower16:SystemFrequency
+ 374 03b8 C0F20003 		movt	r3, #:upper16:SystemFrequency
+ 375 03bc 1A60     		str	r2, [r3, #0]
+ 488:../CMSIS/CM3_V1P30_LPC17xx/system_LPC17xx.c ****         break;
+ 376              		.loc 1 488 0
+ 377 03be 00E0     		b	.L11
+ 378              	.L16:
+ 475:../CMSIS/CM3_V1P30_LPC17xx/system_LPC17xx.c ****         break;
+ 379              		.loc 1 475 0
+ 380 03c0 00BF     		nop
+ 381              	.L11:
+ 489:../CMSIS/CM3_V1P30_LPC17xx/system_LPC17xx.c ****     }
+ 490:../CMSIS/CM3_V1P30_LPC17xx/system_LPC17xx.c ****   }
+ 491:../CMSIS/CM3_V1P30_LPC17xx/system_LPC17xx.c **** 
+ 492:../CMSIS/CM3_V1P30_LPC17xx/system_LPC17xx.c **** #if (FLASH_SETUP == 1)                  /* Flash Accelerator Setup            */
+ 493:../CMSIS/CM3_V1P30_LPC17xx/system_LPC17xx.c ****   LPC_SC->FLASHCFG  = FLASHCFG_Val;
+ 382              		.loc 1 493 0
+ 383 03c2 4FF44043 		mov	r3, #49152
+ 384 03c6 C4F20F03 		movt	r3, 16399
+ 385 03ca 43F23A02 		movw	r2, #12346
+ 386 03ce 1A60     		str	r2, [r3, #0]
+ 494:../CMSIS/CM3_V1P30_LPC17xx/system_LPC17xx.c **** #endif
+ 495:../CMSIS/CM3_V1P30_LPC17xx/system_LPC17xx.c **** }
+ 387              		.loc 1 495 0
+ 388 03d0 BD46     		mov	sp, r7
+ 389 03d2 80BC     		pop	{r7}
+ 390 03d4 7047     		bx	lr
+ 391              		.cfi_endproc
+ 392              	.LFE56:
+ 393              		.size	SystemInit, .-SystemInit
+ 394              	.Letext0:
+ 395 03d6 00BF     		.section	.debug_loc,"",%progbits
+ 396              	.Ldebug_loc0:
+ 397              	.LLST0:
+ 398 0000 00000000 		.4byte	.LFB56-.Ltext0
+ 399 0004 02000000 		.4byte	.LCFI0-.Ltext0
+ 400 0008 0200     		.2byte	0x2
+ARM GAS  c:\Temp\ccFh3jpk.s 			page 17
+
+
+ 401 000a 7D       		.byte	0x7d
+ 402 000b 00       		.sleb128 0
+ 403 000c 02000000 		.4byte	.LCFI0-.Ltext0
+ 404 0010 04000000 		.4byte	.LCFI1-.Ltext0
+ 405 0014 0200     		.2byte	0x2
+ 406 0016 7D       		.byte	0x7d
+ 407 0017 04       		.sleb128 4
+ 408 0018 04000000 		.4byte	.LCFI1-.Ltext0
+ 409 001c D6030000 		.4byte	.LFE56-.Ltext0
+ 410 0020 0200     		.2byte	0x2
+ 411 0022 77       		.byte	0x77
+ 412 0023 04       		.sleb128 4
+ 413 0024 00000000 		.4byte	0x0
+ 414 0028 00000000 		.4byte	0x0
+ 415              		.file 2 "c:\\program files\\codesourcery\\sourcery g++ lite\\bin\\../lib/gcc/arm-none-eabi/4.5.1/.
+ 416              		.file 3 "../CMSIS/CM3_V1P30_LPC17xx/LPC17xx.h"
+ 417              		.file 4 "C:/Programme/Keil/ARM/CMSIS/Include/core_cm3.h"
+ 418              		.file 5 "../CMSIS/CM3_V1P30_LPC17xx/system_LPC17xx.h"
+ 419              		.section	.debug_info
+ 420 0000 40030000 		.4byte	0x340
+ 421 0004 0200     		.2byte	0x2
+ 422 0006 00000000 		.4byte	.Ldebug_abbrev0
+ 423 000a 04       		.byte	0x4
+ 424 000b 01       		.uleb128 0x1
+ 425 000c 35000000 		.4byte	.LASF47
+ 426 0010 01       		.byte	0x1
+ 427 0011 00000000 		.4byte	.LASF48
+ 428 0015 0F010000 		.4byte	.LASF49
+ 429 0019 00000000 		.4byte	.Ltext0
+ 430 001d D6030000 		.4byte	.Letext0
+ 431 0021 00000000 		.4byte	.Ldebug_line0
+ 432 0025 02       		.uleb128 0x2
+ 433 0026 01       		.byte	0x1
+ 434 0027 06       		.byte	0x6
+ 435 0028 15020000 		.4byte	.LASF0
+ 436 002c 02       		.uleb128 0x2
+ 437 002d 01       		.byte	0x1
+ 438 002e 08       		.byte	0x8
+ 439 002f AD000000 		.4byte	.LASF1
+ 440 0033 02       		.uleb128 0x2
+ 441 0034 02       		.byte	0x2
+ 442 0035 05       		.byte	0x5
+ 443 0036 D6010000 		.4byte	.LASF2
+ 444 003a 02       		.uleb128 0x2
+ 445 003b 02       		.byte	0x2
+ 446 003c 07       		.byte	0x7
+ 447 003d D6000000 		.4byte	.LASF3
+ 448 0041 03       		.uleb128 0x3
+ 449 0042 04020000 		.4byte	.LASF5
+ 450 0046 02       		.byte	0x2
+ 451 0047 4F       		.byte	0x4f
+ 452 0048 4C000000 		.4byte	0x4c
+ 453 004c 02       		.uleb128 0x2
+ 454 004d 04       		.byte	0x4
+ 455 004e 05       		.byte	0x5
+ 456 004f FB010000 		.4byte	.LASF4
+ 457 0053 03       		.uleb128 0x3
+ARM GAS  c:\Temp\ccFh3jpk.s 			page 18
+
+
+ 458 0054 F2010000 		.4byte	.LASF6
+ 459 0058 02       		.byte	0x2
+ 460 0059 50       		.byte	0x50
+ 461 005a 5E000000 		.4byte	0x5e
+ 462 005e 02       		.uleb128 0x2
+ 463 005f 04       		.byte	0x4
+ 464 0060 07       		.byte	0x7
+ 465 0061 B6010000 		.4byte	.LASF7
+ 466 0065 02       		.uleb128 0x2
+ 467 0066 08       		.byte	0x8
+ 468 0067 05       		.byte	0x5
+ 469 0068 8E010000 		.4byte	.LASF8
+ 470 006c 02       		.uleb128 0x2
+ 471 006d 08       		.byte	0x8
+ 472 006e 07       		.byte	0x7
+ 473 006f 56010000 		.4byte	.LASF9
+ 474 0073 04       		.uleb128 0x4
+ 475 0074 04       		.byte	0x4
+ 476 0075 05       		.byte	0x5
+ 477 0076 696E7400 		.ascii	"int\000"
+ 478 007a 02       		.uleb128 0x2
+ 479 007b 04       		.byte	0x4
+ 480 007c 07       		.byte	0x7
+ 481 007d 40010000 		.4byte	.LASF10
+ 482 0081 05       		.uleb128 0x5
+ 483 0082 53000000 		.4byte	0x53
+ 484 0086 06       		.uleb128 0x6
+ 485 0087 81000000 		.4byte	0x81
+ 486 008b 07       		.uleb128 0x7
+ 487 008c 53000000 		.4byte	0x53
+ 488 0090 9B000000 		.4byte	0x9b
+ 489 0094 08       		.uleb128 0x8
+ 490 0095 7A000000 		.4byte	0x7a
+ 491 0099 03       		.byte	0x3
+ 492 009a 00       		.byte	0x0
+ 493 009b 07       		.uleb128 0x7
+ 494 009c 53000000 		.4byte	0x53
+ 495 00a0 AB000000 		.4byte	0xab
+ 496 00a4 08       		.uleb128 0x8
+ 497 00a5 7A000000 		.4byte	0x7a
+ 498 00a9 0E       		.byte	0xe
+ 499 00aa 00       		.byte	0x0
+ 500 00ab 09       		.uleb128 0x9
+ 501 00ac CC01     		.2byte	0x1cc
+ 502 00ae 03       		.byte	0x3
+ 503 00af 6D       		.byte	0x6d
+ 504 00b0 B1020000 		.4byte	0x2b1
+ 505 00b4 0A       		.uleb128 0xa
+ 506 00b5 E9010000 		.4byte	.LASF11
+ 507 00b9 03       		.byte	0x3
+ 508 00ba 6F       		.byte	0x6f
+ 509 00bb 81000000 		.4byte	0x81
+ 510 00bf 02       		.byte	0x2
+ 511 00c0 23       		.byte	0x23
+ 512 00c1 00       		.uleb128 0x0
+ 513 00c2 0A       		.uleb128 0xa
+ 514 00c3 5D000000 		.4byte	.LASF12
+ARM GAS  c:\Temp\ccFh3jpk.s 			page 19
+
+
+ 515 00c7 03       		.byte	0x3
+ 516 00c8 70       		.byte	0x70
+ 517 00c9 B1020000 		.4byte	0x2b1
+ 518 00cd 02       		.byte	0x2
+ 519 00ce 23       		.byte	0x23
+ 520 00cf 04       		.uleb128 0x4
+ 521 00d0 0A       		.uleb128 0xa
+ 522 00d1 30010000 		.4byte	.LASF13
+ 523 00d5 03       		.byte	0x3
+ 524 00d6 71       		.byte	0x71
+ 525 00d7 81000000 		.4byte	0x81
+ 526 00db 03       		.byte	0x3
+ 527 00dc 23       		.byte	0x23
+ 528 00dd 8001     		.uleb128 0x80
+ 529 00df 0A       		.uleb128 0xa
+ 530 00e0 86010000 		.4byte	.LASF14
+ 531 00e4 03       		.byte	0x3
+ 532 00e5 72       		.byte	0x72
+ 533 00e6 81000000 		.4byte	0x81
+ 534 00ea 03       		.byte	0x3
+ 535 00eb 23       		.byte	0x23
+ 536 00ec 8401     		.uleb128 0x84
+ 537 00ee 0A       		.uleb128 0xa
+ 538 00ef 2C000000 		.4byte	.LASF15
+ 539 00f3 03       		.byte	0x3
+ 540 00f4 73       		.byte	0x73
+ 541 00f5 86000000 		.4byte	0x86
+ 542 00f9 03       		.byte	0x3
+ 543 00fa 23       		.byte	0x23
+ 544 00fb 8801     		.uleb128 0x88
+ 545 00fd 0A       		.uleb128 0xa
+ 546 00fe 7D010000 		.4byte	.LASF16
+ 547 0102 03       		.byte	0x3
+ 548 0103 74       		.byte	0x74
+ 549 0104 81000000 		.4byte	0x81
+ 550 0108 03       		.byte	0x3
+ 551 0109 23       		.byte	0x23
+ 552 010a 8C01     		.uleb128 0x8c
+ 553 010c 0A       		.uleb128 0xa
+ 554 010d 67000000 		.4byte	.LASF17
+ 555 0111 03       		.byte	0x3
+ 556 0112 75       		.byte	0x75
+ 557 0113 8B000000 		.4byte	0x8b
+ 558 0117 03       		.byte	0x3
+ 559 0118 23       		.byte	0x23
+ 560 0119 9001     		.uleb128 0x90
+ 561 011b 0A       		.uleb128 0xa
+ 562 011c AE010000 		.4byte	.LASF18
+ 563 0120 03       		.byte	0x3
+ 564 0121 76       		.byte	0x76
+ 565 0122 81000000 		.4byte	0x81
+ 566 0126 03       		.byte	0x3
+ 567 0127 23       		.byte	0x23
+ 568 0128 A001     		.uleb128 0xa0
+ 569 012a 0A       		.uleb128 0xa
+ 570 012b 30020000 		.4byte	.LASF19
+ 571 012f 03       		.byte	0x3
+ARM GAS  c:\Temp\ccFh3jpk.s 			page 20
+
+
+ 572 0130 77       		.byte	0x77
+ 573 0131 81000000 		.4byte	0x81
+ 574 0135 03       		.byte	0x3
+ 575 0136 23       		.byte	0x23
+ 576 0137 A401     		.uleb128 0xa4
+ 577 0139 0A       		.uleb128 0xa
+ 578 013a 0C020000 		.4byte	.LASF20
+ 579 013e 03       		.byte	0x3
+ 580 013f 78       		.byte	0x78
+ 581 0140 86000000 		.4byte	0x86
+ 582 0144 03       		.byte	0x3
+ 583 0145 23       		.byte	0x23
+ 584 0146 A801     		.uleb128 0xa8
+ 585 0148 0A       		.uleb128 0xa
+ 586 0149 4D010000 		.4byte	.LASF21
+ 587 014d 03       		.byte	0x3
+ 588 014e 79       		.byte	0x79
+ 589 014f 81000000 		.4byte	0x81
+ 590 0153 03       		.byte	0x3
+ 591 0154 23       		.byte	0x23
+ 592 0155 AC01     		.uleb128 0xac
+ 593 0157 0A       		.uleb128 0xa
+ 594 0158 71000000 		.4byte	.LASF22
+ 595 015c 03       		.byte	0x3
+ 596 015d 7A       		.byte	0x7a
+ 597 015e 8B000000 		.4byte	0x8b
+ 598 0162 03       		.byte	0x3
+ 599 0163 23       		.byte	0x23
+ 600 0164 B001     		.uleb128 0xb0
+ 601 0166 0A       		.uleb128 0xa
+ 602 0167 38020000 		.4byte	.LASF23
+ 603 016b 03       		.byte	0x3
+ 604 016c 7B       		.byte	0x7b
+ 605 016d 81000000 		.4byte	0x81
+ 606 0171 03       		.byte	0x3
+ 607 0172 23       		.byte	0x23
+ 608 0173 C001     		.uleb128 0xc0
+ 609 0175 0A       		.uleb128 0xa
+ 610 0176 D0010000 		.4byte	.LASF24
+ 611 017a 03       		.byte	0x3
+ 612 017b 7C       		.byte	0x7c
+ 613 017c 81000000 		.4byte	0x81
+ 614 0180 03       		.byte	0x3
+ 615 0181 23       		.byte	0x23
+ 616 0182 C401     		.uleb128 0xc4
+ 617 0184 0A       		.uleb128 0xa
+ 618 0185 3D020000 		.4byte	.LASF25
+ 619 0189 03       		.byte	0x3
+ 620 018a 7D       		.byte	0x7d
+ 621 018b 9B000000 		.4byte	0x9b
+ 622 018f 03       		.byte	0x3
+ 623 0190 23       		.byte	0x23
+ 624 0191 C801     		.uleb128 0xc8
+ 625 0193 0A       		.uleb128 0xa
+ 626 0194 38010000 		.4byte	.LASF26
+ 627 0198 03       		.byte	0x3
+ 628 0199 7E       		.byte	0x7e
+ARM GAS  c:\Temp\ccFh3jpk.s 			page 21
+
+
+ 629 019a 81000000 		.4byte	0x81
+ 630 019e 03       		.byte	0x3
+ 631 019f 23       		.byte	0x23
+ 632 01a0 8402     		.uleb128 0x104
+ 633 01a2 0A       		.uleb128 0xa
+ 634 01a3 CC000000 		.4byte	.LASF27
+ 635 01a7 03       		.byte	0x3
+ 636 01a8 7F       		.byte	0x7f
+ 637 01a9 81000000 		.4byte	0x81
+ 638 01ad 03       		.byte	0x3
+ 639 01ae 23       		.byte	0x23
+ 640 01af 8802     		.uleb128 0x108
+ 641 01b1 0A       		.uleb128 0xa
+ 642 01b2 BB000000 		.4byte	.LASF28
+ 643 01b6 03       		.byte	0x3
+ 644 01b7 80       		.byte	0x80
+ 645 01b8 81000000 		.4byte	0x81
+ 646 01bc 03       		.byte	0x3
+ 647 01bd 23       		.byte	0x23
+ 648 01be 8C02     		.uleb128 0x10c
+ 649 01c0 0A       		.uleb128 0xa
+ 650 01c1 7B000000 		.4byte	.LASF29
+ 651 01c5 03       		.byte	0x3
+ 652 01c6 81       		.byte	0x81
+ 653 01c7 C1020000 		.4byte	0x2c1
+ 654 01cb 03       		.byte	0x3
+ 655 01cc 23       		.byte	0x23
+ 656 01cd 9002     		.uleb128 0x110
+ 657 01cf 0A       		.uleb128 0xa
+ 658 01d0 C5000000 		.4byte	.LASF30
+ 659 01d4 03       		.byte	0x3
+ 660 01d5 82       		.byte	0x82
+ 661 01d6 81000000 		.4byte	0x81
+ 662 01da 03       		.byte	0x3
+ 663 01db 23       		.byte	0x23
+ 664 01dc C002     		.uleb128 0x140
+ 665 01de 0A       		.uleb128 0xa
+ 666 01df 85000000 		.4byte	.LASF31
+ 667 01e3 03       		.byte	0x3
+ 668 01e4 83       		.byte	0x83
+ 669 01e5 53000000 		.4byte	0x53
+ 670 01e9 03       		.byte	0x3
+ 671 01ea 23       		.byte	0x23
+ 672 01eb C402     		.uleb128 0x144
+ 673 01ed 0A       		.uleb128 0xa
+ 674 01ee C8010000 		.4byte	.LASF32
+ 675 01f2 03       		.byte	0x3
+ 676 01f3 84       		.byte	0x84
+ 677 01f4 81000000 		.4byte	0x81
+ 678 01f8 03       		.byte	0x3
+ 679 01f9 23       		.byte	0x23
+ 680 01fa C802     		.uleb128 0x148
+ 681 01fc 0A       		.uleb128 0xa
+ 682 01fd 06010000 		.4byte	.LASF33
+ 683 0201 03       		.byte	0x3
+ 684 0202 85       		.byte	0x85
+ 685 0203 81000000 		.4byte	0x81
+ARM GAS  c:\Temp\ccFh3jpk.s 			page 22
+
+
+ 686 0207 03       		.byte	0x3
+ 687 0208 23       		.byte	0x23
+ 688 0209 CC02     		.uleb128 0x14c
+ 689 020b 0A       		.uleb128 0xa
+ 690 020c 8F000000 		.4byte	.LASF34
+ 691 0210 03       		.byte	0x3
+ 692 0211 86       		.byte	0x86
+ 693 0212 C1020000 		.4byte	0x2c1
+ 694 0216 03       		.byte	0x3
+ 695 0217 23       		.byte	0x23
+ 696 0218 D002     		.uleb128 0x150
+ 697 021a 0A       		.uleb128 0xa
+ 698 021b 6D010000 		.4byte	.LASF35
+ 699 021f 03       		.byte	0x3
+ 700 0220 87       		.byte	0x87
+ 701 0221 81000000 		.4byte	0x81
+ 702 0225 03       		.byte	0x3
+ 703 0226 23       		.byte	0x23
+ 704 0227 8003     		.uleb128 0x180
+ 705 0229 0A       		.uleb128 0xa
+ 706 022a 99000000 		.4byte	.LASF36
+ 707 022e 03       		.byte	0x3
+ 708 022f 88       		.byte	0x88
+ 709 0230 D1020000 		.4byte	0x2d1
+ 710 0234 03       		.byte	0x3
+ 711 0235 23       		.byte	0x23
+ 712 0236 8403     		.uleb128 0x184
+ 713 0238 0B       		.uleb128 0xb
+ 714 0239 53435300 		.ascii	"SCS\000"
+ 715 023d 03       		.byte	0x3
+ 716 023e 89       		.byte	0x89
+ 717 023f 81000000 		.4byte	0x81
+ 718 0243 03       		.byte	0x3
+ 719 0244 23       		.byte	0x23
+ 720 0245 A003     		.uleb128 0x1a0
+ 721 0247 0A       		.uleb128 0xa
+ 722 0248 41000000 		.4byte	.LASF37
+ 723 024c 03       		.byte	0x3
+ 724 024d 8A       		.byte	0x8a
+ 725 024e 81000000 		.4byte	0x81
+ 726 0252 03       		.byte	0x3
+ 727 0253 23       		.byte	0x23
+ 728 0254 A403     		.uleb128 0x1a4
+ 729 0256 0A       		.uleb128 0xa
+ 730 0257 9C010000 		.4byte	.LASF38
+ 731 025b 03       		.byte	0x3
+ 732 025c 8B       		.byte	0x8b
+ 733 025d 81000000 		.4byte	0x81
+ 734 0261 03       		.byte	0x3
+ 735 0262 23       		.byte	0x23
+ 736 0263 A803     		.uleb128 0x1a8
+ 737 0265 0A       		.uleb128 0xa
+ 738 0266 A5010000 		.4byte	.LASF39
+ 739 026a 03       		.byte	0x3
+ 740 026b 8C       		.byte	0x8c
+ 741 026c 81000000 		.4byte	0x81
+ 742 0270 03       		.byte	0x3
+ARM GAS  c:\Temp\ccFh3jpk.s 			page 23
+
+
+ 743 0271 23       		.byte	0x23
+ 744 0272 AC03     		.uleb128 0x1ac
+ 745 0274 0A       		.uleb128 0xa
+ 746 0275 A3000000 		.4byte	.LASF40
+ 747 0279 03       		.byte	0x3
+ 748 027a 8D       		.byte	0x8d
+ 749 027b 8B000000 		.4byte	0x8b
+ 750 027f 03       		.byte	0x3
+ 751 0280 23       		.byte	0x23
+ 752 0281 B003     		.uleb128 0x1b0
+ 753 0283 0A       		.uleb128 0xa
+ 754 0284 E0010000 		.4byte	.LASF41
+ 755 0288 03       		.byte	0x3
+ 756 0289 8E       		.byte	0x8e
+ 757 028a 81000000 		.4byte	0x81
+ 758 028e 03       		.byte	0x3
+ 759 028f 23       		.byte	0x23
+ 760 0290 C003     		.uleb128 0x1c0
+ 761 0292 0A       		.uleb128 0xa
+ 762 0293 53000000 		.4byte	.LASF42
+ 763 0297 03       		.byte	0x3
+ 764 0298 8F       		.byte	0x8f
+ 765 0299 81000000 		.4byte	0x81
+ 766 029d 03       		.byte	0x3
+ 767 029e 23       		.byte	0x23
+ 768 029f C403     		.uleb128 0x1c4
+ 769 02a1 0A       		.uleb128 0xa
+ 770 02a2 49000000 		.4byte	.LASF43
+ 771 02a6 03       		.byte	0x3
+ 772 02a7 90       		.byte	0x90
+ 773 02a8 81000000 		.4byte	0x81
+ 774 02ac 03       		.byte	0x3
+ 775 02ad 23       		.byte	0x23
+ 776 02ae C803     		.uleb128 0x1c8
+ 777 02b0 00       		.byte	0x0
+ 778 02b1 07       		.uleb128 0x7
+ 779 02b2 53000000 		.4byte	0x53
+ 780 02b6 C1020000 		.4byte	0x2c1
+ 781 02ba 08       		.uleb128 0x8
+ 782 02bb 7A000000 		.4byte	0x7a
+ 783 02bf 1E       		.byte	0x1e
+ 784 02c0 00       		.byte	0x0
+ 785 02c1 07       		.uleb128 0x7
+ 786 02c2 53000000 		.4byte	0x53
+ 787 02c6 D1020000 		.4byte	0x2d1
+ 788 02ca 08       		.uleb128 0x8
+ 789 02cb 7A000000 		.4byte	0x7a
+ 790 02cf 0B       		.byte	0xb
+ 791 02d0 00       		.byte	0x0
+ 792 02d1 07       		.uleb128 0x7
+ 793 02d2 53000000 		.4byte	0x53
+ 794 02d6 E1020000 		.4byte	0x2e1
+ 795 02da 08       		.uleb128 0x8
+ 796 02db 7A000000 		.4byte	0x7a
+ 797 02df 06       		.byte	0x6
+ 798 02e0 00       		.byte	0x0
+ 799 02e1 03       		.uleb128 0x3
+ARM GAS  c:\Temp\ccFh3jpk.s 			page 24
+
+
+ 800 02e2 21020000 		.4byte	.LASF44
+ 801 02e6 03       		.byte	0x3
+ 802 02e7 91       		.byte	0x91
+ 803 02e8 AB000000 		.4byte	0xab
+ 804 02ec 0C       		.uleb128 0xc
+ 805 02ed 01       		.byte	0x1
+ 806 02ee 72010000 		.4byte	.LASF50
+ 807 02f2 01       		.byte	0x1
+ 808 02f3 9901     		.2byte	0x199
+ 809 02f5 01       		.byte	0x1
+ 810 02f6 00000000 		.4byte	.LFB56
+ 811 02fa D6030000 		.4byte	.LFE56
+ 812 02fe 00000000 		.4byte	.LLST0
+ 813 0302 0D       		.uleb128 0xd
+ 814 0303 F9000000 		.4byte	.LASF45
+ 815 0307 04       		.byte	0x4
+ 816 0308 0706     		.2byte	0x607
+ 817 030a 10030000 		.4byte	0x310
+ 818 030e 01       		.byte	0x1
+ 819 030f 01       		.byte	0x1
+ 820 0310 05       		.uleb128 0x5
+ 821 0311 41000000 		.4byte	0x41
+ 822 0315 0E       		.uleb128 0xe
+ 823 0316 E9000000 		.4byte	.LASF46
+ 824 031a 05       		.byte	0x5
+ 825 031b 1F       		.byte	0x1f
+ 826 031c 53000000 		.4byte	0x53
+ 827 0320 01       		.byte	0x1
+ 828 0321 01       		.byte	0x1
+ 829 0322 0D       		.uleb128 0xd
+ 830 0323 F9000000 		.4byte	.LASF45
+ 831 0327 04       		.byte	0x4
+ 832 0328 0706     		.2byte	0x607
+ 833 032a 10030000 		.4byte	0x310
+ 834 032e 01       		.byte	0x1
+ 835 032f 01       		.byte	0x1
+ 836 0330 0F       		.uleb128 0xf
+ 837 0331 E9000000 		.4byte	.LASF46
+ 838 0335 01       		.byte	0x1
+ 839 0336 8D01     		.2byte	0x18d
+ 840 0338 53000000 		.4byte	0x53
+ 841 033c 01       		.byte	0x1
+ 842 033d 05       		.byte	0x5
+ 843 033e 03       		.byte	0x3
+ 844 033f 00000000 		.4byte	SystemFrequency
+ 845 0343 00       		.byte	0x0
+ 846              		.section	.debug_abbrev
+ 847 0000 01       		.uleb128 0x1
+ 848 0001 11       		.uleb128 0x11
+ 849 0002 01       		.byte	0x1
+ 850 0003 25       		.uleb128 0x25
+ 851 0004 0E       		.uleb128 0xe
+ 852 0005 13       		.uleb128 0x13
+ 853 0006 0B       		.uleb128 0xb
+ 854 0007 03       		.uleb128 0x3
+ 855 0008 0E       		.uleb128 0xe
+ 856 0009 1B       		.uleb128 0x1b
+ARM GAS  c:\Temp\ccFh3jpk.s 			page 25
+
+
+ 857 000a 0E       		.uleb128 0xe
+ 858 000b 11       		.uleb128 0x11
+ 859 000c 01       		.uleb128 0x1
+ 860 000d 12       		.uleb128 0x12
+ 861 000e 01       		.uleb128 0x1
+ 862 000f 10       		.uleb128 0x10
+ 863 0010 06       		.uleb128 0x6
+ 864 0011 00       		.byte	0x0
+ 865 0012 00       		.byte	0x0
+ 866 0013 02       		.uleb128 0x2
+ 867 0014 24       		.uleb128 0x24
+ 868 0015 00       		.byte	0x0
+ 869 0016 0B       		.uleb128 0xb
+ 870 0017 0B       		.uleb128 0xb
+ 871 0018 3E       		.uleb128 0x3e
+ 872 0019 0B       		.uleb128 0xb
+ 873 001a 03       		.uleb128 0x3
+ 874 001b 0E       		.uleb128 0xe
+ 875 001c 00       		.byte	0x0
+ 876 001d 00       		.byte	0x0
+ 877 001e 03       		.uleb128 0x3
+ 878 001f 16       		.uleb128 0x16
+ 879 0020 00       		.byte	0x0
+ 880 0021 03       		.uleb128 0x3
+ 881 0022 0E       		.uleb128 0xe
+ 882 0023 3A       		.uleb128 0x3a
+ 883 0024 0B       		.uleb128 0xb
+ 884 0025 3B       		.uleb128 0x3b
+ 885 0026 0B       		.uleb128 0xb
+ 886 0027 49       		.uleb128 0x49
+ 887 0028 13       		.uleb128 0x13
+ 888 0029 00       		.byte	0x0
+ 889 002a 00       		.byte	0x0
+ 890 002b 04       		.uleb128 0x4
+ 891 002c 24       		.uleb128 0x24
+ 892 002d 00       		.byte	0x0
+ 893 002e 0B       		.uleb128 0xb
+ 894 002f 0B       		.uleb128 0xb
+ 895 0030 3E       		.uleb128 0x3e
+ 896 0031 0B       		.uleb128 0xb
+ 897 0032 03       		.uleb128 0x3
+ 898 0033 08       		.uleb128 0x8
+ 899 0034 00       		.byte	0x0
+ 900 0035 00       		.byte	0x0
+ 901 0036 05       		.uleb128 0x5
+ 902 0037 35       		.uleb128 0x35
+ 903 0038 00       		.byte	0x0
+ 904 0039 49       		.uleb128 0x49
+ 905 003a 13       		.uleb128 0x13
+ 906 003b 00       		.byte	0x0
+ 907 003c 00       		.byte	0x0
+ 908 003d 06       		.uleb128 0x6
+ 909 003e 26       		.uleb128 0x26
+ 910 003f 00       		.byte	0x0
+ 911 0040 49       		.uleb128 0x49
+ 912 0041 13       		.uleb128 0x13
+ 913 0042 00       		.byte	0x0
+ARM GAS  c:\Temp\ccFh3jpk.s 			page 26
+
+
+ 914 0043 00       		.byte	0x0
+ 915 0044 07       		.uleb128 0x7
+ 916 0045 01       		.uleb128 0x1
+ 917 0046 01       		.byte	0x1
+ 918 0047 49       		.uleb128 0x49
+ 919 0048 13       		.uleb128 0x13
+ 920 0049 01       		.uleb128 0x1
+ 921 004a 13       		.uleb128 0x13
+ 922 004b 00       		.byte	0x0
+ 923 004c 00       		.byte	0x0
+ 924 004d 08       		.uleb128 0x8
+ 925 004e 21       		.uleb128 0x21
+ 926 004f 00       		.byte	0x0
+ 927 0050 49       		.uleb128 0x49
+ 928 0051 13       		.uleb128 0x13
+ 929 0052 2F       		.uleb128 0x2f
+ 930 0053 0B       		.uleb128 0xb
+ 931 0054 00       		.byte	0x0
+ 932 0055 00       		.byte	0x0
+ 933 0056 09       		.uleb128 0x9
+ 934 0057 13       		.uleb128 0x13
+ 935 0058 01       		.byte	0x1
+ 936 0059 0B       		.uleb128 0xb
+ 937 005a 05       		.uleb128 0x5
+ 938 005b 3A       		.uleb128 0x3a
+ 939 005c 0B       		.uleb128 0xb
+ 940 005d 3B       		.uleb128 0x3b
+ 941 005e 0B       		.uleb128 0xb
+ 942 005f 01       		.uleb128 0x1
+ 943 0060 13       		.uleb128 0x13
+ 944 0061 00       		.byte	0x0
+ 945 0062 00       		.byte	0x0
+ 946 0063 0A       		.uleb128 0xa
+ 947 0064 0D       		.uleb128 0xd
+ 948 0065 00       		.byte	0x0
+ 949 0066 03       		.uleb128 0x3
+ 950 0067 0E       		.uleb128 0xe
+ 951 0068 3A       		.uleb128 0x3a
+ 952 0069 0B       		.uleb128 0xb
+ 953 006a 3B       		.uleb128 0x3b
+ 954 006b 0B       		.uleb128 0xb
+ 955 006c 49       		.uleb128 0x49
+ 956 006d 13       		.uleb128 0x13
+ 957 006e 38       		.uleb128 0x38
+ 958 006f 0A       		.uleb128 0xa
+ 959 0070 00       		.byte	0x0
+ 960 0071 00       		.byte	0x0
+ 961 0072 0B       		.uleb128 0xb
+ 962 0073 0D       		.uleb128 0xd
+ 963 0074 00       		.byte	0x0
+ 964 0075 03       		.uleb128 0x3
+ 965 0076 08       		.uleb128 0x8
+ 966 0077 3A       		.uleb128 0x3a
+ 967 0078 0B       		.uleb128 0xb
+ 968 0079 3B       		.uleb128 0x3b
+ 969 007a 0B       		.uleb128 0xb
+ 970 007b 49       		.uleb128 0x49
+ARM GAS  c:\Temp\ccFh3jpk.s 			page 27
+
+
+ 971 007c 13       		.uleb128 0x13
+ 972 007d 38       		.uleb128 0x38
+ 973 007e 0A       		.uleb128 0xa
+ 974 007f 00       		.byte	0x0
+ 975 0080 00       		.byte	0x0
+ 976 0081 0C       		.uleb128 0xc
+ 977 0082 2E       		.uleb128 0x2e
+ 978 0083 00       		.byte	0x0
+ 979 0084 3F       		.uleb128 0x3f
+ 980 0085 0C       		.uleb128 0xc
+ 981 0086 03       		.uleb128 0x3
+ 982 0087 0E       		.uleb128 0xe
+ 983 0088 3A       		.uleb128 0x3a
+ 984 0089 0B       		.uleb128 0xb
+ 985 008a 3B       		.uleb128 0x3b
+ 986 008b 05       		.uleb128 0x5
+ 987 008c 27       		.uleb128 0x27
+ 988 008d 0C       		.uleb128 0xc
+ 989 008e 11       		.uleb128 0x11
+ 990 008f 01       		.uleb128 0x1
+ 991 0090 12       		.uleb128 0x12
+ 992 0091 01       		.uleb128 0x1
+ 993 0092 40       		.uleb128 0x40
+ 994 0093 06       		.uleb128 0x6
+ 995 0094 00       		.byte	0x0
+ 996 0095 00       		.byte	0x0
+ 997 0096 0D       		.uleb128 0xd
+ 998 0097 34       		.uleb128 0x34
+ 999 0098 00       		.byte	0x0
+ 1000 0099 03       		.uleb128 0x3
+ 1001 009a 0E       		.uleb128 0xe
+ 1002 009b 3A       		.uleb128 0x3a
+ 1003 009c 0B       		.uleb128 0xb
+ 1004 009d 3B       		.uleb128 0x3b
+ 1005 009e 05       		.uleb128 0x5
+ 1006 009f 49       		.uleb128 0x49
+ 1007 00a0 13       		.uleb128 0x13
+ 1008 00a1 3F       		.uleb128 0x3f
+ 1009 00a2 0C       		.uleb128 0xc
+ 1010 00a3 3C       		.uleb128 0x3c
+ 1011 00a4 0C       		.uleb128 0xc
+ 1012 00a5 00       		.byte	0x0
+ 1013 00a6 00       		.byte	0x0
+ 1014 00a7 0E       		.uleb128 0xe
+ 1015 00a8 34       		.uleb128 0x34
+ 1016 00a9 00       		.byte	0x0
+ 1017 00aa 03       		.uleb128 0x3
+ 1018 00ab 0E       		.uleb128 0xe
+ 1019 00ac 3A       		.uleb128 0x3a
+ 1020 00ad 0B       		.uleb128 0xb
+ 1021 00ae 3B       		.uleb128 0x3b
+ 1022 00af 0B       		.uleb128 0xb
+ 1023 00b0 49       		.uleb128 0x49
+ 1024 00b1 13       		.uleb128 0x13
+ 1025 00b2 3F       		.uleb128 0x3f
+ 1026 00b3 0C       		.uleb128 0xc
+ 1027 00b4 3C       		.uleb128 0x3c
+ARM GAS  c:\Temp\ccFh3jpk.s 			page 28
+
+
+ 1028 00b5 0C       		.uleb128 0xc
+ 1029 00b6 00       		.byte	0x0
+ 1030 00b7 00       		.byte	0x0
+ 1031 00b8 0F       		.uleb128 0xf
+ 1032 00b9 34       		.uleb128 0x34
+ 1033 00ba 00       		.byte	0x0
+ 1034 00bb 03       		.uleb128 0x3
+ 1035 00bc 0E       		.uleb128 0xe
+ 1036 00bd 3A       		.uleb128 0x3a
+ 1037 00be 0B       		.uleb128 0xb
+ 1038 00bf 3B       		.uleb128 0x3b
+ 1039 00c0 05       		.uleb128 0x5
+ 1040 00c1 49       		.uleb128 0x49
+ 1041 00c2 13       		.uleb128 0x13
+ 1042 00c3 3F       		.uleb128 0x3f
+ 1043 00c4 0C       		.uleb128 0xc
+ 1044 00c5 02       		.uleb128 0x2
+ 1045 00c6 0A       		.uleb128 0xa
+ 1046 00c7 00       		.byte	0x0
+ 1047 00c8 00       		.byte	0x0
+ 1048 00c9 00       		.byte	0x0
+ 1049              		.section	.debug_pubnames,"",%progbits
+ 1050 0000 31000000 		.4byte	0x31
+ 1051 0004 0200     		.2byte	0x2
+ 1052 0006 00000000 		.4byte	.Ldebug_info0
+ 1053 000a 44030000 		.4byte	0x344
+ 1054 000e EC020000 		.4byte	0x2ec
+ 1055 0012 53797374 		.ascii	"SystemInit\000"
+ 1055      656D496E 
+ 1055      697400
+ 1056 001d 30030000 		.4byte	0x330
+ 1057 0021 53797374 		.ascii	"SystemFrequency\000"
+ 1057      656D4672 
+ 1057      65717565 
+ 1057      6E637900 
+ 1058 0031 00000000 		.4byte	0x0
+ 1059              		.section	.debug_pubtypes,"",%progbits
+ 1060 0000 3A000000 		.4byte	0x3a
+ 1061 0004 0200     		.2byte	0x2
+ 1062 0006 00000000 		.4byte	.Ldebug_info0
+ 1063 000a 44030000 		.4byte	0x344
+ 1064 000e 41000000 		.4byte	0x41
+ 1065 0012 696E7433 		.ascii	"int32_t\000"
+ 1065      325F7400 
+ 1066 001a 53000000 		.4byte	0x53
+ 1067 001e 75696E74 		.ascii	"uint32_t\000"
+ 1067      33325F74 
+ 1067      00
+ 1068 0027 E1020000 		.4byte	0x2e1
+ 1069 002b 4C50435F 		.ascii	"LPC_SC_TypeDef\000"
+ 1069      53435F54 
+ 1069      79706544 
+ 1069      656600
+ 1070 003a 00000000 		.4byte	0x0
+ 1071              		.section	.debug_aranges,"",%progbits
+ 1072 0000 1C000000 		.4byte	0x1c
+ 1073 0004 0200     		.2byte	0x2
+ARM GAS  c:\Temp\ccFh3jpk.s 			page 29
+
+
+ 1074 0006 00000000 		.4byte	.Ldebug_info0
+ 1075 000a 04       		.byte	0x4
+ 1076 000b 00       		.byte	0x0
+ 1077 000c 0000     		.2byte	0x0
+ 1078 000e 0000     		.2byte	0x0
+ 1079 0010 00000000 		.4byte	.Ltext0
+ 1080 0014 D6030000 		.4byte	.Letext0-.Ltext0
+ 1081 0018 00000000 		.4byte	0x0
+ 1082 001c 00000000 		.4byte	0x0
+ 1083              		.section	.debug_str,"MS",%progbits,1
+ 1084              	.LASF48:
+ 1085 0000 2E2E2F43 		.ascii	"../CMSIS/CM3_V1P30_LPC17xx/system_LPC17xx.c\000"
+ 1085      4D534953 
+ 1085      2F434D33 
+ 1085      5F563150 
+ 1085      33305F4C 
+ 1086              	.LASF15:
+ 1087 002c 504C4C30 		.ascii	"PLL0STAT\000"
+ 1087      53544154 
+ 1087      00
+ 1088              	.LASF47:
+ 1089 0035 474E5520 		.ascii	"GNU C 4.5.1\000"
+ 1089      4320342E 
+ 1089      352E3100 
+ 1090              	.LASF37:
+ 1091 0041 49524354 		.ascii	"IRCTRIM\000"
+ 1091      52494D00 
+ 1092              	.LASF43:
+ 1093 0049 434C4B4F 		.ascii	"CLKOUTCFG\000"
+ 1093      55544346 
+ 1093      4700
+ 1094              	.LASF42:
+ 1095 0053 444D4152 		.ascii	"DMAREQSEL\000"
+ 1095      45515345 
+ 1095      4C00
+ 1096              	.LASF12:
+ 1097 005d 52455345 		.ascii	"RESERVED0\000"
+ 1097      52564544 
+ 1097      3000
+ 1098              	.LASF17:
+ 1099 0067 52455345 		.ascii	"RESERVED1\000"
+ 1099      52564544 
+ 1099      3100
+ 1100              	.LASF22:
+ 1101 0071 52455345 		.ascii	"RESERVED2\000"
+ 1101      52564544 
+ 1101      3200
+ 1102              	.LASF29:
+ 1103 007b 52455345 		.ascii	"RESERVED4\000"
+ 1103      52564544 
+ 1103      3400
+ 1104              	.LASF31:
+ 1105 0085 52455345 		.ascii	"RESERVED5\000"
+ 1105      52564544 
+ 1105      3500
+ 1106              	.LASF34:
+ 1107 008f 52455345 		.ascii	"RESERVED6\000"
+ARM GAS  c:\Temp\ccFh3jpk.s 			page 30
+
+
+ 1107      52564544 
+ 1107      3600
+ 1108              	.LASF36:
+ 1109 0099 52455345 		.ascii	"RESERVED7\000"
+ 1109      52564544 
+ 1109      3700
+ 1110              	.LASF40:
+ 1111 00a3 52455345 		.ascii	"RESERVED8\000"
+ 1111      52564544 
+ 1111      3800
+ 1112              	.LASF1:
+ 1113 00ad 756E7369 		.ascii	"unsigned char\000"
+ 1113      676E6564 
+ 1113      20636861 
+ 1113      7200
+ 1114              	.LASF28:
+ 1115 00bb 434C4B53 		.ascii	"CLKSRCSEL\000"
+ 1115      52435345 
+ 1115      4C00
+ 1116              	.LASF30:
+ 1117 00c5 45585449 		.ascii	"EXTINT\000"
+ 1117      4E5400
+ 1118              	.LASF27:
+ 1119 00cc 55534243 		.ascii	"USBCLKCFG\000"
+ 1119      4C4B4346 
+ 1119      4700
+ 1120              	.LASF3:
+ 1121 00d6 73686F72 		.ascii	"short unsigned int\000"
+ 1121      7420756E 
+ 1121      7369676E 
+ 1121      65642069 
+ 1121      6E7400
+ 1122              	.LASF46:
+ 1123 00e9 53797374 		.ascii	"SystemFrequency\000"
+ 1123      656D4672 
+ 1123      65717565 
+ 1123      6E637900 
+ 1124              	.LASF45:
+ 1125 00f9 49544D5F 		.ascii	"ITM_RxBuffer\000"
+ 1125      52784275 
+ 1125      66666572 
+ 1125      00
+ 1126              	.LASF33:
+ 1127 0106 45585450 		.ascii	"EXTPOLAR\000"
+ 1127      4F4C4152 
+ 1127      00
+ 1128              	.LASF49:
+ 1129 010f 533A5C45 		.ascii	"S:\\Embedded Systems\\Warenscanner\000"
+ 1129      6D626564 
+ 1129      64656420 
+ 1129      53797374 
+ 1129      656D735C 
+ 1130              	.LASF13:
+ 1131 0130 504C4C30 		.ascii	"PLL0CON\000"
+ 1131      434F4E00 
+ 1132              	.LASF26:
+ 1133 0138 43434C4B 		.ascii	"CCLKCFG\000"
+ARM GAS  c:\Temp\ccFh3jpk.s 			page 31
+
+
+ 1133      43464700 
+ 1134              	.LASF10:
+ 1135 0140 756E7369 		.ascii	"unsigned int\000"
+ 1135      676E6564 
+ 1135      20696E74 
+ 1135      00
+ 1136              	.LASF21:
+ 1137 014d 504C4C31 		.ascii	"PLL1FEED\000"
+ 1137      46454544 
+ 1137      00
+ 1138              	.LASF9:
+ 1139 0156 6C6F6E67 		.ascii	"long long unsigned int\000"
+ 1139      206C6F6E 
+ 1139      6720756E 
+ 1139      7369676E 
+ 1139      65642069 
+ 1140              	.LASF35:
+ 1141 016d 52534944 		.ascii	"RSID\000"
+ 1141      00
+ 1142              	.LASF50:
+ 1143 0172 53797374 		.ascii	"SystemInit\000"
+ 1143      656D496E 
+ 1143      697400
+ 1144              	.LASF16:
+ 1145 017d 504C4C30 		.ascii	"PLL0FEED\000"
+ 1145      46454544 
+ 1145      00
+ 1146              	.LASF14:
+ 1147 0186 504C4C30 		.ascii	"PLL0CFG\000"
+ 1147      43464700 
+ 1148              	.LASF8:
+ 1149 018e 6C6F6E67 		.ascii	"long long int\000"
+ 1149      206C6F6E 
+ 1149      6720696E 
+ 1149      7400
+ 1150              	.LASF38:
+ 1151 019c 50434C4B 		.ascii	"PCLKSEL0\000"
+ 1151      53454C30 
+ 1151      00
+ 1152              	.LASF39:
+ 1153 01a5 50434C4B 		.ascii	"PCLKSEL1\000"
+ 1153      53454C31 
+ 1153      00
+ 1154              	.LASF18:
+ 1155 01ae 504C4C31 		.ascii	"PLL1CON\000"
+ 1155      434F4E00 
+ 1156              	.LASF7:
+ 1157 01b6 6C6F6E67 		.ascii	"long unsigned int\000"
+ 1157      20756E73 
+ 1157      69676E65 
+ 1157      6420696E 
+ 1157      7400
+ 1158              	.LASF32:
+ 1159 01c8 4558544D 		.ascii	"EXTMODE\000"
+ 1159      4F444500 
+ 1160              	.LASF24:
+ 1161 01d0 50434F4E 		.ascii	"PCONP\000"
+ARM GAS  c:\Temp\ccFh3jpk.s 			page 32
+
+
+ 1161      5000
+ 1162              	.LASF2:
+ 1163 01d6 73686F72 		.ascii	"short int\000"
+ 1163      7420696E 
+ 1163      7400
+ 1164              	.LASF41:
+ 1165 01e0 55534249 		.ascii	"USBIntSt\000"
+ 1165      6E745374 
+ 1165      00
+ 1166              	.LASF11:
+ 1167 01e9 464C4153 		.ascii	"FLASHCFG\000"
+ 1167      48434647 
+ 1167      00
+ 1168              	.LASF6:
+ 1169 01f2 75696E74 		.ascii	"uint32_t\000"
+ 1169      33325F74 
+ 1169      00
+ 1170              	.LASF4:
+ 1171 01fb 6C6F6E67 		.ascii	"long int\000"
+ 1171      20696E74 
+ 1171      00
+ 1172              	.LASF5:
+ 1173 0204 696E7433 		.ascii	"int32_t\000"
+ 1173      325F7400 
+ 1174              	.LASF20:
+ 1175 020c 504C4C31 		.ascii	"PLL1STAT\000"
+ 1175      53544154 
+ 1175      00
+ 1176              	.LASF0:
+ 1177 0215 7369676E 		.ascii	"signed char\000"
+ 1177      65642063 
+ 1177      68617200 
+ 1178              	.LASF44:
+ 1179 0221 4C50435F 		.ascii	"LPC_SC_TypeDef\000"
+ 1179      53435F54 
+ 1179      79706544 
+ 1179      656600
+ 1180              	.LASF19:
+ 1181 0230 504C4C31 		.ascii	"PLL1CFG\000"
+ 1181      43464700 
+ 1182              	.LASF23:
+ 1183 0238 50434F4E 		.ascii	"PCON\000"
+ 1183      00
+ 1184              	.LASF25:
+ 1185 023d 52455345 		.ascii	"RESERVED3\000"
+ 1185      52564544 
+ 1185      3300
+ 1186              		.ident	"GCC: (Sourcery G++ Lite 2010.09-51) 4.5.1"
+ARM GAS  c:\Temp\ccFh3jpk.s 			page 33
+
+
+DEFINED SYMBOLS
+                            *ABS*:00000000 system_LPC17xx.c
+  c:\Temp\ccFh3jpk.s:28     .data:00000000 SystemFrequency
+  c:\Temp\ccFh3jpk.s:25     .data:00000000 $d
+  c:\Temp\ccFh3jpk.s:31     .text:00000000 $t
+  c:\Temp\ccFh3jpk.s:36     .text:00000000 SystemInit
+  c:\Temp\ccFh3jpk.s:206    .text:000001d0 $d
+  c:\Temp\ccFh3jpk.s:212    .text:000001e0 $t
+  c:\Temp\ccFh3jpk.s:330    .text:00000330 $d
+  c:\Temp\ccFh3jpk.s:336    .text:00000340 $t
+                     .debug_frame:00000010 $d
+
+NO UNDEFINED SYMBOLS

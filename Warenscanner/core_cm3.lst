@@ -1,0 +1,3485 @@
+ARM GAS  c:\Temp\cctGqfAZ.s 			page 1
+
+
+   1              		.syntax unified
+   2              		.cpu cortex-m3
+   3              		.fpu softvfp
+   4              		.eabi_attribute 20, 1
+   5              		.eabi_attribute 21, 1
+   6              		.eabi_attribute 23, 3
+   7              		.eabi_attribute 24, 1
+   8              		.eabi_attribute 25, 1
+   9              		.eabi_attribute 26, 1
+  10              		.eabi_attribute 30, 6
+  11              		.eabi_attribute 18, 4
+  12              		.thumb
+  13              		.file	"core_cm3.c"
+  14              		.section	.debug_abbrev,"",%progbits
+  15              	.Ldebug_abbrev0:
+  16              		.section	.debug_info,"",%progbits
+  17              	.Ldebug_info0:
+  18              		.section	.debug_line,"",%progbits
+  19              	.Ldebug_line0:
+  20 0000 5B010000 		.text
+  20      0200BA00 
+  20      00000201 
+  20      FB0E0D00 
+  20      01010101 
+  21              	.Ltext0:
+  22              		.cfi_sections	.debug_frame
+  23              		.align	2
+  24              		.global	__get_PSP
+  25              		.thumb
+  26              		.thumb_func
+  27              		.type	__get_PSP, %function
+  28              	__get_PSP:
+  29              	.LFB0:
+  30              		.file 1 "../CMSIS/CM3_V1P30_Core/core_cm3.c"
+   1:../CMSIS/CM3_V1P30_Core/core_cm3.c **** /**************************************************************************//**
+   2:../CMSIS/CM3_V1P30_Core/core_cm3.c ****  * @file     core_cm3.c
+   3:../CMSIS/CM3_V1P30_Core/core_cm3.c ****  * @brief    CMSIS Cortex-M3 Core Peripheral Access Layer Source File
+   4:../CMSIS/CM3_V1P30_Core/core_cm3.c ****  * @version  V1.30
+   5:../CMSIS/CM3_V1P30_Core/core_cm3.c ****  * @date     30. October 2009
+   6:../CMSIS/CM3_V1P30_Core/core_cm3.c ****  *
+   7:../CMSIS/CM3_V1P30_Core/core_cm3.c ****  * @note
+   8:../CMSIS/CM3_V1P30_Core/core_cm3.c ****  * Copyright (C) 2009 ARM Limited. All rights reserved.
+   9:../CMSIS/CM3_V1P30_Core/core_cm3.c ****  *
+  10:../CMSIS/CM3_V1P30_Core/core_cm3.c ****  * @par
+  11:../CMSIS/CM3_V1P30_Core/core_cm3.c ****  * ARM Limited (ARM) is supplying this software for use with Cortex-M 
+  12:../CMSIS/CM3_V1P30_Core/core_cm3.c ****  * processor based microcontrollers.  This file can be freely distributed 
+  13:../CMSIS/CM3_V1P30_Core/core_cm3.c ****  * within development tools that are supporting such ARM based processors. 
+  14:../CMSIS/CM3_V1P30_Core/core_cm3.c ****  *
+  15:../CMSIS/CM3_V1P30_Core/core_cm3.c ****  * @par
+  16:../CMSIS/CM3_V1P30_Core/core_cm3.c ****  * THIS SOFTWARE IS PROVIDED "AS IS".  NO WARRANTIES, WHETHER EXPRESS, IMPLIED
+  17:../CMSIS/CM3_V1P30_Core/core_cm3.c ****  * OR STATUTORY, INCLUDING, BUT NOT LIMITED TO, IMPLIED WARRANTIES OF
+  18:../CMSIS/CM3_V1P30_Core/core_cm3.c ****  * MERCHANTABILITY AND FITNESS FOR A PARTICULAR PURPOSE APPLY TO THIS SOFTWARE.
+  19:../CMSIS/CM3_V1P30_Core/core_cm3.c ****  * ARM SHALL NOT, IN ANY CIRCUMSTANCES, BE LIABLE FOR SPECIAL, INCIDENTAL, OR
+  20:../CMSIS/CM3_V1P30_Core/core_cm3.c ****  * CONSEQUENTIAL DAMAGES, FOR ANY REASON WHATSOEVER.
+  21:../CMSIS/CM3_V1P30_Core/core_cm3.c ****  *
+  22:../CMSIS/CM3_V1P30_Core/core_cm3.c ****  ******************************************************************************/
+  23:../CMSIS/CM3_V1P30_Core/core_cm3.c **** 
+ARM GAS  c:\Temp\cctGqfAZ.s 			page 2
+
+
+  24:../CMSIS/CM3_V1P30_Core/core_cm3.c **** #include <stdint.h>
+  25:../CMSIS/CM3_V1P30_Core/core_cm3.c **** 
+  26:../CMSIS/CM3_V1P30_Core/core_cm3.c **** /* define compiler specific symbols */
+  27:../CMSIS/CM3_V1P30_Core/core_cm3.c **** #if defined ( __CC_ARM   )
+  28:../CMSIS/CM3_V1P30_Core/core_cm3.c ****   #define __ASM            __asm                                      /*!< asm keyword for ARM Comp
+  29:../CMSIS/CM3_V1P30_Core/core_cm3.c ****   #define __INLINE         __inline                                   /*!< inline keyword for ARM C
+  30:../CMSIS/CM3_V1P30_Core/core_cm3.c **** 
+  31:../CMSIS/CM3_V1P30_Core/core_cm3.c **** #elif defined ( __ICCARM__ )
+  32:../CMSIS/CM3_V1P30_Core/core_cm3.c ****   #define __ASM           __asm                                       /*!< asm keyword for IAR Comp
+  33:../CMSIS/CM3_V1P30_Core/core_cm3.c ****   #define __INLINE        inline                                      /*!< inline keyword for IAR C
+  34:../CMSIS/CM3_V1P30_Core/core_cm3.c **** 
+  35:../CMSIS/CM3_V1P30_Core/core_cm3.c **** #elif defined   (  __GNUC__  )
+  36:../CMSIS/CM3_V1P30_Core/core_cm3.c ****   #define __ASM            __asm                                      /*!< asm keyword for GNU Comp
+  37:../CMSIS/CM3_V1P30_Core/core_cm3.c ****   #define __INLINE         inline                                     /*!< inline keyword for GNU C
+  38:../CMSIS/CM3_V1P30_Core/core_cm3.c **** 
+  39:../CMSIS/CM3_V1P30_Core/core_cm3.c **** #elif defined   (  __TASKING__  )
+  40:../CMSIS/CM3_V1P30_Core/core_cm3.c ****   #define __ASM            __asm                                      /*!< asm keyword for TASKING 
+  41:../CMSIS/CM3_V1P30_Core/core_cm3.c ****   #define __INLINE         inline                                     /*!< inline keyword for TASKI
+  42:../CMSIS/CM3_V1P30_Core/core_cm3.c **** 
+  43:../CMSIS/CM3_V1P30_Core/core_cm3.c **** #endif
+  44:../CMSIS/CM3_V1P30_Core/core_cm3.c **** 
+  45:../CMSIS/CM3_V1P30_Core/core_cm3.c **** 
+  46:../CMSIS/CM3_V1P30_Core/core_cm3.c **** /* ###################  Compiler specific Intrinsics  ########################### */
+  47:../CMSIS/CM3_V1P30_Core/core_cm3.c **** 
+  48:../CMSIS/CM3_V1P30_Core/core_cm3.c **** #if defined ( __CC_ARM   ) /*------------------RealView Compiler -----------------*/
+  49:../CMSIS/CM3_V1P30_Core/core_cm3.c **** /* ARM armcc specific functions */
+  50:../CMSIS/CM3_V1P30_Core/core_cm3.c **** 
+  51:../CMSIS/CM3_V1P30_Core/core_cm3.c **** /**
+  52:../CMSIS/CM3_V1P30_Core/core_cm3.c ****  * @brief  Return the Process Stack Pointer
+  53:../CMSIS/CM3_V1P30_Core/core_cm3.c ****  *
+  54:../CMSIS/CM3_V1P30_Core/core_cm3.c ****  * @return ProcessStackPointer
+  55:../CMSIS/CM3_V1P30_Core/core_cm3.c ****  *
+  56:../CMSIS/CM3_V1P30_Core/core_cm3.c ****  * Return the actual process stack pointer
+  57:../CMSIS/CM3_V1P30_Core/core_cm3.c ****  */
+  58:../CMSIS/CM3_V1P30_Core/core_cm3.c **** __ASM uint32_t __get_PSP(void)
+  59:../CMSIS/CM3_V1P30_Core/core_cm3.c **** {
+  60:../CMSIS/CM3_V1P30_Core/core_cm3.c ****   mrs r0, psp
+  61:../CMSIS/CM3_V1P30_Core/core_cm3.c ****   bx lr
+  62:../CMSIS/CM3_V1P30_Core/core_cm3.c **** }
+  63:../CMSIS/CM3_V1P30_Core/core_cm3.c **** 
+  64:../CMSIS/CM3_V1P30_Core/core_cm3.c **** /**
+  65:../CMSIS/CM3_V1P30_Core/core_cm3.c ****  * @brief  Set the Process Stack Pointer
+  66:../CMSIS/CM3_V1P30_Core/core_cm3.c ****  *
+  67:../CMSIS/CM3_V1P30_Core/core_cm3.c ****  * @param  topOfProcStack  Process Stack Pointer
+  68:../CMSIS/CM3_V1P30_Core/core_cm3.c ****  *
+  69:../CMSIS/CM3_V1P30_Core/core_cm3.c ****  * Assign the value ProcessStackPointer to the MSP 
+  70:../CMSIS/CM3_V1P30_Core/core_cm3.c ****  * (process stack pointer) Cortex processor register
+  71:../CMSIS/CM3_V1P30_Core/core_cm3.c ****  */
+  72:../CMSIS/CM3_V1P30_Core/core_cm3.c **** __ASM void __set_PSP(uint32_t topOfProcStack)
+  73:../CMSIS/CM3_V1P30_Core/core_cm3.c **** {
+  74:../CMSIS/CM3_V1P30_Core/core_cm3.c ****   msr psp, r0
+  75:../CMSIS/CM3_V1P30_Core/core_cm3.c ****   bx lr
+  76:../CMSIS/CM3_V1P30_Core/core_cm3.c **** }
+  77:../CMSIS/CM3_V1P30_Core/core_cm3.c **** 
+  78:../CMSIS/CM3_V1P30_Core/core_cm3.c **** /**
+  79:../CMSIS/CM3_V1P30_Core/core_cm3.c ****  * @brief  Return the Main Stack Pointer
+  80:../CMSIS/CM3_V1P30_Core/core_cm3.c ****  *
+ARM GAS  c:\Temp\cctGqfAZ.s 			page 3
+
+
+  81:../CMSIS/CM3_V1P30_Core/core_cm3.c ****  * @return Main Stack Pointer
+  82:../CMSIS/CM3_V1P30_Core/core_cm3.c ****  *
+  83:../CMSIS/CM3_V1P30_Core/core_cm3.c ****  * Return the current value of the MSP (main stack pointer)
+  84:../CMSIS/CM3_V1P30_Core/core_cm3.c ****  * Cortex processor register
+  85:../CMSIS/CM3_V1P30_Core/core_cm3.c ****  */
+  86:../CMSIS/CM3_V1P30_Core/core_cm3.c **** __ASM uint32_t __get_MSP(void)
+  87:../CMSIS/CM3_V1P30_Core/core_cm3.c **** {
+  88:../CMSIS/CM3_V1P30_Core/core_cm3.c ****   mrs r0, msp
+  89:../CMSIS/CM3_V1P30_Core/core_cm3.c ****   bx lr
+  90:../CMSIS/CM3_V1P30_Core/core_cm3.c **** }
+  91:../CMSIS/CM3_V1P30_Core/core_cm3.c **** 
+  92:../CMSIS/CM3_V1P30_Core/core_cm3.c **** /**
+  93:../CMSIS/CM3_V1P30_Core/core_cm3.c ****  * @brief  Set the Main Stack Pointer
+  94:../CMSIS/CM3_V1P30_Core/core_cm3.c ****  *
+  95:../CMSIS/CM3_V1P30_Core/core_cm3.c ****  * @param  topOfMainStack  Main Stack Pointer
+  96:../CMSIS/CM3_V1P30_Core/core_cm3.c ****  *
+  97:../CMSIS/CM3_V1P30_Core/core_cm3.c ****  * Assign the value mainStackPointer to the MSP 
+  98:../CMSIS/CM3_V1P30_Core/core_cm3.c ****  * (main stack pointer) Cortex processor register
+  99:../CMSIS/CM3_V1P30_Core/core_cm3.c ****  */
+ 100:../CMSIS/CM3_V1P30_Core/core_cm3.c **** __ASM void __set_MSP(uint32_t mainStackPointer)
+ 101:../CMSIS/CM3_V1P30_Core/core_cm3.c **** {
+ 102:../CMSIS/CM3_V1P30_Core/core_cm3.c ****   msr msp, r0
+ 103:../CMSIS/CM3_V1P30_Core/core_cm3.c ****   bx lr
+ 104:../CMSIS/CM3_V1P30_Core/core_cm3.c **** }
+ 105:../CMSIS/CM3_V1P30_Core/core_cm3.c **** 
+ 106:../CMSIS/CM3_V1P30_Core/core_cm3.c **** /**
+ 107:../CMSIS/CM3_V1P30_Core/core_cm3.c ****  * @brief  Reverse byte order in unsigned short value
+ 108:../CMSIS/CM3_V1P30_Core/core_cm3.c ****  *
+ 109:../CMSIS/CM3_V1P30_Core/core_cm3.c ****  * @param   value  value to reverse
+ 110:../CMSIS/CM3_V1P30_Core/core_cm3.c ****  * @return         reversed value
+ 111:../CMSIS/CM3_V1P30_Core/core_cm3.c ****  *
+ 112:../CMSIS/CM3_V1P30_Core/core_cm3.c ****  * Reverse byte order in unsigned short value
+ 113:../CMSIS/CM3_V1P30_Core/core_cm3.c ****  */
+ 114:../CMSIS/CM3_V1P30_Core/core_cm3.c **** __ASM uint32_t __REV16(uint16_t value)
+ 115:../CMSIS/CM3_V1P30_Core/core_cm3.c **** {
+ 116:../CMSIS/CM3_V1P30_Core/core_cm3.c ****   rev16 r0, r0
+ 117:../CMSIS/CM3_V1P30_Core/core_cm3.c ****   bx lr
+ 118:../CMSIS/CM3_V1P30_Core/core_cm3.c **** }
+ 119:../CMSIS/CM3_V1P30_Core/core_cm3.c **** 
+ 120:../CMSIS/CM3_V1P30_Core/core_cm3.c **** /**
+ 121:../CMSIS/CM3_V1P30_Core/core_cm3.c ****  * @brief  Reverse byte order in signed short value with sign extension to integer
+ 122:../CMSIS/CM3_V1P30_Core/core_cm3.c ****  *
+ 123:../CMSIS/CM3_V1P30_Core/core_cm3.c ****  * @param   value  value to reverse
+ 124:../CMSIS/CM3_V1P30_Core/core_cm3.c ****  * @return         reversed value
+ 125:../CMSIS/CM3_V1P30_Core/core_cm3.c ****  *
+ 126:../CMSIS/CM3_V1P30_Core/core_cm3.c ****  * Reverse byte order in signed short value with sign extension to integer
+ 127:../CMSIS/CM3_V1P30_Core/core_cm3.c ****  */
+ 128:../CMSIS/CM3_V1P30_Core/core_cm3.c **** __ASM int32_t __REVSH(int16_t value)
+ 129:../CMSIS/CM3_V1P30_Core/core_cm3.c **** {
+ 130:../CMSIS/CM3_V1P30_Core/core_cm3.c ****   revsh r0, r0
+ 131:../CMSIS/CM3_V1P30_Core/core_cm3.c ****   bx lr
+ 132:../CMSIS/CM3_V1P30_Core/core_cm3.c **** }
+ 133:../CMSIS/CM3_V1P30_Core/core_cm3.c **** 
+ 134:../CMSIS/CM3_V1P30_Core/core_cm3.c **** 
+ 135:../CMSIS/CM3_V1P30_Core/core_cm3.c **** #if (__ARMCC_VERSION < 400000)
+ 136:../CMSIS/CM3_V1P30_Core/core_cm3.c **** 
+ 137:../CMSIS/CM3_V1P30_Core/core_cm3.c **** /**
+ARM GAS  c:\Temp\cctGqfAZ.s 			page 4
+
+
+ 138:../CMSIS/CM3_V1P30_Core/core_cm3.c ****  * @brief  Remove the exclusive lock created by ldrex
+ 139:../CMSIS/CM3_V1P30_Core/core_cm3.c ****  *
+ 140:../CMSIS/CM3_V1P30_Core/core_cm3.c ****  * Removes the exclusive lock which is created by ldrex.
+ 141:../CMSIS/CM3_V1P30_Core/core_cm3.c ****  */
+ 142:../CMSIS/CM3_V1P30_Core/core_cm3.c **** __ASM void __CLREX(void)
+ 143:../CMSIS/CM3_V1P30_Core/core_cm3.c **** {
+ 144:../CMSIS/CM3_V1P30_Core/core_cm3.c ****   clrex
+ 145:../CMSIS/CM3_V1P30_Core/core_cm3.c **** }
+ 146:../CMSIS/CM3_V1P30_Core/core_cm3.c **** 
+ 147:../CMSIS/CM3_V1P30_Core/core_cm3.c **** /**
+ 148:../CMSIS/CM3_V1P30_Core/core_cm3.c ****  * @brief  Return the Base Priority value
+ 149:../CMSIS/CM3_V1P30_Core/core_cm3.c ****  *
+ 150:../CMSIS/CM3_V1P30_Core/core_cm3.c ****  * @return BasePriority
+ 151:../CMSIS/CM3_V1P30_Core/core_cm3.c ****  *
+ 152:../CMSIS/CM3_V1P30_Core/core_cm3.c ****  * Return the content of the base priority register
+ 153:../CMSIS/CM3_V1P30_Core/core_cm3.c ****  */
+ 154:../CMSIS/CM3_V1P30_Core/core_cm3.c **** __ASM uint32_t  __get_BASEPRI(void)
+ 155:../CMSIS/CM3_V1P30_Core/core_cm3.c **** {
+ 156:../CMSIS/CM3_V1P30_Core/core_cm3.c ****   mrs r0, basepri
+ 157:../CMSIS/CM3_V1P30_Core/core_cm3.c ****   bx lr
+ 158:../CMSIS/CM3_V1P30_Core/core_cm3.c **** }
+ 159:../CMSIS/CM3_V1P30_Core/core_cm3.c **** 
+ 160:../CMSIS/CM3_V1P30_Core/core_cm3.c **** /**
+ 161:../CMSIS/CM3_V1P30_Core/core_cm3.c ****  * @brief  Set the Base Priority value
+ 162:../CMSIS/CM3_V1P30_Core/core_cm3.c ****  *
+ 163:../CMSIS/CM3_V1P30_Core/core_cm3.c ****  * @param  basePri  BasePriority
+ 164:../CMSIS/CM3_V1P30_Core/core_cm3.c ****  *
+ 165:../CMSIS/CM3_V1P30_Core/core_cm3.c ****  * Set the base priority register
+ 166:../CMSIS/CM3_V1P30_Core/core_cm3.c ****  */
+ 167:../CMSIS/CM3_V1P30_Core/core_cm3.c **** __ASM void __set_BASEPRI(uint32_t basePri)
+ 168:../CMSIS/CM3_V1P30_Core/core_cm3.c **** {
+ 169:../CMSIS/CM3_V1P30_Core/core_cm3.c ****   msr basepri, r0
+ 170:../CMSIS/CM3_V1P30_Core/core_cm3.c ****   bx lr
+ 171:../CMSIS/CM3_V1P30_Core/core_cm3.c **** }
+ 172:../CMSIS/CM3_V1P30_Core/core_cm3.c **** 
+ 173:../CMSIS/CM3_V1P30_Core/core_cm3.c **** /**
+ 174:../CMSIS/CM3_V1P30_Core/core_cm3.c ****  * @brief  Return the Priority Mask value
+ 175:../CMSIS/CM3_V1P30_Core/core_cm3.c ****  *
+ 176:../CMSIS/CM3_V1P30_Core/core_cm3.c ****  * @return PriMask
+ 177:../CMSIS/CM3_V1P30_Core/core_cm3.c ****  *
+ 178:../CMSIS/CM3_V1P30_Core/core_cm3.c ****  * Return state of the priority mask bit from the priority mask register
+ 179:../CMSIS/CM3_V1P30_Core/core_cm3.c ****  */
+ 180:../CMSIS/CM3_V1P30_Core/core_cm3.c **** __ASM uint32_t __get_PRIMASK(void)
+ 181:../CMSIS/CM3_V1P30_Core/core_cm3.c **** {
+ 182:../CMSIS/CM3_V1P30_Core/core_cm3.c ****   mrs r0, primask
+ 183:../CMSIS/CM3_V1P30_Core/core_cm3.c ****   bx lr
+ 184:../CMSIS/CM3_V1P30_Core/core_cm3.c **** }
+ 185:../CMSIS/CM3_V1P30_Core/core_cm3.c **** 
+ 186:../CMSIS/CM3_V1P30_Core/core_cm3.c **** /**
+ 187:../CMSIS/CM3_V1P30_Core/core_cm3.c ****  * @brief  Set the Priority Mask value
+ 188:../CMSIS/CM3_V1P30_Core/core_cm3.c ****  *
+ 189:../CMSIS/CM3_V1P30_Core/core_cm3.c ****  * @param  priMask  PriMask
+ 190:../CMSIS/CM3_V1P30_Core/core_cm3.c ****  *
+ 191:../CMSIS/CM3_V1P30_Core/core_cm3.c ****  * Set the priority mask bit in the priority mask register
+ 192:../CMSIS/CM3_V1P30_Core/core_cm3.c ****  */
+ 193:../CMSIS/CM3_V1P30_Core/core_cm3.c **** __ASM void __set_PRIMASK(uint32_t priMask)
+ 194:../CMSIS/CM3_V1P30_Core/core_cm3.c **** {
+ARM GAS  c:\Temp\cctGqfAZ.s 			page 5
+
+
+ 195:../CMSIS/CM3_V1P30_Core/core_cm3.c ****   msr primask, r0
+ 196:../CMSIS/CM3_V1P30_Core/core_cm3.c ****   bx lr
+ 197:../CMSIS/CM3_V1P30_Core/core_cm3.c **** }
+ 198:../CMSIS/CM3_V1P30_Core/core_cm3.c **** 
+ 199:../CMSIS/CM3_V1P30_Core/core_cm3.c **** /**
+ 200:../CMSIS/CM3_V1P30_Core/core_cm3.c ****  * @brief  Return the Fault Mask value
+ 201:../CMSIS/CM3_V1P30_Core/core_cm3.c ****  *
+ 202:../CMSIS/CM3_V1P30_Core/core_cm3.c ****  * @return FaultMask
+ 203:../CMSIS/CM3_V1P30_Core/core_cm3.c ****  *
+ 204:../CMSIS/CM3_V1P30_Core/core_cm3.c ****  * Return the content of the fault mask register
+ 205:../CMSIS/CM3_V1P30_Core/core_cm3.c ****  */
+ 206:../CMSIS/CM3_V1P30_Core/core_cm3.c **** __ASM uint32_t  __get_FAULTMASK(void)
+ 207:../CMSIS/CM3_V1P30_Core/core_cm3.c **** {
+ 208:../CMSIS/CM3_V1P30_Core/core_cm3.c ****   mrs r0, faultmask
+ 209:../CMSIS/CM3_V1P30_Core/core_cm3.c ****   bx lr
+ 210:../CMSIS/CM3_V1P30_Core/core_cm3.c **** }
+ 211:../CMSIS/CM3_V1P30_Core/core_cm3.c **** 
+ 212:../CMSIS/CM3_V1P30_Core/core_cm3.c **** /**
+ 213:../CMSIS/CM3_V1P30_Core/core_cm3.c ****  * @brief  Set the Fault Mask value
+ 214:../CMSIS/CM3_V1P30_Core/core_cm3.c ****  *
+ 215:../CMSIS/CM3_V1P30_Core/core_cm3.c ****  * @param  faultMask  faultMask value
+ 216:../CMSIS/CM3_V1P30_Core/core_cm3.c ****  *
+ 217:../CMSIS/CM3_V1P30_Core/core_cm3.c ****  * Set the fault mask register
+ 218:../CMSIS/CM3_V1P30_Core/core_cm3.c ****  */
+ 219:../CMSIS/CM3_V1P30_Core/core_cm3.c **** __ASM void __set_FAULTMASK(uint32_t faultMask)
+ 220:../CMSIS/CM3_V1P30_Core/core_cm3.c **** {
+ 221:../CMSIS/CM3_V1P30_Core/core_cm3.c ****   msr faultmask, r0
+ 222:../CMSIS/CM3_V1P30_Core/core_cm3.c ****   bx lr
+ 223:../CMSIS/CM3_V1P30_Core/core_cm3.c **** }
+ 224:../CMSIS/CM3_V1P30_Core/core_cm3.c **** 
+ 225:../CMSIS/CM3_V1P30_Core/core_cm3.c **** /**
+ 226:../CMSIS/CM3_V1P30_Core/core_cm3.c ****  * @brief  Return the Control Register value
+ 227:../CMSIS/CM3_V1P30_Core/core_cm3.c ****  * 
+ 228:../CMSIS/CM3_V1P30_Core/core_cm3.c ****  * @return Control value
+ 229:../CMSIS/CM3_V1P30_Core/core_cm3.c ****  *
+ 230:../CMSIS/CM3_V1P30_Core/core_cm3.c ****  * Return the content of the control register
+ 231:../CMSIS/CM3_V1P30_Core/core_cm3.c ****  */
+ 232:../CMSIS/CM3_V1P30_Core/core_cm3.c **** __ASM uint32_t __get_CONTROL(void)
+ 233:../CMSIS/CM3_V1P30_Core/core_cm3.c **** {
+ 234:../CMSIS/CM3_V1P30_Core/core_cm3.c ****   mrs r0, control
+ 235:../CMSIS/CM3_V1P30_Core/core_cm3.c ****   bx lr
+ 236:../CMSIS/CM3_V1P30_Core/core_cm3.c **** }
+ 237:../CMSIS/CM3_V1P30_Core/core_cm3.c **** 
+ 238:../CMSIS/CM3_V1P30_Core/core_cm3.c **** /**
+ 239:../CMSIS/CM3_V1P30_Core/core_cm3.c ****  * @brief  Set the Control Register value
+ 240:../CMSIS/CM3_V1P30_Core/core_cm3.c ****  *
+ 241:../CMSIS/CM3_V1P30_Core/core_cm3.c ****  * @param  control  Control value
+ 242:../CMSIS/CM3_V1P30_Core/core_cm3.c ****  *
+ 243:../CMSIS/CM3_V1P30_Core/core_cm3.c ****  * Set the control register
+ 244:../CMSIS/CM3_V1P30_Core/core_cm3.c ****  */
+ 245:../CMSIS/CM3_V1P30_Core/core_cm3.c **** __ASM void __set_CONTROL(uint32_t control)
+ 246:../CMSIS/CM3_V1P30_Core/core_cm3.c **** {
+ 247:../CMSIS/CM3_V1P30_Core/core_cm3.c ****   msr control, r0
+ 248:../CMSIS/CM3_V1P30_Core/core_cm3.c ****   bx lr
+ 249:../CMSIS/CM3_V1P30_Core/core_cm3.c **** }
+ 250:../CMSIS/CM3_V1P30_Core/core_cm3.c **** 
+ 251:../CMSIS/CM3_V1P30_Core/core_cm3.c **** #endif /* __ARMCC_VERSION  */ 
+ARM GAS  c:\Temp\cctGqfAZ.s 			page 6
+
+
+ 252:../CMSIS/CM3_V1P30_Core/core_cm3.c **** 
+ 253:../CMSIS/CM3_V1P30_Core/core_cm3.c **** 
+ 254:../CMSIS/CM3_V1P30_Core/core_cm3.c **** 
+ 255:../CMSIS/CM3_V1P30_Core/core_cm3.c **** #elif (defined (__ICCARM__)) /*------------------ ICC Compiler -------------------*/
+ 256:../CMSIS/CM3_V1P30_Core/core_cm3.c **** /* IAR iccarm specific functions */
+ 257:../CMSIS/CM3_V1P30_Core/core_cm3.c **** #pragma diag_suppress=Pe940
+ 258:../CMSIS/CM3_V1P30_Core/core_cm3.c **** 
+ 259:../CMSIS/CM3_V1P30_Core/core_cm3.c **** /**
+ 260:../CMSIS/CM3_V1P30_Core/core_cm3.c ****  * @brief  Return the Process Stack Pointer
+ 261:../CMSIS/CM3_V1P30_Core/core_cm3.c ****  *
+ 262:../CMSIS/CM3_V1P30_Core/core_cm3.c ****  * @return ProcessStackPointer
+ 263:../CMSIS/CM3_V1P30_Core/core_cm3.c ****  *
+ 264:../CMSIS/CM3_V1P30_Core/core_cm3.c ****  * Return the actual process stack pointer
+ 265:../CMSIS/CM3_V1P30_Core/core_cm3.c ****  */
+ 266:../CMSIS/CM3_V1P30_Core/core_cm3.c **** uint32_t __get_PSP(void)
+ 267:../CMSIS/CM3_V1P30_Core/core_cm3.c **** {
+ 268:../CMSIS/CM3_V1P30_Core/core_cm3.c ****   __ASM("mrs r0, psp");
+ 269:../CMSIS/CM3_V1P30_Core/core_cm3.c ****   __ASM("bx lr");
+ 270:../CMSIS/CM3_V1P30_Core/core_cm3.c **** }
+ 271:../CMSIS/CM3_V1P30_Core/core_cm3.c **** 
+ 272:../CMSIS/CM3_V1P30_Core/core_cm3.c **** /**
+ 273:../CMSIS/CM3_V1P30_Core/core_cm3.c ****  * @brief  Set the Process Stack Pointer
+ 274:../CMSIS/CM3_V1P30_Core/core_cm3.c ****  *
+ 275:../CMSIS/CM3_V1P30_Core/core_cm3.c ****  * @param  topOfProcStack  Process Stack Pointer
+ 276:../CMSIS/CM3_V1P30_Core/core_cm3.c ****  *
+ 277:../CMSIS/CM3_V1P30_Core/core_cm3.c ****  * Assign the value ProcessStackPointer to the MSP 
+ 278:../CMSIS/CM3_V1P30_Core/core_cm3.c ****  * (process stack pointer) Cortex processor register
+ 279:../CMSIS/CM3_V1P30_Core/core_cm3.c ****  */
+ 280:../CMSIS/CM3_V1P30_Core/core_cm3.c **** void __set_PSP(uint32_t topOfProcStack)
+ 281:../CMSIS/CM3_V1P30_Core/core_cm3.c **** {
+ 282:../CMSIS/CM3_V1P30_Core/core_cm3.c ****   __ASM("msr psp, r0");
+ 283:../CMSIS/CM3_V1P30_Core/core_cm3.c ****   __ASM("bx lr");
+ 284:../CMSIS/CM3_V1P30_Core/core_cm3.c **** }
+ 285:../CMSIS/CM3_V1P30_Core/core_cm3.c **** 
+ 286:../CMSIS/CM3_V1P30_Core/core_cm3.c **** /**
+ 287:../CMSIS/CM3_V1P30_Core/core_cm3.c ****  * @brief  Return the Main Stack Pointer
+ 288:../CMSIS/CM3_V1P30_Core/core_cm3.c ****  *
+ 289:../CMSIS/CM3_V1P30_Core/core_cm3.c ****  * @return Main Stack Pointer
+ 290:../CMSIS/CM3_V1P30_Core/core_cm3.c ****  *
+ 291:../CMSIS/CM3_V1P30_Core/core_cm3.c ****  * Return the current value of the MSP (main stack pointer)
+ 292:../CMSIS/CM3_V1P30_Core/core_cm3.c ****  * Cortex processor register
+ 293:../CMSIS/CM3_V1P30_Core/core_cm3.c ****  */
+ 294:../CMSIS/CM3_V1P30_Core/core_cm3.c **** uint32_t __get_MSP(void)
+ 295:../CMSIS/CM3_V1P30_Core/core_cm3.c **** {
+ 296:../CMSIS/CM3_V1P30_Core/core_cm3.c ****   __ASM("mrs r0, msp");
+ 297:../CMSIS/CM3_V1P30_Core/core_cm3.c ****   __ASM("bx lr");
+ 298:../CMSIS/CM3_V1P30_Core/core_cm3.c **** }
+ 299:../CMSIS/CM3_V1P30_Core/core_cm3.c **** 
+ 300:../CMSIS/CM3_V1P30_Core/core_cm3.c **** /**
+ 301:../CMSIS/CM3_V1P30_Core/core_cm3.c ****  * @brief  Set the Main Stack Pointer
+ 302:../CMSIS/CM3_V1P30_Core/core_cm3.c ****  *
+ 303:../CMSIS/CM3_V1P30_Core/core_cm3.c ****  * @param  topOfMainStack  Main Stack Pointer
+ 304:../CMSIS/CM3_V1P30_Core/core_cm3.c ****  *
+ 305:../CMSIS/CM3_V1P30_Core/core_cm3.c ****  * Assign the value mainStackPointer to the MSP 
+ 306:../CMSIS/CM3_V1P30_Core/core_cm3.c ****  * (main stack pointer) Cortex processor register
+ 307:../CMSIS/CM3_V1P30_Core/core_cm3.c ****  */
+ 308:../CMSIS/CM3_V1P30_Core/core_cm3.c **** void __set_MSP(uint32_t topOfMainStack)
+ARM GAS  c:\Temp\cctGqfAZ.s 			page 7
+
+
+ 309:../CMSIS/CM3_V1P30_Core/core_cm3.c **** {
+ 310:../CMSIS/CM3_V1P30_Core/core_cm3.c ****   __ASM("msr msp, r0");
+ 311:../CMSIS/CM3_V1P30_Core/core_cm3.c ****   __ASM("bx lr");
+ 312:../CMSIS/CM3_V1P30_Core/core_cm3.c **** }
+ 313:../CMSIS/CM3_V1P30_Core/core_cm3.c **** 
+ 314:../CMSIS/CM3_V1P30_Core/core_cm3.c **** /**
+ 315:../CMSIS/CM3_V1P30_Core/core_cm3.c ****  * @brief  Reverse byte order in unsigned short value
+ 316:../CMSIS/CM3_V1P30_Core/core_cm3.c ****  *
+ 317:../CMSIS/CM3_V1P30_Core/core_cm3.c ****  * @param  value  value to reverse
+ 318:../CMSIS/CM3_V1P30_Core/core_cm3.c ****  * @return        reversed value
+ 319:../CMSIS/CM3_V1P30_Core/core_cm3.c ****  *
+ 320:../CMSIS/CM3_V1P30_Core/core_cm3.c ****  * Reverse byte order in unsigned short value
+ 321:../CMSIS/CM3_V1P30_Core/core_cm3.c ****  */
+ 322:../CMSIS/CM3_V1P30_Core/core_cm3.c **** uint32_t __REV16(uint16_t value)
+ 323:../CMSIS/CM3_V1P30_Core/core_cm3.c **** {
+ 324:../CMSIS/CM3_V1P30_Core/core_cm3.c ****   __ASM("rev16 r0, r0");
+ 325:../CMSIS/CM3_V1P30_Core/core_cm3.c ****   __ASM("bx lr");
+ 326:../CMSIS/CM3_V1P30_Core/core_cm3.c **** }
+ 327:../CMSIS/CM3_V1P30_Core/core_cm3.c **** 
+ 328:../CMSIS/CM3_V1P30_Core/core_cm3.c **** /**
+ 329:../CMSIS/CM3_V1P30_Core/core_cm3.c ****  * @brief  Reverse bit order of value
+ 330:../CMSIS/CM3_V1P30_Core/core_cm3.c ****  *
+ 331:../CMSIS/CM3_V1P30_Core/core_cm3.c ****  * @param  value  value to reverse
+ 332:../CMSIS/CM3_V1P30_Core/core_cm3.c ****  * @return        reversed value
+ 333:../CMSIS/CM3_V1P30_Core/core_cm3.c ****  *
+ 334:../CMSIS/CM3_V1P30_Core/core_cm3.c ****  * Reverse bit order of value
+ 335:../CMSIS/CM3_V1P30_Core/core_cm3.c ****  */
+ 336:../CMSIS/CM3_V1P30_Core/core_cm3.c **** uint32_t __RBIT(uint32_t value)
+ 337:../CMSIS/CM3_V1P30_Core/core_cm3.c **** {
+ 338:../CMSIS/CM3_V1P30_Core/core_cm3.c ****   __ASM("rbit r0, r0");
+ 339:../CMSIS/CM3_V1P30_Core/core_cm3.c ****   __ASM("bx lr");
+ 340:../CMSIS/CM3_V1P30_Core/core_cm3.c **** }
+ 341:../CMSIS/CM3_V1P30_Core/core_cm3.c **** 
+ 342:../CMSIS/CM3_V1P30_Core/core_cm3.c **** /**
+ 343:../CMSIS/CM3_V1P30_Core/core_cm3.c ****  * @brief  LDR Exclusive (8 bit)
+ 344:../CMSIS/CM3_V1P30_Core/core_cm3.c ****  *
+ 345:../CMSIS/CM3_V1P30_Core/core_cm3.c ****  * @param  *addr  address pointer
+ 346:../CMSIS/CM3_V1P30_Core/core_cm3.c ****  * @return        value of (*address)
+ 347:../CMSIS/CM3_V1P30_Core/core_cm3.c ****  *
+ 348:../CMSIS/CM3_V1P30_Core/core_cm3.c ****  * Exclusive LDR command for 8 bit values)
+ 349:../CMSIS/CM3_V1P30_Core/core_cm3.c ****  */
+ 350:../CMSIS/CM3_V1P30_Core/core_cm3.c **** uint8_t __LDREXB(uint8_t *addr)
+ 351:../CMSIS/CM3_V1P30_Core/core_cm3.c **** {
+ 352:../CMSIS/CM3_V1P30_Core/core_cm3.c ****   __ASM("ldrexb r0, [r0]");
+ 353:../CMSIS/CM3_V1P30_Core/core_cm3.c ****   __ASM("bx lr"); 
+ 354:../CMSIS/CM3_V1P30_Core/core_cm3.c **** }
+ 355:../CMSIS/CM3_V1P30_Core/core_cm3.c **** 
+ 356:../CMSIS/CM3_V1P30_Core/core_cm3.c **** /**
+ 357:../CMSIS/CM3_V1P30_Core/core_cm3.c ****  * @brief  LDR Exclusive (16 bit)
+ 358:../CMSIS/CM3_V1P30_Core/core_cm3.c ****  *
+ 359:../CMSIS/CM3_V1P30_Core/core_cm3.c ****  * @param  *addr  address pointer
+ 360:../CMSIS/CM3_V1P30_Core/core_cm3.c ****  * @return        value of (*address)
+ 361:../CMSIS/CM3_V1P30_Core/core_cm3.c ****  *
+ 362:../CMSIS/CM3_V1P30_Core/core_cm3.c ****  * Exclusive LDR command for 16 bit values
+ 363:../CMSIS/CM3_V1P30_Core/core_cm3.c ****  */
+ 364:../CMSIS/CM3_V1P30_Core/core_cm3.c **** uint16_t __LDREXH(uint16_t *addr)
+ 365:../CMSIS/CM3_V1P30_Core/core_cm3.c **** {
+ARM GAS  c:\Temp\cctGqfAZ.s 			page 8
+
+
+ 366:../CMSIS/CM3_V1P30_Core/core_cm3.c ****   __ASM("ldrexh r0, [r0]");
+ 367:../CMSIS/CM3_V1P30_Core/core_cm3.c ****   __ASM("bx lr");
+ 368:../CMSIS/CM3_V1P30_Core/core_cm3.c **** }
+ 369:../CMSIS/CM3_V1P30_Core/core_cm3.c **** 
+ 370:../CMSIS/CM3_V1P30_Core/core_cm3.c **** /**
+ 371:../CMSIS/CM3_V1P30_Core/core_cm3.c ****  * @brief  LDR Exclusive (32 bit)
+ 372:../CMSIS/CM3_V1P30_Core/core_cm3.c ****  *
+ 373:../CMSIS/CM3_V1P30_Core/core_cm3.c ****  * @param  *addr  address pointer
+ 374:../CMSIS/CM3_V1P30_Core/core_cm3.c ****  * @return        value of (*address)
+ 375:../CMSIS/CM3_V1P30_Core/core_cm3.c ****  *
+ 376:../CMSIS/CM3_V1P30_Core/core_cm3.c ****  * Exclusive LDR command for 32 bit values
+ 377:../CMSIS/CM3_V1P30_Core/core_cm3.c ****  */
+ 378:../CMSIS/CM3_V1P30_Core/core_cm3.c **** uint32_t __LDREXW(uint32_t *addr)
+ 379:../CMSIS/CM3_V1P30_Core/core_cm3.c **** {
+ 380:../CMSIS/CM3_V1P30_Core/core_cm3.c ****   __ASM("ldrex r0, [r0]");
+ 381:../CMSIS/CM3_V1P30_Core/core_cm3.c ****   __ASM("bx lr");
+ 382:../CMSIS/CM3_V1P30_Core/core_cm3.c **** }
+ 383:../CMSIS/CM3_V1P30_Core/core_cm3.c **** 
+ 384:../CMSIS/CM3_V1P30_Core/core_cm3.c **** /**
+ 385:../CMSIS/CM3_V1P30_Core/core_cm3.c ****  * @brief  STR Exclusive (8 bit)
+ 386:../CMSIS/CM3_V1P30_Core/core_cm3.c ****  *
+ 387:../CMSIS/CM3_V1P30_Core/core_cm3.c ****  * @param  value  value to store
+ 388:../CMSIS/CM3_V1P30_Core/core_cm3.c ****  * @param  *addr  address pointer
+ 389:../CMSIS/CM3_V1P30_Core/core_cm3.c ****  * @return        successful / failed
+ 390:../CMSIS/CM3_V1P30_Core/core_cm3.c ****  *
+ 391:../CMSIS/CM3_V1P30_Core/core_cm3.c ****  * Exclusive STR command for 8 bit values
+ 392:../CMSIS/CM3_V1P30_Core/core_cm3.c ****  */
+ 393:../CMSIS/CM3_V1P30_Core/core_cm3.c **** uint32_t __STREXB(uint8_t value, uint8_t *addr)
+ 394:../CMSIS/CM3_V1P30_Core/core_cm3.c **** {
+ 395:../CMSIS/CM3_V1P30_Core/core_cm3.c ****   __ASM("strexb r0, r0, [r1]");
+ 396:../CMSIS/CM3_V1P30_Core/core_cm3.c ****   __ASM("bx lr");
+ 397:../CMSIS/CM3_V1P30_Core/core_cm3.c **** }
+ 398:../CMSIS/CM3_V1P30_Core/core_cm3.c **** 
+ 399:../CMSIS/CM3_V1P30_Core/core_cm3.c **** /**
+ 400:../CMSIS/CM3_V1P30_Core/core_cm3.c ****  * @brief  STR Exclusive (16 bit)
+ 401:../CMSIS/CM3_V1P30_Core/core_cm3.c ****  *
+ 402:../CMSIS/CM3_V1P30_Core/core_cm3.c ****  * @param  value  value to store
+ 403:../CMSIS/CM3_V1P30_Core/core_cm3.c ****  * @param  *addr  address pointer
+ 404:../CMSIS/CM3_V1P30_Core/core_cm3.c ****  * @return        successful / failed
+ 405:../CMSIS/CM3_V1P30_Core/core_cm3.c ****  *
+ 406:../CMSIS/CM3_V1P30_Core/core_cm3.c ****  * Exclusive STR command for 16 bit values
+ 407:../CMSIS/CM3_V1P30_Core/core_cm3.c ****  */
+ 408:../CMSIS/CM3_V1P30_Core/core_cm3.c **** uint32_t __STREXH(uint16_t value, uint16_t *addr)
+ 409:../CMSIS/CM3_V1P30_Core/core_cm3.c **** {
+ 410:../CMSIS/CM3_V1P30_Core/core_cm3.c ****   __ASM("strexh r0, r0, [r1]");
+ 411:../CMSIS/CM3_V1P30_Core/core_cm3.c ****   __ASM("bx lr");
+ 412:../CMSIS/CM3_V1P30_Core/core_cm3.c **** }
+ 413:../CMSIS/CM3_V1P30_Core/core_cm3.c **** 
+ 414:../CMSIS/CM3_V1P30_Core/core_cm3.c **** /**
+ 415:../CMSIS/CM3_V1P30_Core/core_cm3.c ****  * @brief  STR Exclusive (32 bit)
+ 416:../CMSIS/CM3_V1P30_Core/core_cm3.c ****  *
+ 417:../CMSIS/CM3_V1P30_Core/core_cm3.c ****  * @param  value  value to store
+ 418:../CMSIS/CM3_V1P30_Core/core_cm3.c ****  * @param  *addr  address pointer
+ 419:../CMSIS/CM3_V1P30_Core/core_cm3.c ****  * @return        successful / failed
+ 420:../CMSIS/CM3_V1P30_Core/core_cm3.c ****  *
+ 421:../CMSIS/CM3_V1P30_Core/core_cm3.c ****  * Exclusive STR command for 32 bit values
+ 422:../CMSIS/CM3_V1P30_Core/core_cm3.c ****  */
+ARM GAS  c:\Temp\cctGqfAZ.s 			page 9
+
+
+ 423:../CMSIS/CM3_V1P30_Core/core_cm3.c **** uint32_t __STREXW(uint32_t value, uint32_t *addr)
+ 424:../CMSIS/CM3_V1P30_Core/core_cm3.c **** {
+ 425:../CMSIS/CM3_V1P30_Core/core_cm3.c ****   __ASM("strex r0, r0, [r1]");
+ 426:../CMSIS/CM3_V1P30_Core/core_cm3.c ****   __ASM("bx lr");
+ 427:../CMSIS/CM3_V1P30_Core/core_cm3.c **** }
+ 428:../CMSIS/CM3_V1P30_Core/core_cm3.c **** 
+ 429:../CMSIS/CM3_V1P30_Core/core_cm3.c **** #pragma diag_default=Pe940
+ 430:../CMSIS/CM3_V1P30_Core/core_cm3.c **** 
+ 431:../CMSIS/CM3_V1P30_Core/core_cm3.c **** 
+ 432:../CMSIS/CM3_V1P30_Core/core_cm3.c **** #elif (defined (__GNUC__)) /*------------------ GNU Compiler ---------------------*/
+ 433:../CMSIS/CM3_V1P30_Core/core_cm3.c **** /* GNU gcc specific functions */
+ 434:../CMSIS/CM3_V1P30_Core/core_cm3.c **** 
+ 435:../CMSIS/CM3_V1P30_Core/core_cm3.c **** /**
+ 436:../CMSIS/CM3_V1P30_Core/core_cm3.c ****  * @brief  Return the Process Stack Pointer
+ 437:../CMSIS/CM3_V1P30_Core/core_cm3.c ****  *
+ 438:../CMSIS/CM3_V1P30_Core/core_cm3.c ****  * @return ProcessStackPointer
+ 439:../CMSIS/CM3_V1P30_Core/core_cm3.c ****  *
+ 440:../CMSIS/CM3_V1P30_Core/core_cm3.c ****  * Return the actual process stack pointer
+ 441:../CMSIS/CM3_V1P30_Core/core_cm3.c ****  */
+ 442:../CMSIS/CM3_V1P30_Core/core_cm3.c **** uint32_t __get_PSP(void) __attribute__( ( naked ) );
+ 443:../CMSIS/CM3_V1P30_Core/core_cm3.c **** uint32_t __get_PSP(void)
+ 444:../CMSIS/CM3_V1P30_Core/core_cm3.c **** {
+  31              		.loc 1 444 0
+  32              		.cfi_startproc
+  33              		@ Naked Function: prologue and epilogue provided by programmer.
+  34              		@ args = 0, pretend = 0, frame = 0
+  35              		@ frame_needed = 1, uses_anonymous_args = 0
+ 445:../CMSIS/CM3_V1P30_Core/core_cm3.c ****   uint32_t result=0;
+  36              		.loc 1 445 0
+  37 0000 4FF00004 		mov	r4, #0
+ 446:../CMSIS/CM3_V1P30_Core/core_cm3.c **** 
+ 447:../CMSIS/CM3_V1P30_Core/core_cm3.c ****   __ASM volatile ("MRS %0, psp\n\t" 
+  38              		.loc 1 447 0
+  39              	@ 447 "../CMSIS/CM3_V1P30_Core/core_cm3.c" 1
+  40 0004 EFF30984 		MRS r4, psp
+  41 0008 2046     		MOV r0, r4 
+  42 000a 7047     		BX  lr     
+  43              		
+  44              	@ 0 "" 2
+ 448:../CMSIS/CM3_V1P30_Core/core_cm3.c ****                   "MOV r0, %0 \n\t"
+ 449:../CMSIS/CM3_V1P30_Core/core_cm3.c ****                   "BX  lr     \n\t"  : "=r" (result) );
+ 450:../CMSIS/CM3_V1P30_Core/core_cm3.c ****   return(result);
+  45              		.loc 1 450 0
+  46              		.thumb
+  47 000c 2346     		mov	r3, r4
+ 451:../CMSIS/CM3_V1P30_Core/core_cm3.c **** }
+  48              		.loc 1 451 0
+  49 000e 1846     		mov	r0, r3
+  50              		.cfi_endproc
+  51              	.LFE0:
+  52              		.size	__get_PSP, .-__get_PSP
+  53              		.align	2
+  54              		.global	__set_PSP
+  55              		.thumb
+  56              		.thumb_func
+  57              		.type	__set_PSP, %function
+  58              	__set_PSP:
+ARM GAS  c:\Temp\cctGqfAZ.s 			page 10
+
+
+  59              	.LFB1:
+ 452:../CMSIS/CM3_V1P30_Core/core_cm3.c **** 
+ 453:../CMSIS/CM3_V1P30_Core/core_cm3.c **** /**
+ 454:../CMSIS/CM3_V1P30_Core/core_cm3.c ****  * @brief  Set the Process Stack Pointer
+ 455:../CMSIS/CM3_V1P30_Core/core_cm3.c ****  *
+ 456:../CMSIS/CM3_V1P30_Core/core_cm3.c ****  * @param  topOfProcStack  Process Stack Pointer
+ 457:../CMSIS/CM3_V1P30_Core/core_cm3.c ****  *
+ 458:../CMSIS/CM3_V1P30_Core/core_cm3.c ****  * Assign the value ProcessStackPointer to the MSP 
+ 459:../CMSIS/CM3_V1P30_Core/core_cm3.c ****  * (process stack pointer) Cortex processor register
+ 460:../CMSIS/CM3_V1P30_Core/core_cm3.c ****  */
+ 461:../CMSIS/CM3_V1P30_Core/core_cm3.c **** void __set_PSP(uint32_t topOfProcStack) __attribute__( ( naked ) );
+ 462:../CMSIS/CM3_V1P30_Core/core_cm3.c **** void __set_PSP(uint32_t topOfProcStack)
+ 463:../CMSIS/CM3_V1P30_Core/core_cm3.c **** {
+  60              		.loc 1 463 0
+  61              		.cfi_startproc
+  62              		@ Naked Function: prologue and epilogue provided by programmer.
+  63              		@ args = 0, pretend = 0, frame = 0
+  64              		@ frame_needed = 1, uses_anonymous_args = 0
+  65 0010 0346     		mov	r3, r0
+ 464:../CMSIS/CM3_V1P30_Core/core_cm3.c ****   __ASM volatile ("MSR psp, %0\n\t"
+  66              		.loc 1 464 0
+  67              	@ 464 "../CMSIS/CM3_V1P30_Core/core_cm3.c" 1
+  68 0012 83F30988 		MSR psp, r3
+  69 0016 7047     		BX  lr     
+  70              		
+  71              	@ 0 "" 2
+ 465:../CMSIS/CM3_V1P30_Core/core_cm3.c ****                   "BX  lr     \n\t" : : "r" (topOfProcStack) );
+ 466:../CMSIS/CM3_V1P30_Core/core_cm3.c **** }
+  72              		.loc 1 466 0
+  73              		.thumb
+  74              		.cfi_endproc
+  75              	.LFE1:
+  76              		.size	__set_PSP, .-__set_PSP
+  77              		.align	2
+  78              		.global	__get_MSP
+  79              		.thumb
+  80              		.thumb_func
+  81              		.type	__get_MSP, %function
+  82              	__get_MSP:
+  83              	.LFB2:
+ 467:../CMSIS/CM3_V1P30_Core/core_cm3.c **** 
+ 468:../CMSIS/CM3_V1P30_Core/core_cm3.c **** /**
+ 469:../CMSIS/CM3_V1P30_Core/core_cm3.c ****  * @brief  Return the Main Stack Pointer
+ 470:../CMSIS/CM3_V1P30_Core/core_cm3.c ****  *
+ 471:../CMSIS/CM3_V1P30_Core/core_cm3.c ****  * @return Main Stack Pointer
+ 472:../CMSIS/CM3_V1P30_Core/core_cm3.c ****  *
+ 473:../CMSIS/CM3_V1P30_Core/core_cm3.c ****  * Return the current value of the MSP (main stack pointer)
+ 474:../CMSIS/CM3_V1P30_Core/core_cm3.c ****  * Cortex processor register
+ 475:../CMSIS/CM3_V1P30_Core/core_cm3.c ****  */
+ 476:../CMSIS/CM3_V1P30_Core/core_cm3.c **** uint32_t __get_MSP(void) __attribute__( ( naked ) );
+ 477:../CMSIS/CM3_V1P30_Core/core_cm3.c **** uint32_t __get_MSP(void)
+ 478:../CMSIS/CM3_V1P30_Core/core_cm3.c **** {
+  84              		.loc 1 478 0
+  85              		.cfi_startproc
+  86              		@ Naked Function: prologue and epilogue provided by programmer.
+  87              		@ args = 0, pretend = 0, frame = 0
+  88              		@ frame_needed = 1, uses_anonymous_args = 0
+ARM GAS  c:\Temp\cctGqfAZ.s 			page 11
+
+
+ 479:../CMSIS/CM3_V1P30_Core/core_cm3.c ****   uint32_t result=0;
+  89              		.loc 1 479 0
+  90 0018 4FF00004 		mov	r4, #0
+ 480:../CMSIS/CM3_V1P30_Core/core_cm3.c **** 
+ 481:../CMSIS/CM3_V1P30_Core/core_cm3.c ****   __ASM volatile ("MRS %0, msp\n\t" 
+  91              		.loc 1 481 0
+  92              	@ 481 "../CMSIS/CM3_V1P30_Core/core_cm3.c" 1
+  93 001c EFF30884 		MRS r4, msp
+  94 0020 2046     		MOV r0, r4 
+  95 0022 7047     		BX  lr     
+  96              		
+  97              	@ 0 "" 2
+ 482:../CMSIS/CM3_V1P30_Core/core_cm3.c ****                   "MOV r0, %0 \n\t"
+ 483:../CMSIS/CM3_V1P30_Core/core_cm3.c ****                   "BX  lr     \n\t"  : "=r" (result) );
+ 484:../CMSIS/CM3_V1P30_Core/core_cm3.c ****   return(result);
+  98              		.loc 1 484 0
+  99              		.thumb
+ 100 0024 2346     		mov	r3, r4
+ 485:../CMSIS/CM3_V1P30_Core/core_cm3.c **** }
+ 101              		.loc 1 485 0
+ 102 0026 1846     		mov	r0, r3
+ 103              		.cfi_endproc
+ 104              	.LFE2:
+ 105              		.size	__get_MSP, .-__get_MSP
+ 106              		.align	2
+ 107              		.global	__set_MSP
+ 108              		.thumb
+ 109              		.thumb_func
+ 110              		.type	__set_MSP, %function
+ 111              	__set_MSP:
+ 112              	.LFB3:
+ 486:../CMSIS/CM3_V1P30_Core/core_cm3.c **** 
+ 487:../CMSIS/CM3_V1P30_Core/core_cm3.c **** /**
+ 488:../CMSIS/CM3_V1P30_Core/core_cm3.c ****  * @brief  Set the Main Stack Pointer
+ 489:../CMSIS/CM3_V1P30_Core/core_cm3.c ****  *
+ 490:../CMSIS/CM3_V1P30_Core/core_cm3.c ****  * @param  topOfMainStack  Main Stack Pointer
+ 491:../CMSIS/CM3_V1P30_Core/core_cm3.c ****  *
+ 492:../CMSIS/CM3_V1P30_Core/core_cm3.c ****  * Assign the value mainStackPointer to the MSP 
+ 493:../CMSIS/CM3_V1P30_Core/core_cm3.c ****  * (main stack pointer) Cortex processor register
+ 494:../CMSIS/CM3_V1P30_Core/core_cm3.c ****  */
+ 495:../CMSIS/CM3_V1P30_Core/core_cm3.c **** void __set_MSP(uint32_t topOfMainStack) __attribute__( ( naked ) );
+ 496:../CMSIS/CM3_V1P30_Core/core_cm3.c **** void __set_MSP(uint32_t topOfMainStack)
+ 497:../CMSIS/CM3_V1P30_Core/core_cm3.c **** {
+ 113              		.loc 1 497 0
+ 114              		.cfi_startproc
+ 115              		@ Naked Function: prologue and epilogue provided by programmer.
+ 116              		@ args = 0, pretend = 0, frame = 0
+ 117              		@ frame_needed = 1, uses_anonymous_args = 0
+ 118 0028 0346     		mov	r3, r0
+ 498:../CMSIS/CM3_V1P30_Core/core_cm3.c ****   __ASM volatile ("MSR msp, %0\n\t"
+ 119              		.loc 1 498 0
+ 120              	@ 498 "../CMSIS/CM3_V1P30_Core/core_cm3.c" 1
+ 121 002a 83F30888 		MSR msp, r3
+ 122 002e 7047     		BX  lr     
+ 123              		
+ 124              	@ 0 "" 2
+ 499:../CMSIS/CM3_V1P30_Core/core_cm3.c ****                   "BX  lr     \n\t" : : "r" (topOfMainStack) );
+ARM GAS  c:\Temp\cctGqfAZ.s 			page 12
+
+
+ 500:../CMSIS/CM3_V1P30_Core/core_cm3.c **** }
+ 125              		.loc 1 500 0
+ 126              		.thumb
+ 127              		.cfi_endproc
+ 128              	.LFE3:
+ 129              		.size	__set_MSP, .-__set_MSP
+ 130              		.align	2
+ 131              		.global	__get_BASEPRI
+ 132              		.thumb
+ 133              		.thumb_func
+ 134              		.type	__get_BASEPRI, %function
+ 135              	__get_BASEPRI:
+ 136              	.LFB4:
+ 501:../CMSIS/CM3_V1P30_Core/core_cm3.c **** 
+ 502:../CMSIS/CM3_V1P30_Core/core_cm3.c **** /**
+ 503:../CMSIS/CM3_V1P30_Core/core_cm3.c ****  * @brief  Return the Base Priority value
+ 504:../CMSIS/CM3_V1P30_Core/core_cm3.c ****  *
+ 505:../CMSIS/CM3_V1P30_Core/core_cm3.c ****  * @return BasePriority
+ 506:../CMSIS/CM3_V1P30_Core/core_cm3.c ****  *
+ 507:../CMSIS/CM3_V1P30_Core/core_cm3.c ****  * Return the content of the base priority register
+ 508:../CMSIS/CM3_V1P30_Core/core_cm3.c ****  */
+ 509:../CMSIS/CM3_V1P30_Core/core_cm3.c **** uint32_t __get_BASEPRI(void)
+ 510:../CMSIS/CM3_V1P30_Core/core_cm3.c **** {
+ 137              		.loc 1 510 0
+ 138              		.cfi_startproc
+ 139              		@ args = 0, pretend = 0, frame = 8
+ 140              		@ frame_needed = 1, uses_anonymous_args = 0
+ 141              		@ link register save eliminated.
+ 142 0030 90B4     		push	{r4, r7}
+ 143              	.LCFI0:
+ 144              		.cfi_def_cfa_offset 8
+ 145 0032 82B0     		sub	sp, sp, #8
+ 146              	.LCFI1:
+ 147              		.cfi_def_cfa_offset 16
+ 148 0034 00AF     		add	r7, sp, #0
+ 149              		.cfi_offset 7, -4
+ 150              		.cfi_offset 4, -8
+ 151              	.LCFI2:
+ 152              		.cfi_def_cfa_register 7
+ 511:../CMSIS/CM3_V1P30_Core/core_cm3.c ****   uint32_t result=0;
+ 153              		.loc 1 511 0
+ 154 0036 4FF00003 		mov	r3, #0
+ 155 003a 7B60     		str	r3, [r7, #4]
+ 512:../CMSIS/CM3_V1P30_Core/core_cm3.c ****   
+ 513:../CMSIS/CM3_V1P30_Core/core_cm3.c ****   __ASM volatile ("MRS %0, basepri_max" : "=r" (result) );
+ 156              		.loc 1 513 0
+ 157              	@ 513 "../CMSIS/CM3_V1P30_Core/core_cm3.c" 1
+ 158 003c EFF31284 		MRS r4, basepri_max
+ 159              	@ 0 "" 2
+ 160              		.thumb
+ 161 0040 7C60     		str	r4, [r7, #4]
+ 514:../CMSIS/CM3_V1P30_Core/core_cm3.c ****   return(result);
+ 162              		.loc 1 514 0
+ 163 0042 7B68     		ldr	r3, [r7, #4]
+ 515:../CMSIS/CM3_V1P30_Core/core_cm3.c **** }
+ 164              		.loc 1 515 0
+ 165 0044 1846     		mov	r0, r3
+ARM GAS  c:\Temp\cctGqfAZ.s 			page 13
+
+
+ 166 0046 07F10807 		add	r7, r7, #8
+ 167 004a BD46     		mov	sp, r7
+ 168 004c 90BC     		pop	{r4, r7}
+ 169 004e 7047     		bx	lr
+ 170              		.cfi_endproc
+ 171              	.LFE4:
+ 172              		.size	__get_BASEPRI, .-__get_BASEPRI
+ 173              		.align	2
+ 174              		.global	__set_BASEPRI
+ 175              		.thumb
+ 176              		.thumb_func
+ 177              		.type	__set_BASEPRI, %function
+ 178              	__set_BASEPRI:
+ 179              	.LFB5:
+ 516:../CMSIS/CM3_V1P30_Core/core_cm3.c **** 
+ 517:../CMSIS/CM3_V1P30_Core/core_cm3.c **** /**
+ 518:../CMSIS/CM3_V1P30_Core/core_cm3.c ****  * @brief  Set the Base Priority value
+ 519:../CMSIS/CM3_V1P30_Core/core_cm3.c ****  *
+ 520:../CMSIS/CM3_V1P30_Core/core_cm3.c ****  * @param  basePri  BasePriority
+ 521:../CMSIS/CM3_V1P30_Core/core_cm3.c ****  *
+ 522:../CMSIS/CM3_V1P30_Core/core_cm3.c ****  * Set the base priority register
+ 523:../CMSIS/CM3_V1P30_Core/core_cm3.c ****  */
+ 524:../CMSIS/CM3_V1P30_Core/core_cm3.c **** void __set_BASEPRI(uint32_t value)
+ 525:../CMSIS/CM3_V1P30_Core/core_cm3.c **** {
+ 180              		.loc 1 525 0
+ 181              		.cfi_startproc
+ 182              		@ args = 0, pretend = 0, frame = 8
+ 183              		@ frame_needed = 1, uses_anonymous_args = 0
+ 184              		@ link register save eliminated.
+ 185 0050 80B4     		push	{r7}
+ 186              	.LCFI3:
+ 187              		.cfi_def_cfa_offset 4
+ 188 0052 83B0     		sub	sp, sp, #12
+ 189              	.LCFI4:
+ 190              		.cfi_def_cfa_offset 16
+ 191 0054 00AF     		add	r7, sp, #0
+ 192              		.cfi_offset 7, -4
+ 193              	.LCFI5:
+ 194              		.cfi_def_cfa_register 7
+ 195 0056 7860     		str	r0, [r7, #4]
+ 526:../CMSIS/CM3_V1P30_Core/core_cm3.c ****   __ASM volatile ("MSR basepri, %0" : : "r" (value) );
+ 196              		.loc 1 526 0
+ 197 0058 7B68     		ldr	r3, [r7, #4]
+ 198              	@ 526 "../CMSIS/CM3_V1P30_Core/core_cm3.c" 1
+ 199 005a 83F31188 		MSR basepri, r3
+ 200              	@ 0 "" 2
+ 527:../CMSIS/CM3_V1P30_Core/core_cm3.c **** }
+ 201              		.loc 1 527 0
+ 202              		.thumb
+ 203 005e 07F10C07 		add	r7, r7, #12
+ 204 0062 BD46     		mov	sp, r7
+ 205 0064 80BC     		pop	{r7}
+ 206 0066 7047     		bx	lr
+ 207              		.cfi_endproc
+ 208              	.LFE5:
+ 209              		.size	__set_BASEPRI, .-__set_BASEPRI
+ 210              		.align	2
+ARM GAS  c:\Temp\cctGqfAZ.s 			page 14
+
+
+ 211              		.global	__get_PRIMASK
+ 212              		.thumb
+ 213              		.thumb_func
+ 214              		.type	__get_PRIMASK, %function
+ 215              	__get_PRIMASK:
+ 216              	.LFB6:
+ 528:../CMSIS/CM3_V1P30_Core/core_cm3.c **** 
+ 529:../CMSIS/CM3_V1P30_Core/core_cm3.c **** /**
+ 530:../CMSIS/CM3_V1P30_Core/core_cm3.c ****  * @brief  Return the Priority Mask value
+ 531:../CMSIS/CM3_V1P30_Core/core_cm3.c ****  *
+ 532:../CMSIS/CM3_V1P30_Core/core_cm3.c ****  * @return PriMask
+ 533:../CMSIS/CM3_V1P30_Core/core_cm3.c ****  *
+ 534:../CMSIS/CM3_V1P30_Core/core_cm3.c ****  * Return state of the priority mask bit from the priority mask register
+ 535:../CMSIS/CM3_V1P30_Core/core_cm3.c ****  */
+ 536:../CMSIS/CM3_V1P30_Core/core_cm3.c **** uint32_t __get_PRIMASK(void)
+ 537:../CMSIS/CM3_V1P30_Core/core_cm3.c **** {
+ 217              		.loc 1 537 0
+ 218              		.cfi_startproc
+ 219              		@ args = 0, pretend = 0, frame = 8
+ 220              		@ frame_needed = 1, uses_anonymous_args = 0
+ 221              		@ link register save eliminated.
+ 222 0068 90B4     		push	{r4, r7}
+ 223              	.LCFI6:
+ 224              		.cfi_def_cfa_offset 8
+ 225 006a 82B0     		sub	sp, sp, #8
+ 226              	.LCFI7:
+ 227              		.cfi_def_cfa_offset 16
+ 228 006c 00AF     		add	r7, sp, #0
+ 229              		.cfi_offset 7, -4
+ 230              		.cfi_offset 4, -8
+ 231              	.LCFI8:
+ 232              		.cfi_def_cfa_register 7
+ 538:../CMSIS/CM3_V1P30_Core/core_cm3.c ****   uint32_t result=0;
+ 233              		.loc 1 538 0
+ 234 006e 4FF00003 		mov	r3, #0
+ 235 0072 7B60     		str	r3, [r7, #4]
+ 539:../CMSIS/CM3_V1P30_Core/core_cm3.c **** 
+ 540:../CMSIS/CM3_V1P30_Core/core_cm3.c ****   __ASM volatile ("MRS %0, primask" : "=r" (result) );
+ 236              		.loc 1 540 0
+ 237              	@ 540 "../CMSIS/CM3_V1P30_Core/core_cm3.c" 1
+ 238 0074 EFF31084 		MRS r4, primask
+ 239              	@ 0 "" 2
+ 240              		.thumb
+ 241 0078 7C60     		str	r4, [r7, #4]
+ 541:../CMSIS/CM3_V1P30_Core/core_cm3.c ****   return(result);
+ 242              		.loc 1 541 0
+ 243 007a 7B68     		ldr	r3, [r7, #4]
+ 542:../CMSIS/CM3_V1P30_Core/core_cm3.c **** }
+ 244              		.loc 1 542 0
+ 245 007c 1846     		mov	r0, r3
+ 246 007e 07F10807 		add	r7, r7, #8
+ 247 0082 BD46     		mov	sp, r7
+ 248 0084 90BC     		pop	{r4, r7}
+ 249 0086 7047     		bx	lr
+ 250              		.cfi_endproc
+ 251              	.LFE6:
+ 252              		.size	__get_PRIMASK, .-__get_PRIMASK
+ARM GAS  c:\Temp\cctGqfAZ.s 			page 15
+
+
+ 253              		.align	2
+ 254              		.global	__set_PRIMASK
+ 255              		.thumb
+ 256              		.thumb_func
+ 257              		.type	__set_PRIMASK, %function
+ 258              	__set_PRIMASK:
+ 259              	.LFB7:
+ 543:../CMSIS/CM3_V1P30_Core/core_cm3.c **** 
+ 544:../CMSIS/CM3_V1P30_Core/core_cm3.c **** /**
+ 545:../CMSIS/CM3_V1P30_Core/core_cm3.c ****  * @brief  Set the Priority Mask value
+ 546:../CMSIS/CM3_V1P30_Core/core_cm3.c ****  *
+ 547:../CMSIS/CM3_V1P30_Core/core_cm3.c ****  * @param  priMask  PriMask
+ 548:../CMSIS/CM3_V1P30_Core/core_cm3.c ****  *
+ 549:../CMSIS/CM3_V1P30_Core/core_cm3.c ****  * Set the priority mask bit in the priority mask register
+ 550:../CMSIS/CM3_V1P30_Core/core_cm3.c ****  */
+ 551:../CMSIS/CM3_V1P30_Core/core_cm3.c **** void __set_PRIMASK(uint32_t priMask)
+ 552:../CMSIS/CM3_V1P30_Core/core_cm3.c **** {
+ 260              		.loc 1 552 0
+ 261              		.cfi_startproc
+ 262              		@ args = 0, pretend = 0, frame = 8
+ 263              		@ frame_needed = 1, uses_anonymous_args = 0
+ 264              		@ link register save eliminated.
+ 265 0088 80B4     		push	{r7}
+ 266              	.LCFI9:
+ 267              		.cfi_def_cfa_offset 4
+ 268 008a 83B0     		sub	sp, sp, #12
+ 269              	.LCFI10:
+ 270              		.cfi_def_cfa_offset 16
+ 271 008c 00AF     		add	r7, sp, #0
+ 272              		.cfi_offset 7, -4
+ 273              	.LCFI11:
+ 274              		.cfi_def_cfa_register 7
+ 275 008e 7860     		str	r0, [r7, #4]
+ 553:../CMSIS/CM3_V1P30_Core/core_cm3.c ****   __ASM volatile ("MSR primask, %0" : : "r" (priMask) );
+ 276              		.loc 1 553 0
+ 277 0090 7B68     		ldr	r3, [r7, #4]
+ 278              	@ 553 "../CMSIS/CM3_V1P30_Core/core_cm3.c" 1
+ 279 0092 83F31088 		MSR primask, r3
+ 280              	@ 0 "" 2
+ 554:../CMSIS/CM3_V1P30_Core/core_cm3.c **** }
+ 281              		.loc 1 554 0
+ 282              		.thumb
+ 283 0096 07F10C07 		add	r7, r7, #12
+ 284 009a BD46     		mov	sp, r7
+ 285 009c 80BC     		pop	{r7}
+ 286 009e 7047     		bx	lr
+ 287              		.cfi_endproc
+ 288              	.LFE7:
+ 289              		.size	__set_PRIMASK, .-__set_PRIMASK
+ 290              		.align	2
+ 291              		.global	__get_FAULTMASK
+ 292              		.thumb
+ 293              		.thumb_func
+ 294              		.type	__get_FAULTMASK, %function
+ 295              	__get_FAULTMASK:
+ 296              	.LFB8:
+ 555:../CMSIS/CM3_V1P30_Core/core_cm3.c **** 
+ARM GAS  c:\Temp\cctGqfAZ.s 			page 16
+
+
+ 556:../CMSIS/CM3_V1P30_Core/core_cm3.c **** /**
+ 557:../CMSIS/CM3_V1P30_Core/core_cm3.c ****  * @brief  Return the Fault Mask value
+ 558:../CMSIS/CM3_V1P30_Core/core_cm3.c ****  *
+ 559:../CMSIS/CM3_V1P30_Core/core_cm3.c ****  * @return FaultMask
+ 560:../CMSIS/CM3_V1P30_Core/core_cm3.c ****  *
+ 561:../CMSIS/CM3_V1P30_Core/core_cm3.c ****  * Return the content of the fault mask register
+ 562:../CMSIS/CM3_V1P30_Core/core_cm3.c ****  */
+ 563:../CMSIS/CM3_V1P30_Core/core_cm3.c **** uint32_t __get_FAULTMASK(void)
+ 564:../CMSIS/CM3_V1P30_Core/core_cm3.c **** {
+ 297              		.loc 1 564 0
+ 298              		.cfi_startproc
+ 299              		@ args = 0, pretend = 0, frame = 8
+ 300              		@ frame_needed = 1, uses_anonymous_args = 0
+ 301              		@ link register save eliminated.
+ 302 00a0 90B4     		push	{r4, r7}
+ 303              	.LCFI12:
+ 304              		.cfi_def_cfa_offset 8
+ 305 00a2 82B0     		sub	sp, sp, #8
+ 306              	.LCFI13:
+ 307              		.cfi_def_cfa_offset 16
+ 308 00a4 00AF     		add	r7, sp, #0
+ 309              		.cfi_offset 7, -4
+ 310              		.cfi_offset 4, -8
+ 311              	.LCFI14:
+ 312              		.cfi_def_cfa_register 7
+ 565:../CMSIS/CM3_V1P30_Core/core_cm3.c ****   uint32_t result=0;
+ 313              		.loc 1 565 0
+ 314 00a6 4FF00003 		mov	r3, #0
+ 315 00aa 7B60     		str	r3, [r7, #4]
+ 566:../CMSIS/CM3_V1P30_Core/core_cm3.c ****   
+ 567:../CMSIS/CM3_V1P30_Core/core_cm3.c ****   __ASM volatile ("MRS %0, faultmask" : "=r" (result) );
+ 316              		.loc 1 567 0
+ 317              	@ 567 "../CMSIS/CM3_V1P30_Core/core_cm3.c" 1
+ 318 00ac EFF31384 		MRS r4, faultmask
+ 319              	@ 0 "" 2
+ 320              		.thumb
+ 321 00b0 7C60     		str	r4, [r7, #4]
+ 568:../CMSIS/CM3_V1P30_Core/core_cm3.c ****   return(result);
+ 322              		.loc 1 568 0
+ 323 00b2 7B68     		ldr	r3, [r7, #4]
+ 569:../CMSIS/CM3_V1P30_Core/core_cm3.c **** }
+ 324              		.loc 1 569 0
+ 325 00b4 1846     		mov	r0, r3
+ 326 00b6 07F10807 		add	r7, r7, #8
+ 327 00ba BD46     		mov	sp, r7
+ 328 00bc 90BC     		pop	{r4, r7}
+ 329 00be 7047     		bx	lr
+ 330              		.cfi_endproc
+ 331              	.LFE8:
+ 332              		.size	__get_FAULTMASK, .-__get_FAULTMASK
+ 333              		.align	2
+ 334              		.global	__set_FAULTMASK
+ 335              		.thumb
+ 336              		.thumb_func
+ 337              		.type	__set_FAULTMASK, %function
+ 338              	__set_FAULTMASK:
+ 339              	.LFB9:
+ARM GAS  c:\Temp\cctGqfAZ.s 			page 17
+
+
+ 570:../CMSIS/CM3_V1P30_Core/core_cm3.c **** 
+ 571:../CMSIS/CM3_V1P30_Core/core_cm3.c **** /**
+ 572:../CMSIS/CM3_V1P30_Core/core_cm3.c ****  * @brief  Set the Fault Mask value
+ 573:../CMSIS/CM3_V1P30_Core/core_cm3.c ****  *
+ 574:../CMSIS/CM3_V1P30_Core/core_cm3.c ****  * @param  faultMask  faultMask value
+ 575:../CMSIS/CM3_V1P30_Core/core_cm3.c ****  *
+ 576:../CMSIS/CM3_V1P30_Core/core_cm3.c ****  * Set the fault mask register
+ 577:../CMSIS/CM3_V1P30_Core/core_cm3.c ****  */
+ 578:../CMSIS/CM3_V1P30_Core/core_cm3.c **** void __set_FAULTMASK(uint32_t faultMask)
+ 579:../CMSIS/CM3_V1P30_Core/core_cm3.c **** {
+ 340              		.loc 1 579 0
+ 341              		.cfi_startproc
+ 342              		@ args = 0, pretend = 0, frame = 8
+ 343              		@ frame_needed = 1, uses_anonymous_args = 0
+ 344              		@ link register save eliminated.
+ 345 00c0 80B4     		push	{r7}
+ 346              	.LCFI15:
+ 347              		.cfi_def_cfa_offset 4
+ 348 00c2 83B0     		sub	sp, sp, #12
+ 349              	.LCFI16:
+ 350              		.cfi_def_cfa_offset 16
+ 351 00c4 00AF     		add	r7, sp, #0
+ 352              		.cfi_offset 7, -4
+ 353              	.LCFI17:
+ 354              		.cfi_def_cfa_register 7
+ 355 00c6 7860     		str	r0, [r7, #4]
+ 580:../CMSIS/CM3_V1P30_Core/core_cm3.c ****   __ASM volatile ("MSR faultmask, %0" : : "r" (faultMask) );
+ 356              		.loc 1 580 0
+ 357 00c8 7B68     		ldr	r3, [r7, #4]
+ 358              	@ 580 "../CMSIS/CM3_V1P30_Core/core_cm3.c" 1
+ 359 00ca 83F31388 		MSR faultmask, r3
+ 360              	@ 0 "" 2
+ 581:../CMSIS/CM3_V1P30_Core/core_cm3.c **** }
+ 361              		.loc 1 581 0
+ 362              		.thumb
+ 363 00ce 07F10C07 		add	r7, r7, #12
+ 364 00d2 BD46     		mov	sp, r7
+ 365 00d4 80BC     		pop	{r7}
+ 366 00d6 7047     		bx	lr
+ 367              		.cfi_endproc
+ 368              	.LFE9:
+ 369              		.size	__set_FAULTMASK, .-__set_FAULTMASK
+ 370              		.align	2
+ 371              		.global	__get_CONTROL
+ 372              		.thumb
+ 373              		.thumb_func
+ 374              		.type	__get_CONTROL, %function
+ 375              	__get_CONTROL:
+ 376              	.LFB10:
+ 582:../CMSIS/CM3_V1P30_Core/core_cm3.c **** 
+ 583:../CMSIS/CM3_V1P30_Core/core_cm3.c **** /**
+ 584:../CMSIS/CM3_V1P30_Core/core_cm3.c ****  * @brief  Return the Control Register value
+ 585:../CMSIS/CM3_V1P30_Core/core_cm3.c **** * 
+ 586:../CMSIS/CM3_V1P30_Core/core_cm3.c **** *  @return Control value
+ 587:../CMSIS/CM3_V1P30_Core/core_cm3.c ****  *
+ 588:../CMSIS/CM3_V1P30_Core/core_cm3.c ****  * Return the content of the control register
+ 589:../CMSIS/CM3_V1P30_Core/core_cm3.c ****  */
+ARM GAS  c:\Temp\cctGqfAZ.s 			page 18
+
+
+ 590:../CMSIS/CM3_V1P30_Core/core_cm3.c **** uint32_t __get_CONTROL(void)
+ 591:../CMSIS/CM3_V1P30_Core/core_cm3.c **** {
+ 377              		.loc 1 591 0
+ 378              		.cfi_startproc
+ 379              		@ args = 0, pretend = 0, frame = 8
+ 380              		@ frame_needed = 1, uses_anonymous_args = 0
+ 381              		@ link register save eliminated.
+ 382 00d8 90B4     		push	{r4, r7}
+ 383              	.LCFI18:
+ 384              		.cfi_def_cfa_offset 8
+ 385 00da 82B0     		sub	sp, sp, #8
+ 386              	.LCFI19:
+ 387              		.cfi_def_cfa_offset 16
+ 388 00dc 00AF     		add	r7, sp, #0
+ 389              		.cfi_offset 7, -4
+ 390              		.cfi_offset 4, -8
+ 391              	.LCFI20:
+ 392              		.cfi_def_cfa_register 7
+ 592:../CMSIS/CM3_V1P30_Core/core_cm3.c ****   uint32_t result=0;
+ 393              		.loc 1 592 0
+ 394 00de 4FF00003 		mov	r3, #0
+ 395 00e2 7B60     		str	r3, [r7, #4]
+ 593:../CMSIS/CM3_V1P30_Core/core_cm3.c **** 
+ 594:../CMSIS/CM3_V1P30_Core/core_cm3.c ****   __ASM volatile ("MRS %0, control" : "=r" (result) );
+ 396              		.loc 1 594 0
+ 397              	@ 594 "../CMSIS/CM3_V1P30_Core/core_cm3.c" 1
+ 398 00e4 EFF31484 		MRS r4, control
+ 399              	@ 0 "" 2
+ 400              		.thumb
+ 401 00e8 7C60     		str	r4, [r7, #4]
+ 595:../CMSIS/CM3_V1P30_Core/core_cm3.c ****   return(result);
+ 402              		.loc 1 595 0
+ 403 00ea 7B68     		ldr	r3, [r7, #4]
+ 596:../CMSIS/CM3_V1P30_Core/core_cm3.c **** }
+ 404              		.loc 1 596 0
+ 405 00ec 1846     		mov	r0, r3
+ 406 00ee 07F10807 		add	r7, r7, #8
+ 407 00f2 BD46     		mov	sp, r7
+ 408 00f4 90BC     		pop	{r4, r7}
+ 409 00f6 7047     		bx	lr
+ 410              		.cfi_endproc
+ 411              	.LFE10:
+ 412              		.size	__get_CONTROL, .-__get_CONTROL
+ 413              		.align	2
+ 414              		.global	__set_CONTROL
+ 415              		.thumb
+ 416              		.thumb_func
+ 417              		.type	__set_CONTROL, %function
+ 418              	__set_CONTROL:
+ 419              	.LFB11:
+ 597:../CMSIS/CM3_V1P30_Core/core_cm3.c **** 
+ 598:../CMSIS/CM3_V1P30_Core/core_cm3.c **** /**
+ 599:../CMSIS/CM3_V1P30_Core/core_cm3.c ****  * @brief  Set the Control Register value
+ 600:../CMSIS/CM3_V1P30_Core/core_cm3.c ****  *
+ 601:../CMSIS/CM3_V1P30_Core/core_cm3.c ****  * @param  control  Control value
+ 602:../CMSIS/CM3_V1P30_Core/core_cm3.c ****  *
+ 603:../CMSIS/CM3_V1P30_Core/core_cm3.c ****  * Set the control register
+ARM GAS  c:\Temp\cctGqfAZ.s 			page 19
+
+
+ 604:../CMSIS/CM3_V1P30_Core/core_cm3.c ****  */
+ 605:../CMSIS/CM3_V1P30_Core/core_cm3.c **** void __set_CONTROL(uint32_t control)
+ 606:../CMSIS/CM3_V1P30_Core/core_cm3.c **** {
+ 420              		.loc 1 606 0
+ 421              		.cfi_startproc
+ 422              		@ args = 0, pretend = 0, frame = 8
+ 423              		@ frame_needed = 1, uses_anonymous_args = 0
+ 424              		@ link register save eliminated.
+ 425 00f8 80B4     		push	{r7}
+ 426              	.LCFI21:
+ 427              		.cfi_def_cfa_offset 4
+ 428 00fa 83B0     		sub	sp, sp, #12
+ 429              	.LCFI22:
+ 430              		.cfi_def_cfa_offset 16
+ 431 00fc 00AF     		add	r7, sp, #0
+ 432              		.cfi_offset 7, -4
+ 433              	.LCFI23:
+ 434              		.cfi_def_cfa_register 7
+ 435 00fe 7860     		str	r0, [r7, #4]
+ 607:../CMSIS/CM3_V1P30_Core/core_cm3.c ****   __ASM volatile ("MSR control, %0" : : "r" (control) );
+ 436              		.loc 1 607 0
+ 437 0100 7B68     		ldr	r3, [r7, #4]
+ 438              	@ 607 "../CMSIS/CM3_V1P30_Core/core_cm3.c" 1
+ 439 0102 83F31488 		MSR control, r3
+ 440              	@ 0 "" 2
+ 608:../CMSIS/CM3_V1P30_Core/core_cm3.c **** }
+ 441              		.loc 1 608 0
+ 442              		.thumb
+ 443 0106 07F10C07 		add	r7, r7, #12
+ 444 010a BD46     		mov	sp, r7
+ 445 010c 80BC     		pop	{r7}
+ 446 010e 7047     		bx	lr
+ 447              		.cfi_endproc
+ 448              	.LFE11:
+ 449              		.size	__set_CONTROL, .-__set_CONTROL
+ 450              		.align	2
+ 451              		.global	__REV
+ 452              		.thumb
+ 453              		.thumb_func
+ 454              		.type	__REV, %function
+ 455              	__REV:
+ 456              	.LFB12:
+ 609:../CMSIS/CM3_V1P30_Core/core_cm3.c **** 
+ 610:../CMSIS/CM3_V1P30_Core/core_cm3.c **** 
+ 611:../CMSIS/CM3_V1P30_Core/core_cm3.c **** /**
+ 612:../CMSIS/CM3_V1P30_Core/core_cm3.c ****  * @brief  Reverse byte order in integer value
+ 613:../CMSIS/CM3_V1P30_Core/core_cm3.c ****  *
+ 614:../CMSIS/CM3_V1P30_Core/core_cm3.c ****  * @param  value  value to reverse
+ 615:../CMSIS/CM3_V1P30_Core/core_cm3.c ****  * @return        reversed value
+ 616:../CMSIS/CM3_V1P30_Core/core_cm3.c ****  *
+ 617:../CMSIS/CM3_V1P30_Core/core_cm3.c ****  * Reverse byte order in integer value
+ 618:../CMSIS/CM3_V1P30_Core/core_cm3.c ****  */
+ 619:../CMSIS/CM3_V1P30_Core/core_cm3.c **** uint32_t __REV(uint32_t value)
+ 620:../CMSIS/CM3_V1P30_Core/core_cm3.c **** {
+ 457              		.loc 1 620 0
+ 458              		.cfi_startproc
+ 459              		@ args = 0, pretend = 0, frame = 16
+ARM GAS  c:\Temp\cctGqfAZ.s 			page 20
+
+
+ 460              		@ frame_needed = 1, uses_anonymous_args = 0
+ 461              		@ link register save eliminated.
+ 462 0110 90B4     		push	{r4, r7}
+ 463              	.LCFI24:
+ 464              		.cfi_def_cfa_offset 8
+ 465 0112 84B0     		sub	sp, sp, #16
+ 466              	.LCFI25:
+ 467              		.cfi_def_cfa_offset 24
+ 468 0114 00AF     		add	r7, sp, #0
+ 469              		.cfi_offset 7, -4
+ 470              		.cfi_offset 4, -8
+ 471              	.LCFI26:
+ 472              		.cfi_def_cfa_register 7
+ 473 0116 7860     		str	r0, [r7, #4]
+ 621:../CMSIS/CM3_V1P30_Core/core_cm3.c ****   uint32_t result=0;
+ 474              		.loc 1 621 0
+ 475 0118 4FF00003 		mov	r3, #0
+ 476 011c FB60     		str	r3, [r7, #12]
+ 622:../CMSIS/CM3_V1P30_Core/core_cm3.c ****   
+ 623:../CMSIS/CM3_V1P30_Core/core_cm3.c ****   __ASM volatile ("rev %0, %1" : "=r" (result) : "r" (value) );
+ 477              		.loc 1 623 0
+ 478 011e 7B68     		ldr	r3, [r7, #4]
+ 479              	@ 623 "../CMSIS/CM3_V1P30_Core/core_cm3.c" 1
+ 480 0120 1CBA     		rev r4, r3
+ 481              	@ 0 "" 2
+ 482              		.thumb
+ 483 0122 FC60     		str	r4, [r7, #12]
+ 624:../CMSIS/CM3_V1P30_Core/core_cm3.c ****   return(result);
+ 484              		.loc 1 624 0
+ 485 0124 FB68     		ldr	r3, [r7, #12]
+ 625:../CMSIS/CM3_V1P30_Core/core_cm3.c **** }
+ 486              		.loc 1 625 0
+ 487 0126 1846     		mov	r0, r3
+ 488 0128 07F11007 		add	r7, r7, #16
+ 489 012c BD46     		mov	sp, r7
+ 490 012e 90BC     		pop	{r4, r7}
+ 491 0130 7047     		bx	lr
+ 492              		.cfi_endproc
+ 493              	.LFE12:
+ 494              		.size	__REV, .-__REV
+ 495 0132 00BF     		.align	2
+ 496              		.global	__REV16
+ 497              		.thumb
+ 498              		.thumb_func
+ 499              		.type	__REV16, %function
+ 500              	__REV16:
+ 501              	.LFB13:
+ 626:../CMSIS/CM3_V1P30_Core/core_cm3.c **** 
+ 627:../CMSIS/CM3_V1P30_Core/core_cm3.c **** /**
+ 628:../CMSIS/CM3_V1P30_Core/core_cm3.c ****  * @brief  Reverse byte order in unsigned short value
+ 629:../CMSIS/CM3_V1P30_Core/core_cm3.c ****  *
+ 630:../CMSIS/CM3_V1P30_Core/core_cm3.c ****  * @param  value  value to reverse
+ 631:../CMSIS/CM3_V1P30_Core/core_cm3.c ****  * @return        reversed value
+ 632:../CMSIS/CM3_V1P30_Core/core_cm3.c ****  *
+ 633:../CMSIS/CM3_V1P30_Core/core_cm3.c ****  * Reverse byte order in unsigned short value
+ 634:../CMSIS/CM3_V1P30_Core/core_cm3.c ****  */
+ 635:../CMSIS/CM3_V1P30_Core/core_cm3.c **** uint32_t __REV16(uint16_t value)
+ARM GAS  c:\Temp\cctGqfAZ.s 			page 21
+
+
+ 636:../CMSIS/CM3_V1P30_Core/core_cm3.c **** {
+ 502              		.loc 1 636 0
+ 503              		.cfi_startproc
+ 504              		@ args = 0, pretend = 0, frame = 16
+ 505              		@ frame_needed = 1, uses_anonymous_args = 0
+ 506              		@ link register save eliminated.
+ 507 0134 90B4     		push	{r4, r7}
+ 508              	.LCFI27:
+ 509              		.cfi_def_cfa_offset 8
+ 510 0136 84B0     		sub	sp, sp, #16
+ 511              	.LCFI28:
+ 512              		.cfi_def_cfa_offset 24
+ 513 0138 00AF     		add	r7, sp, #0
+ 514              		.cfi_offset 7, -4
+ 515              		.cfi_offset 4, -8
+ 516              	.LCFI29:
+ 517              		.cfi_def_cfa_register 7
+ 518 013a 0346     		mov	r3, r0
+ 519 013c FB80     		strh	r3, [r7, #6]	@ movhi
+ 637:../CMSIS/CM3_V1P30_Core/core_cm3.c ****   uint32_t result=0;
+ 520              		.loc 1 637 0
+ 521 013e 4FF00003 		mov	r3, #0
+ 522 0142 FB60     		str	r3, [r7, #12]
+ 638:../CMSIS/CM3_V1P30_Core/core_cm3.c ****   
+ 639:../CMSIS/CM3_V1P30_Core/core_cm3.c ****   __ASM volatile ("rev16 %0, %1" : "=r" (result) : "r" (value) );
+ 523              		.loc 1 639 0
+ 524 0144 FB88     		ldrh	r3, [r7, #6]	@ movhi
+ 525              	@ 639 "../CMSIS/CM3_V1P30_Core/core_cm3.c" 1
+ 526 0146 5CBA     		rev16 r4, r3
+ 527              	@ 0 "" 2
+ 528              		.thumb
+ 529 0148 FC60     		str	r4, [r7, #12]
+ 640:../CMSIS/CM3_V1P30_Core/core_cm3.c ****   return(result);
+ 530              		.loc 1 640 0
+ 531 014a FB68     		ldr	r3, [r7, #12]
+ 641:../CMSIS/CM3_V1P30_Core/core_cm3.c **** }
+ 532              		.loc 1 641 0
+ 533 014c 1846     		mov	r0, r3
+ 534 014e 07F11007 		add	r7, r7, #16
+ 535 0152 BD46     		mov	sp, r7
+ 536 0154 90BC     		pop	{r4, r7}
+ 537 0156 7047     		bx	lr
+ 538              		.cfi_endproc
+ 539              	.LFE13:
+ 540              		.size	__REV16, .-__REV16
+ 541              		.align	2
+ 542              		.global	__REVSH
+ 543              		.thumb
+ 544              		.thumb_func
+ 545              		.type	__REVSH, %function
+ 546              	__REVSH:
+ 547              	.LFB14:
+ 642:../CMSIS/CM3_V1P30_Core/core_cm3.c **** 
+ 643:../CMSIS/CM3_V1P30_Core/core_cm3.c **** /**
+ 644:../CMSIS/CM3_V1P30_Core/core_cm3.c ****  * @brief  Reverse byte order in signed short value with sign extension to integer
+ 645:../CMSIS/CM3_V1P30_Core/core_cm3.c ****  *
+ 646:../CMSIS/CM3_V1P30_Core/core_cm3.c ****  * @param  value  value to reverse
+ARM GAS  c:\Temp\cctGqfAZ.s 			page 22
+
+
+ 647:../CMSIS/CM3_V1P30_Core/core_cm3.c ****  * @return        reversed value
+ 648:../CMSIS/CM3_V1P30_Core/core_cm3.c ****  *
+ 649:../CMSIS/CM3_V1P30_Core/core_cm3.c ****  * Reverse byte order in signed short value with sign extension to integer
+ 650:../CMSIS/CM3_V1P30_Core/core_cm3.c ****  */
+ 651:../CMSIS/CM3_V1P30_Core/core_cm3.c **** int32_t __REVSH(int16_t value)
+ 652:../CMSIS/CM3_V1P30_Core/core_cm3.c **** {
+ 548              		.loc 1 652 0
+ 549              		.cfi_startproc
+ 550              		@ args = 0, pretend = 0, frame = 16
+ 551              		@ frame_needed = 1, uses_anonymous_args = 0
+ 552              		@ link register save eliminated.
+ 553 0158 90B4     		push	{r4, r7}
+ 554              	.LCFI30:
+ 555              		.cfi_def_cfa_offset 8
+ 556 015a 84B0     		sub	sp, sp, #16
+ 557              	.LCFI31:
+ 558              		.cfi_def_cfa_offset 24
+ 559 015c 00AF     		add	r7, sp, #0
+ 560              		.cfi_offset 7, -4
+ 561              		.cfi_offset 4, -8
+ 562              	.LCFI32:
+ 563              		.cfi_def_cfa_register 7
+ 564 015e 0346     		mov	r3, r0
+ 565 0160 FB80     		strh	r3, [r7, #6]	@ movhi
+ 653:../CMSIS/CM3_V1P30_Core/core_cm3.c ****   uint32_t result=0;
+ 566              		.loc 1 653 0
+ 567 0162 4FF00003 		mov	r3, #0
+ 568 0166 FB60     		str	r3, [r7, #12]
+ 654:../CMSIS/CM3_V1P30_Core/core_cm3.c ****   
+ 655:../CMSIS/CM3_V1P30_Core/core_cm3.c ****   __ASM volatile ("revsh %0, %1" : "=r" (result) : "r" (value) );
+ 569              		.loc 1 655 0
+ 570 0168 FB88     		ldrh	r3, [r7, #6]	@ movhi
+ 571              	@ 655 "../CMSIS/CM3_V1P30_Core/core_cm3.c" 1
+ 572 016a DCBA     		revsh r4, r3
+ 573              	@ 0 "" 2
+ 574              		.thumb
+ 575 016c FC60     		str	r4, [r7, #12]
+ 656:../CMSIS/CM3_V1P30_Core/core_cm3.c ****   return(result);
+ 576              		.loc 1 656 0
+ 577 016e FB68     		ldr	r3, [r7, #12]
+ 657:../CMSIS/CM3_V1P30_Core/core_cm3.c **** }
+ 578              		.loc 1 657 0
+ 579 0170 1846     		mov	r0, r3
+ 580 0172 07F11007 		add	r7, r7, #16
+ 581 0176 BD46     		mov	sp, r7
+ 582 0178 90BC     		pop	{r4, r7}
+ 583 017a 7047     		bx	lr
+ 584              		.cfi_endproc
+ 585              	.LFE14:
+ 586              		.size	__REVSH, .-__REVSH
+ 587              		.align	2
+ 588              		.global	__RBIT
+ 589              		.thumb
+ 590              		.thumb_func
+ 591              		.type	__RBIT, %function
+ 592              	__RBIT:
+ 593              	.LFB15:
+ARM GAS  c:\Temp\cctGqfAZ.s 			page 23
+
+
+ 658:../CMSIS/CM3_V1P30_Core/core_cm3.c **** 
+ 659:../CMSIS/CM3_V1P30_Core/core_cm3.c **** /**
+ 660:../CMSIS/CM3_V1P30_Core/core_cm3.c ****  * @brief  Reverse bit order of value
+ 661:../CMSIS/CM3_V1P30_Core/core_cm3.c ****  *
+ 662:../CMSIS/CM3_V1P30_Core/core_cm3.c ****  * @param  value  value to reverse
+ 663:../CMSIS/CM3_V1P30_Core/core_cm3.c ****  * @return        reversed value
+ 664:../CMSIS/CM3_V1P30_Core/core_cm3.c ****  *
+ 665:../CMSIS/CM3_V1P30_Core/core_cm3.c ****  * Reverse bit order of value
+ 666:../CMSIS/CM3_V1P30_Core/core_cm3.c ****  */
+ 667:../CMSIS/CM3_V1P30_Core/core_cm3.c **** uint32_t __RBIT(uint32_t value)
+ 668:../CMSIS/CM3_V1P30_Core/core_cm3.c **** {
+ 594              		.loc 1 668 0
+ 595              		.cfi_startproc
+ 596              		@ args = 0, pretend = 0, frame = 16
+ 597              		@ frame_needed = 1, uses_anonymous_args = 0
+ 598              		@ link register save eliminated.
+ 599 017c 90B4     		push	{r4, r7}
+ 600              	.LCFI33:
+ 601              		.cfi_def_cfa_offset 8
+ 602 017e 84B0     		sub	sp, sp, #16
+ 603              	.LCFI34:
+ 604              		.cfi_def_cfa_offset 24
+ 605 0180 00AF     		add	r7, sp, #0
+ 606              		.cfi_offset 7, -4
+ 607              		.cfi_offset 4, -8
+ 608              	.LCFI35:
+ 609              		.cfi_def_cfa_register 7
+ 610 0182 7860     		str	r0, [r7, #4]
+ 669:../CMSIS/CM3_V1P30_Core/core_cm3.c ****   uint32_t result=0;
+ 611              		.loc 1 669 0
+ 612 0184 4FF00003 		mov	r3, #0
+ 613 0188 FB60     		str	r3, [r7, #12]
+ 670:../CMSIS/CM3_V1P30_Core/core_cm3.c ****   
+ 671:../CMSIS/CM3_V1P30_Core/core_cm3.c ****    __ASM volatile ("rbit %0, %1" : "=r" (result) : "r" (value) );
+ 614              		.loc 1 671 0
+ 615 018a 7B68     		ldr	r3, [r7, #4]
+ 616              	@ 671 "../CMSIS/CM3_V1P30_Core/core_cm3.c" 1
+ 617 018c 93FAA3F4 		rbit r4, r3
+ 618              	@ 0 "" 2
+ 619              		.thumb
+ 620 0190 FC60     		str	r4, [r7, #12]
+ 672:../CMSIS/CM3_V1P30_Core/core_cm3.c ****    return(result);
+ 621              		.loc 1 672 0
+ 622 0192 FB68     		ldr	r3, [r7, #12]
+ 673:../CMSIS/CM3_V1P30_Core/core_cm3.c **** }
+ 623              		.loc 1 673 0
+ 624 0194 1846     		mov	r0, r3
+ 625 0196 07F11007 		add	r7, r7, #16
+ 626 019a BD46     		mov	sp, r7
+ 627 019c 90BC     		pop	{r4, r7}
+ 628 019e 7047     		bx	lr
+ 629              		.cfi_endproc
+ 630              	.LFE15:
+ 631              		.size	__RBIT, .-__RBIT
+ 632              		.align	2
+ 633              		.global	__LDREXB
+ 634              		.thumb
+ARM GAS  c:\Temp\cctGqfAZ.s 			page 24
+
+
+ 635              		.thumb_func
+ 636              		.type	__LDREXB, %function
+ 637              	__LDREXB:
+ 638              	.LFB16:
+ 674:../CMSIS/CM3_V1P30_Core/core_cm3.c **** 
+ 675:../CMSIS/CM3_V1P30_Core/core_cm3.c **** /**
+ 676:../CMSIS/CM3_V1P30_Core/core_cm3.c ****  * @brief  LDR Exclusive (8 bit)
+ 677:../CMSIS/CM3_V1P30_Core/core_cm3.c ****  *
+ 678:../CMSIS/CM3_V1P30_Core/core_cm3.c ****  * @param  *addr  address pointer
+ 679:../CMSIS/CM3_V1P30_Core/core_cm3.c ****  * @return        value of (*address)
+ 680:../CMSIS/CM3_V1P30_Core/core_cm3.c ****  *
+ 681:../CMSIS/CM3_V1P30_Core/core_cm3.c ****  * Exclusive LDR command for 8 bit value
+ 682:../CMSIS/CM3_V1P30_Core/core_cm3.c ****  */
+ 683:../CMSIS/CM3_V1P30_Core/core_cm3.c **** uint8_t __LDREXB(uint8_t *addr)
+ 684:../CMSIS/CM3_V1P30_Core/core_cm3.c **** {
+ 639              		.loc 1 684 0
+ 640              		.cfi_startproc
+ 641              		@ args = 0, pretend = 0, frame = 16
+ 642              		@ frame_needed = 1, uses_anonymous_args = 0
+ 643              		@ link register save eliminated.
+ 644 01a0 90B4     		push	{r4, r7}
+ 645              	.LCFI36:
+ 646              		.cfi_def_cfa_offset 8
+ 647 01a2 84B0     		sub	sp, sp, #16
+ 648              	.LCFI37:
+ 649              		.cfi_def_cfa_offset 24
+ 650 01a4 00AF     		add	r7, sp, #0
+ 651              		.cfi_offset 7, -4
+ 652              		.cfi_offset 4, -8
+ 653              	.LCFI38:
+ 654              		.cfi_def_cfa_register 7
+ 655 01a6 7860     		str	r0, [r7, #4]
+ 685:../CMSIS/CM3_V1P30_Core/core_cm3.c ****     uint8_t result=0;
+ 656              		.loc 1 685 0
+ 657 01a8 4FF00003 		mov	r3, #0
+ 658 01ac FB73     		strb	r3, [r7, #15]
+ 686:../CMSIS/CM3_V1P30_Core/core_cm3.c ****   
+ 687:../CMSIS/CM3_V1P30_Core/core_cm3.c ****    __ASM volatile ("ldrexb %0, [%1]" : "=r" (result) : "r" (addr) );
+ 659              		.loc 1 687 0
+ 660 01ae 7B68     		ldr	r3, [r7, #4]
+ 661              	@ 687 "../CMSIS/CM3_V1P30_Core/core_cm3.c" 1
+ 662 01b0 D3E84F4F 		ldrexb r4, [r3]
+ 663              	@ 0 "" 2
+ 664              		.thumb
+ 665 01b4 FC73     		strb	r4, [r7, #15]
+ 688:../CMSIS/CM3_V1P30_Core/core_cm3.c ****    return(result);
+ 666              		.loc 1 688 0
+ 667 01b6 FB7B     		ldrb	r3, [r7, #15]	@ zero_extendqisi2
+ 689:../CMSIS/CM3_V1P30_Core/core_cm3.c **** }
+ 668              		.loc 1 689 0
+ 669 01b8 1846     		mov	r0, r3
+ 670 01ba 07F11007 		add	r7, r7, #16
+ 671 01be BD46     		mov	sp, r7
+ 672 01c0 90BC     		pop	{r4, r7}
+ 673 01c2 7047     		bx	lr
+ 674              		.cfi_endproc
+ 675              	.LFE16:
+ARM GAS  c:\Temp\cctGqfAZ.s 			page 25
+
+
+ 676              		.size	__LDREXB, .-__LDREXB
+ 677              		.align	2
+ 678              		.global	__LDREXH
+ 679              		.thumb
+ 680              		.thumb_func
+ 681              		.type	__LDREXH, %function
+ 682              	__LDREXH:
+ 683              	.LFB17:
+ 690:../CMSIS/CM3_V1P30_Core/core_cm3.c **** 
+ 691:../CMSIS/CM3_V1P30_Core/core_cm3.c **** /**
+ 692:../CMSIS/CM3_V1P30_Core/core_cm3.c ****  * @brief  LDR Exclusive (16 bit)
+ 693:../CMSIS/CM3_V1P30_Core/core_cm3.c ****  *
+ 694:../CMSIS/CM3_V1P30_Core/core_cm3.c ****  * @param  *addr  address pointer
+ 695:../CMSIS/CM3_V1P30_Core/core_cm3.c ****  * @return        value of (*address)
+ 696:../CMSIS/CM3_V1P30_Core/core_cm3.c ****  *
+ 697:../CMSIS/CM3_V1P30_Core/core_cm3.c ****  * Exclusive LDR command for 16 bit values
+ 698:../CMSIS/CM3_V1P30_Core/core_cm3.c ****  */
+ 699:../CMSIS/CM3_V1P30_Core/core_cm3.c **** uint16_t __LDREXH(uint16_t *addr)
+ 700:../CMSIS/CM3_V1P30_Core/core_cm3.c **** {
+ 684              		.loc 1 700 0
+ 685              		.cfi_startproc
+ 686              		@ args = 0, pretend = 0, frame = 16
+ 687              		@ frame_needed = 1, uses_anonymous_args = 0
+ 688              		@ link register save eliminated.
+ 689 01c4 90B4     		push	{r4, r7}
+ 690              	.LCFI39:
+ 691              		.cfi_def_cfa_offset 8
+ 692 01c6 84B0     		sub	sp, sp, #16
+ 693              	.LCFI40:
+ 694              		.cfi_def_cfa_offset 24
+ 695 01c8 00AF     		add	r7, sp, #0
+ 696              		.cfi_offset 7, -4
+ 697              		.cfi_offset 4, -8
+ 698              	.LCFI41:
+ 699              		.cfi_def_cfa_register 7
+ 700 01ca 7860     		str	r0, [r7, #4]
+ 701:../CMSIS/CM3_V1P30_Core/core_cm3.c ****     uint16_t result=0;
+ 701              		.loc 1 701 0
+ 702 01cc 4FF00003 		mov	r3, #0
+ 703 01d0 FB81     		strh	r3, [r7, #14]	@ movhi
+ 702:../CMSIS/CM3_V1P30_Core/core_cm3.c ****   
+ 703:../CMSIS/CM3_V1P30_Core/core_cm3.c ****    __ASM volatile ("ldrexh %0, [%1]" : "=r" (result) : "r" (addr) );
+ 704              		.loc 1 703 0
+ 705 01d2 7B68     		ldr	r3, [r7, #4]
+ 706              	@ 703 "../CMSIS/CM3_V1P30_Core/core_cm3.c" 1
+ 707 01d4 D3E85F4F 		ldrexh r4, [r3]
+ 708              	@ 0 "" 2
+ 709              		.thumb
+ 710 01d8 FC81     		strh	r4, [r7, #14]	@ movhi
+ 704:../CMSIS/CM3_V1P30_Core/core_cm3.c ****    return(result);
+ 711              		.loc 1 704 0
+ 712 01da FB89     		ldrh	r3, [r7, #14]
+ 705:../CMSIS/CM3_V1P30_Core/core_cm3.c **** }
+ 713              		.loc 1 705 0
+ 714 01dc 1846     		mov	r0, r3
+ 715 01de 07F11007 		add	r7, r7, #16
+ 716 01e2 BD46     		mov	sp, r7
+ARM GAS  c:\Temp\cctGqfAZ.s 			page 26
+
+
+ 717 01e4 90BC     		pop	{r4, r7}
+ 718 01e6 7047     		bx	lr
+ 719              		.cfi_endproc
+ 720              	.LFE17:
+ 721              		.size	__LDREXH, .-__LDREXH
+ 722              		.align	2
+ 723              		.global	__LDREXW
+ 724              		.thumb
+ 725              		.thumb_func
+ 726              		.type	__LDREXW, %function
+ 727              	__LDREXW:
+ 728              	.LFB18:
+ 706:../CMSIS/CM3_V1P30_Core/core_cm3.c **** 
+ 707:../CMSIS/CM3_V1P30_Core/core_cm3.c **** /**
+ 708:../CMSIS/CM3_V1P30_Core/core_cm3.c ****  * @brief  LDR Exclusive (32 bit)
+ 709:../CMSIS/CM3_V1P30_Core/core_cm3.c ****  *
+ 710:../CMSIS/CM3_V1P30_Core/core_cm3.c ****  * @param  *addr  address pointer
+ 711:../CMSIS/CM3_V1P30_Core/core_cm3.c ****  * @return        value of (*address)
+ 712:../CMSIS/CM3_V1P30_Core/core_cm3.c ****  *
+ 713:../CMSIS/CM3_V1P30_Core/core_cm3.c ****  * Exclusive LDR command for 32 bit values
+ 714:../CMSIS/CM3_V1P30_Core/core_cm3.c ****  */
+ 715:../CMSIS/CM3_V1P30_Core/core_cm3.c **** uint32_t __LDREXW(uint32_t *addr)
+ 716:../CMSIS/CM3_V1P30_Core/core_cm3.c **** {
+ 729              		.loc 1 716 0
+ 730              		.cfi_startproc
+ 731              		@ args = 0, pretend = 0, frame = 16
+ 732              		@ frame_needed = 1, uses_anonymous_args = 0
+ 733              		@ link register save eliminated.
+ 734 01e8 90B4     		push	{r4, r7}
+ 735              	.LCFI42:
+ 736              		.cfi_def_cfa_offset 8
+ 737 01ea 84B0     		sub	sp, sp, #16
+ 738              	.LCFI43:
+ 739              		.cfi_def_cfa_offset 24
+ 740 01ec 00AF     		add	r7, sp, #0
+ 741              		.cfi_offset 7, -4
+ 742              		.cfi_offset 4, -8
+ 743              	.LCFI44:
+ 744              		.cfi_def_cfa_register 7
+ 745 01ee 7860     		str	r0, [r7, #4]
+ 717:../CMSIS/CM3_V1P30_Core/core_cm3.c ****     uint32_t result=0;
+ 746              		.loc 1 717 0
+ 747 01f0 4FF00003 		mov	r3, #0
+ 748 01f4 FB60     		str	r3, [r7, #12]
+ 718:../CMSIS/CM3_V1P30_Core/core_cm3.c ****   
+ 719:../CMSIS/CM3_V1P30_Core/core_cm3.c ****    __ASM volatile ("ldrex %0, [%1]" : "=r" (result) : "r" (addr) );
+ 749              		.loc 1 719 0
+ 750 01f6 7B68     		ldr	r3, [r7, #4]
+ 751              	@ 719 "../CMSIS/CM3_V1P30_Core/core_cm3.c" 1
+ 752 01f8 53E8004F 		ldrex r4, [r3]
+ 753              	@ 0 "" 2
+ 754              		.thumb
+ 755 01fc FC60     		str	r4, [r7, #12]
+ 720:../CMSIS/CM3_V1P30_Core/core_cm3.c ****    return(result);
+ 756              		.loc 1 720 0
+ 757 01fe FB68     		ldr	r3, [r7, #12]
+ 721:../CMSIS/CM3_V1P30_Core/core_cm3.c **** }
+ARM GAS  c:\Temp\cctGqfAZ.s 			page 27
+
+
+ 758              		.loc 1 721 0
+ 759 0200 1846     		mov	r0, r3
+ 760 0202 07F11007 		add	r7, r7, #16
+ 761 0206 BD46     		mov	sp, r7
+ 762 0208 90BC     		pop	{r4, r7}
+ 763 020a 7047     		bx	lr
+ 764              		.cfi_endproc
+ 765              	.LFE18:
+ 766              		.size	__LDREXW, .-__LDREXW
+ 767              		.align	2
+ 768              		.global	__STREXB
+ 769              		.thumb
+ 770              		.thumb_func
+ 771              		.type	__STREXB, %function
+ 772              	__STREXB:
+ 773              	.LFB19:
+ 722:../CMSIS/CM3_V1P30_Core/core_cm3.c **** 
+ 723:../CMSIS/CM3_V1P30_Core/core_cm3.c **** /**
+ 724:../CMSIS/CM3_V1P30_Core/core_cm3.c ****  * @brief  STR Exclusive (8 bit)
+ 725:../CMSIS/CM3_V1P30_Core/core_cm3.c ****  *
+ 726:../CMSIS/CM3_V1P30_Core/core_cm3.c ****  * @param  value  value to store
+ 727:../CMSIS/CM3_V1P30_Core/core_cm3.c ****  * @param  *addr  address pointer
+ 728:../CMSIS/CM3_V1P30_Core/core_cm3.c ****  * @return        successful / failed
+ 729:../CMSIS/CM3_V1P30_Core/core_cm3.c ****  *
+ 730:../CMSIS/CM3_V1P30_Core/core_cm3.c ****  * Exclusive STR command for 8 bit values
+ 731:../CMSIS/CM3_V1P30_Core/core_cm3.c ****  */
+ 732:../CMSIS/CM3_V1P30_Core/core_cm3.c **** uint32_t __STREXB(uint8_t value, uint8_t *addr)
+ 733:../CMSIS/CM3_V1P30_Core/core_cm3.c **** {
+ 774              		.loc 1 733 0
+ 775              		.cfi_startproc
+ 776              		@ args = 0, pretend = 0, frame = 16
+ 777              		@ frame_needed = 1, uses_anonymous_args = 0
+ 778              		@ link register save eliminated.
+ 779 020c 90B4     		push	{r4, r7}
+ 780              	.LCFI45:
+ 781              		.cfi_def_cfa_offset 8
+ 782 020e 84B0     		sub	sp, sp, #16
+ 783              	.LCFI46:
+ 784              		.cfi_def_cfa_offset 24
+ 785 0210 00AF     		add	r7, sp, #0
+ 786              		.cfi_offset 7, -4
+ 787              		.cfi_offset 4, -8
+ 788              	.LCFI47:
+ 789              		.cfi_def_cfa_register 7
+ 790 0212 0346     		mov	r3, r0
+ 791 0214 3960     		str	r1, [r7, #0]
+ 792 0216 FB71     		strb	r3, [r7, #7]
+ 734:../CMSIS/CM3_V1P30_Core/core_cm3.c ****    uint32_t result=0;
+ 793              		.loc 1 734 0
+ 794 0218 4FF00003 		mov	r3, #0
+ 795 021c FB60     		str	r3, [r7, #12]
+ 735:../CMSIS/CM3_V1P30_Core/core_cm3.c ****   
+ 736:../CMSIS/CM3_V1P30_Core/core_cm3.c ****    __ASM volatile ("strexb %0, %2, [%1]" : "=r" (result) : "r" (addr), "r" (value) );
+ 796              		.loc 1 736 0
+ 797 021e 3B68     		ldr	r3, [r7, #0]
+ 798 0220 FA79     		ldrb	r2, [r7, #7]
+ 799              	@ 736 "../CMSIS/CM3_V1P30_Core/core_cm3.c" 1
+ARM GAS  c:\Temp\cctGqfAZ.s 			page 28
+
+
+ 800 0222 C3E8442F 		strexb r4, r2, [r3]
+ 801              	@ 0 "" 2
+ 802              		.thumb
+ 803 0226 FC60     		str	r4, [r7, #12]
+ 737:../CMSIS/CM3_V1P30_Core/core_cm3.c ****    return(result);
+ 804              		.loc 1 737 0
+ 805 0228 FB68     		ldr	r3, [r7, #12]
+ 738:../CMSIS/CM3_V1P30_Core/core_cm3.c **** }
+ 806              		.loc 1 738 0
+ 807 022a 1846     		mov	r0, r3
+ 808 022c 07F11007 		add	r7, r7, #16
+ 809 0230 BD46     		mov	sp, r7
+ 810 0232 90BC     		pop	{r4, r7}
+ 811 0234 7047     		bx	lr
+ 812              		.cfi_endproc
+ 813              	.LFE19:
+ 814              		.size	__STREXB, .-__STREXB
+ 815 0236 00BF     		.align	2
+ 816              		.global	__STREXH
+ 817              		.thumb
+ 818              		.thumb_func
+ 819              		.type	__STREXH, %function
+ 820              	__STREXH:
+ 821              	.LFB20:
+ 739:../CMSIS/CM3_V1P30_Core/core_cm3.c **** 
+ 740:../CMSIS/CM3_V1P30_Core/core_cm3.c **** /**
+ 741:../CMSIS/CM3_V1P30_Core/core_cm3.c ****  * @brief  STR Exclusive (16 bit)
+ 742:../CMSIS/CM3_V1P30_Core/core_cm3.c ****  *
+ 743:../CMSIS/CM3_V1P30_Core/core_cm3.c ****  * @param  value  value to store
+ 744:../CMSIS/CM3_V1P30_Core/core_cm3.c ****  * @param  *addr  address pointer
+ 745:../CMSIS/CM3_V1P30_Core/core_cm3.c ****  * @return        successful / failed
+ 746:../CMSIS/CM3_V1P30_Core/core_cm3.c ****  *
+ 747:../CMSIS/CM3_V1P30_Core/core_cm3.c ****  * Exclusive STR command for 16 bit values
+ 748:../CMSIS/CM3_V1P30_Core/core_cm3.c ****  */
+ 749:../CMSIS/CM3_V1P30_Core/core_cm3.c **** uint32_t __STREXH(uint16_t value, uint16_t *addr)
+ 750:../CMSIS/CM3_V1P30_Core/core_cm3.c **** {
+ 822              		.loc 1 750 0
+ 823              		.cfi_startproc
+ 824              		@ args = 0, pretend = 0, frame = 16
+ 825              		@ frame_needed = 1, uses_anonymous_args = 0
+ 826              		@ link register save eliminated.
+ 827 0238 90B4     		push	{r4, r7}
+ 828              	.LCFI48:
+ 829              		.cfi_def_cfa_offset 8
+ 830 023a 84B0     		sub	sp, sp, #16
+ 831              	.LCFI49:
+ 832              		.cfi_def_cfa_offset 24
+ 833 023c 00AF     		add	r7, sp, #0
+ 834              		.cfi_offset 7, -4
+ 835              		.cfi_offset 4, -8
+ 836              	.LCFI50:
+ 837              		.cfi_def_cfa_register 7
+ 838 023e 0346     		mov	r3, r0
+ 839 0240 3960     		str	r1, [r7, #0]
+ 840 0242 FB80     		strh	r3, [r7, #6]	@ movhi
+ 751:../CMSIS/CM3_V1P30_Core/core_cm3.c ****    uint32_t result=0;
+ 841              		.loc 1 751 0
+ARM GAS  c:\Temp\cctGqfAZ.s 			page 29
+
+
+ 842 0244 4FF00003 		mov	r3, #0
+ 843 0248 FB60     		str	r3, [r7, #12]
+ 752:../CMSIS/CM3_V1P30_Core/core_cm3.c ****   
+ 753:../CMSIS/CM3_V1P30_Core/core_cm3.c ****    __ASM volatile ("strexh %0, %2, [%1]" : "=r" (result) : "r" (addr), "r" (value) );
+ 844              		.loc 1 753 0
+ 845 024a 3B68     		ldr	r3, [r7, #0]
+ 846 024c FA88     		ldrh	r2, [r7, #6]	@ movhi
+ 847              	@ 753 "../CMSIS/CM3_V1P30_Core/core_cm3.c" 1
+ 848 024e C3E8542F 		strexh r4, r2, [r3]
+ 849              	@ 0 "" 2
+ 850              		.thumb
+ 851 0252 FC60     		str	r4, [r7, #12]
+ 754:../CMSIS/CM3_V1P30_Core/core_cm3.c ****    return(result);
+ 852              		.loc 1 754 0
+ 853 0254 FB68     		ldr	r3, [r7, #12]
+ 755:../CMSIS/CM3_V1P30_Core/core_cm3.c **** }
+ 854              		.loc 1 755 0
+ 855 0256 1846     		mov	r0, r3
+ 856 0258 07F11007 		add	r7, r7, #16
+ 857 025c BD46     		mov	sp, r7
+ 858 025e 90BC     		pop	{r4, r7}
+ 859 0260 7047     		bx	lr
+ 860              		.cfi_endproc
+ 861              	.LFE20:
+ 862              		.size	__STREXH, .-__STREXH
+ 863 0262 00BF     		.align	2
+ 864              		.global	__STREXW
+ 865              		.thumb
+ 866              		.thumb_func
+ 867              		.type	__STREXW, %function
+ 868              	__STREXW:
+ 869              	.LFB21:
+ 756:../CMSIS/CM3_V1P30_Core/core_cm3.c **** 
+ 757:../CMSIS/CM3_V1P30_Core/core_cm3.c **** /**
+ 758:../CMSIS/CM3_V1P30_Core/core_cm3.c ****  * @brief  STR Exclusive (32 bit)
+ 759:../CMSIS/CM3_V1P30_Core/core_cm3.c ****  *
+ 760:../CMSIS/CM3_V1P30_Core/core_cm3.c ****  * @param  value  value to store
+ 761:../CMSIS/CM3_V1P30_Core/core_cm3.c ****  * @param  *addr  address pointer
+ 762:../CMSIS/CM3_V1P30_Core/core_cm3.c ****  * @return        successful / failed
+ 763:../CMSIS/CM3_V1P30_Core/core_cm3.c ****  *
+ 764:../CMSIS/CM3_V1P30_Core/core_cm3.c ****  * Exclusive STR command for 32 bit values
+ 765:../CMSIS/CM3_V1P30_Core/core_cm3.c ****  */
+ 766:../CMSIS/CM3_V1P30_Core/core_cm3.c **** uint32_t __STREXW(uint32_t value, uint32_t *addr)
+ 767:../CMSIS/CM3_V1P30_Core/core_cm3.c **** {
+ 870              		.loc 1 767 0
+ 871              		.cfi_startproc
+ 872              		@ args = 0, pretend = 0, frame = 16
+ 873              		@ frame_needed = 1, uses_anonymous_args = 0
+ 874              		@ link register save eliminated.
+ 875 0264 90B4     		push	{r4, r7}
+ 876              	.LCFI51:
+ 877              		.cfi_def_cfa_offset 8
+ 878 0266 84B0     		sub	sp, sp, #16
+ 879              	.LCFI52:
+ 880              		.cfi_def_cfa_offset 24
+ 881 0268 00AF     		add	r7, sp, #0
+ 882              		.cfi_offset 7, -4
+ARM GAS  c:\Temp\cctGqfAZ.s 			page 30
+
+
+ 883              		.cfi_offset 4, -8
+ 884              	.LCFI53:
+ 885              		.cfi_def_cfa_register 7
+ 886 026a 7860     		str	r0, [r7, #4]
+ 887 026c 3960     		str	r1, [r7, #0]
+ 768:../CMSIS/CM3_V1P30_Core/core_cm3.c ****    uint32_t result=0;
+ 888              		.loc 1 768 0
+ 889 026e 4FF00003 		mov	r3, #0
+ 890 0272 FB60     		str	r3, [r7, #12]
+ 769:../CMSIS/CM3_V1P30_Core/core_cm3.c ****   
+ 770:../CMSIS/CM3_V1P30_Core/core_cm3.c ****    __ASM volatile ("strex %0, %2, [%1]" : "=r" (result) : "r" (addr), "r" (value) );
+ 891              		.loc 1 770 0
+ 892 0274 3B68     		ldr	r3, [r7, #0]
+ 893 0276 7A68     		ldr	r2, [r7, #4]
+ 894              	@ 770 "../CMSIS/CM3_V1P30_Core/core_cm3.c" 1
+ 895 0278 43E80024 		strex r4, r2, [r3]
+ 896              	@ 0 "" 2
+ 897              		.thumb
+ 898 027c FC60     		str	r4, [r7, #12]
+ 771:../CMSIS/CM3_V1P30_Core/core_cm3.c ****    return(result);
+ 899              		.loc 1 771 0
+ 900 027e FB68     		ldr	r3, [r7, #12]
+ 772:../CMSIS/CM3_V1P30_Core/core_cm3.c **** }
+ 901              		.loc 1 772 0
+ 902 0280 1846     		mov	r0, r3
+ 903 0282 07F11007 		add	r7, r7, #16
+ 904 0286 BD46     		mov	sp, r7
+ 905 0288 90BC     		pop	{r4, r7}
+ 906 028a 7047     		bx	lr
+ 907              		.cfi_endproc
+ 908              	.LFE21:
+ 909              		.size	__STREXW, .-__STREXW
+ 910              	.Letext0:
+ 911              		.section	.debug_loc,"",%progbits
+ 912              	.Ldebug_loc0:
+ 913              	.LLST0:
+ 914 0000 30000000 		.4byte	.LFB4-.Ltext0
+ 915 0004 32000000 		.4byte	.LCFI0-.Ltext0
+ 916 0008 0200     		.2byte	0x2
+ 917 000a 7D       		.byte	0x7d
+ 918 000b 00       		.sleb128 0
+ 919 000c 32000000 		.4byte	.LCFI0-.Ltext0
+ 920 0010 34000000 		.4byte	.LCFI1-.Ltext0
+ 921 0014 0200     		.2byte	0x2
+ 922 0016 7D       		.byte	0x7d
+ 923 0017 08       		.sleb128 8
+ 924 0018 34000000 		.4byte	.LCFI1-.Ltext0
+ 925 001c 36000000 		.4byte	.LCFI2-.Ltext0
+ 926 0020 0200     		.2byte	0x2
+ 927 0022 7D       		.byte	0x7d
+ 928 0023 10       		.sleb128 16
+ 929 0024 36000000 		.4byte	.LCFI2-.Ltext0
+ 930 0028 50000000 		.4byte	.LFE4-.Ltext0
+ 931 002c 0200     		.2byte	0x2
+ 932 002e 77       		.byte	0x77
+ 933 002f 10       		.sleb128 16
+ 934 0030 00000000 		.4byte	0x0
+ARM GAS  c:\Temp\cctGqfAZ.s 			page 31
+
+
+ 935 0034 00000000 		.4byte	0x0
+ 936              	.LLST1:
+ 937 0038 50000000 		.4byte	.LFB5-.Ltext0
+ 938 003c 52000000 		.4byte	.LCFI3-.Ltext0
+ 939 0040 0200     		.2byte	0x2
+ 940 0042 7D       		.byte	0x7d
+ 941 0043 00       		.sleb128 0
+ 942 0044 52000000 		.4byte	.LCFI3-.Ltext0
+ 943 0048 54000000 		.4byte	.LCFI4-.Ltext0
+ 944 004c 0200     		.2byte	0x2
+ 945 004e 7D       		.byte	0x7d
+ 946 004f 04       		.sleb128 4
+ 947 0050 54000000 		.4byte	.LCFI4-.Ltext0
+ 948 0054 56000000 		.4byte	.LCFI5-.Ltext0
+ 949 0058 0200     		.2byte	0x2
+ 950 005a 7D       		.byte	0x7d
+ 951 005b 10       		.sleb128 16
+ 952 005c 56000000 		.4byte	.LCFI5-.Ltext0
+ 953 0060 68000000 		.4byte	.LFE5-.Ltext0
+ 954 0064 0200     		.2byte	0x2
+ 955 0066 77       		.byte	0x77
+ 956 0067 10       		.sleb128 16
+ 957 0068 00000000 		.4byte	0x0
+ 958 006c 00000000 		.4byte	0x0
+ 959              	.LLST2:
+ 960 0070 68000000 		.4byte	.LFB6-.Ltext0
+ 961 0074 6A000000 		.4byte	.LCFI6-.Ltext0
+ 962 0078 0200     		.2byte	0x2
+ 963 007a 7D       		.byte	0x7d
+ 964 007b 00       		.sleb128 0
+ 965 007c 6A000000 		.4byte	.LCFI6-.Ltext0
+ 966 0080 6C000000 		.4byte	.LCFI7-.Ltext0
+ 967 0084 0200     		.2byte	0x2
+ 968 0086 7D       		.byte	0x7d
+ 969 0087 08       		.sleb128 8
+ 970 0088 6C000000 		.4byte	.LCFI7-.Ltext0
+ 971 008c 6E000000 		.4byte	.LCFI8-.Ltext0
+ 972 0090 0200     		.2byte	0x2
+ 973 0092 7D       		.byte	0x7d
+ 974 0093 10       		.sleb128 16
+ 975 0094 6E000000 		.4byte	.LCFI8-.Ltext0
+ 976 0098 88000000 		.4byte	.LFE6-.Ltext0
+ 977 009c 0200     		.2byte	0x2
+ 978 009e 77       		.byte	0x77
+ 979 009f 10       		.sleb128 16
+ 980 00a0 00000000 		.4byte	0x0
+ 981 00a4 00000000 		.4byte	0x0
+ 982              	.LLST3:
+ 983 00a8 88000000 		.4byte	.LFB7-.Ltext0
+ 984 00ac 8A000000 		.4byte	.LCFI9-.Ltext0
+ 985 00b0 0200     		.2byte	0x2
+ 986 00b2 7D       		.byte	0x7d
+ 987 00b3 00       		.sleb128 0
+ 988 00b4 8A000000 		.4byte	.LCFI9-.Ltext0
+ 989 00b8 8C000000 		.4byte	.LCFI10-.Ltext0
+ 990 00bc 0200     		.2byte	0x2
+ 991 00be 7D       		.byte	0x7d
+ARM GAS  c:\Temp\cctGqfAZ.s 			page 32
+
+
+ 992 00bf 04       		.sleb128 4
+ 993 00c0 8C000000 		.4byte	.LCFI10-.Ltext0
+ 994 00c4 8E000000 		.4byte	.LCFI11-.Ltext0
+ 995 00c8 0200     		.2byte	0x2
+ 996 00ca 7D       		.byte	0x7d
+ 997 00cb 10       		.sleb128 16
+ 998 00cc 8E000000 		.4byte	.LCFI11-.Ltext0
+ 999 00d0 A0000000 		.4byte	.LFE7-.Ltext0
+ 1000 00d4 0200     		.2byte	0x2
+ 1001 00d6 77       		.byte	0x77
+ 1002 00d7 10       		.sleb128 16
+ 1003 00d8 00000000 		.4byte	0x0
+ 1004 00dc 00000000 		.4byte	0x0
+ 1005              	.LLST4:
+ 1006 00e0 A0000000 		.4byte	.LFB8-.Ltext0
+ 1007 00e4 A2000000 		.4byte	.LCFI12-.Ltext0
+ 1008 00e8 0200     		.2byte	0x2
+ 1009 00ea 7D       		.byte	0x7d
+ 1010 00eb 00       		.sleb128 0
+ 1011 00ec A2000000 		.4byte	.LCFI12-.Ltext0
+ 1012 00f0 A4000000 		.4byte	.LCFI13-.Ltext0
+ 1013 00f4 0200     		.2byte	0x2
+ 1014 00f6 7D       		.byte	0x7d
+ 1015 00f7 08       		.sleb128 8
+ 1016 00f8 A4000000 		.4byte	.LCFI13-.Ltext0
+ 1017 00fc A6000000 		.4byte	.LCFI14-.Ltext0
+ 1018 0100 0200     		.2byte	0x2
+ 1019 0102 7D       		.byte	0x7d
+ 1020 0103 10       		.sleb128 16
+ 1021 0104 A6000000 		.4byte	.LCFI14-.Ltext0
+ 1022 0108 C0000000 		.4byte	.LFE8-.Ltext0
+ 1023 010c 0200     		.2byte	0x2
+ 1024 010e 77       		.byte	0x77
+ 1025 010f 10       		.sleb128 16
+ 1026 0110 00000000 		.4byte	0x0
+ 1027 0114 00000000 		.4byte	0x0
+ 1028              	.LLST5:
+ 1029 0118 C0000000 		.4byte	.LFB9-.Ltext0
+ 1030 011c C2000000 		.4byte	.LCFI15-.Ltext0
+ 1031 0120 0200     		.2byte	0x2
+ 1032 0122 7D       		.byte	0x7d
+ 1033 0123 00       		.sleb128 0
+ 1034 0124 C2000000 		.4byte	.LCFI15-.Ltext0
+ 1035 0128 C4000000 		.4byte	.LCFI16-.Ltext0
+ 1036 012c 0200     		.2byte	0x2
+ 1037 012e 7D       		.byte	0x7d
+ 1038 012f 04       		.sleb128 4
+ 1039 0130 C4000000 		.4byte	.LCFI16-.Ltext0
+ 1040 0134 C6000000 		.4byte	.LCFI17-.Ltext0
+ 1041 0138 0200     		.2byte	0x2
+ 1042 013a 7D       		.byte	0x7d
+ 1043 013b 10       		.sleb128 16
+ 1044 013c C6000000 		.4byte	.LCFI17-.Ltext0
+ 1045 0140 D8000000 		.4byte	.LFE9-.Ltext0
+ 1046 0144 0200     		.2byte	0x2
+ 1047 0146 77       		.byte	0x77
+ 1048 0147 10       		.sleb128 16
+ARM GAS  c:\Temp\cctGqfAZ.s 			page 33
+
+
+ 1049 0148 00000000 		.4byte	0x0
+ 1050 014c 00000000 		.4byte	0x0
+ 1051              	.LLST6:
+ 1052 0150 D8000000 		.4byte	.LFB10-.Ltext0
+ 1053 0154 DA000000 		.4byte	.LCFI18-.Ltext0
+ 1054 0158 0200     		.2byte	0x2
+ 1055 015a 7D       		.byte	0x7d
+ 1056 015b 00       		.sleb128 0
+ 1057 015c DA000000 		.4byte	.LCFI18-.Ltext0
+ 1058 0160 DC000000 		.4byte	.LCFI19-.Ltext0
+ 1059 0164 0200     		.2byte	0x2
+ 1060 0166 7D       		.byte	0x7d
+ 1061 0167 08       		.sleb128 8
+ 1062 0168 DC000000 		.4byte	.LCFI19-.Ltext0
+ 1063 016c DE000000 		.4byte	.LCFI20-.Ltext0
+ 1064 0170 0200     		.2byte	0x2
+ 1065 0172 7D       		.byte	0x7d
+ 1066 0173 10       		.sleb128 16
+ 1067 0174 DE000000 		.4byte	.LCFI20-.Ltext0
+ 1068 0178 F8000000 		.4byte	.LFE10-.Ltext0
+ 1069 017c 0200     		.2byte	0x2
+ 1070 017e 77       		.byte	0x77
+ 1071 017f 10       		.sleb128 16
+ 1072 0180 00000000 		.4byte	0x0
+ 1073 0184 00000000 		.4byte	0x0
+ 1074              	.LLST7:
+ 1075 0188 F8000000 		.4byte	.LFB11-.Ltext0
+ 1076 018c FA000000 		.4byte	.LCFI21-.Ltext0
+ 1077 0190 0200     		.2byte	0x2
+ 1078 0192 7D       		.byte	0x7d
+ 1079 0193 00       		.sleb128 0
+ 1080 0194 FA000000 		.4byte	.LCFI21-.Ltext0
+ 1081 0198 FC000000 		.4byte	.LCFI22-.Ltext0
+ 1082 019c 0200     		.2byte	0x2
+ 1083 019e 7D       		.byte	0x7d
+ 1084 019f 04       		.sleb128 4
+ 1085 01a0 FC000000 		.4byte	.LCFI22-.Ltext0
+ 1086 01a4 FE000000 		.4byte	.LCFI23-.Ltext0
+ 1087 01a8 0200     		.2byte	0x2
+ 1088 01aa 7D       		.byte	0x7d
+ 1089 01ab 10       		.sleb128 16
+ 1090 01ac FE000000 		.4byte	.LCFI23-.Ltext0
+ 1091 01b0 10010000 		.4byte	.LFE11-.Ltext0
+ 1092 01b4 0200     		.2byte	0x2
+ 1093 01b6 77       		.byte	0x77
+ 1094 01b7 10       		.sleb128 16
+ 1095 01b8 00000000 		.4byte	0x0
+ 1096 01bc 00000000 		.4byte	0x0
+ 1097              	.LLST8:
+ 1098 01c0 10010000 		.4byte	.LFB12-.Ltext0
+ 1099 01c4 12010000 		.4byte	.LCFI24-.Ltext0
+ 1100 01c8 0200     		.2byte	0x2
+ 1101 01ca 7D       		.byte	0x7d
+ 1102 01cb 00       		.sleb128 0
+ 1103 01cc 12010000 		.4byte	.LCFI24-.Ltext0
+ 1104 01d0 14010000 		.4byte	.LCFI25-.Ltext0
+ 1105 01d4 0200     		.2byte	0x2
+ARM GAS  c:\Temp\cctGqfAZ.s 			page 34
+
+
+ 1106 01d6 7D       		.byte	0x7d
+ 1107 01d7 08       		.sleb128 8
+ 1108 01d8 14010000 		.4byte	.LCFI25-.Ltext0
+ 1109 01dc 16010000 		.4byte	.LCFI26-.Ltext0
+ 1110 01e0 0200     		.2byte	0x2
+ 1111 01e2 7D       		.byte	0x7d
+ 1112 01e3 18       		.sleb128 24
+ 1113 01e4 16010000 		.4byte	.LCFI26-.Ltext0
+ 1114 01e8 32010000 		.4byte	.LFE12-.Ltext0
+ 1115 01ec 0200     		.2byte	0x2
+ 1116 01ee 77       		.byte	0x77
+ 1117 01ef 18       		.sleb128 24
+ 1118 01f0 00000000 		.4byte	0x0
+ 1119 01f4 00000000 		.4byte	0x0
+ 1120              	.LLST9:
+ 1121 01f8 34010000 		.4byte	.LFB13-.Ltext0
+ 1122 01fc 36010000 		.4byte	.LCFI27-.Ltext0
+ 1123 0200 0200     		.2byte	0x2
+ 1124 0202 7D       		.byte	0x7d
+ 1125 0203 00       		.sleb128 0
+ 1126 0204 36010000 		.4byte	.LCFI27-.Ltext0
+ 1127 0208 38010000 		.4byte	.LCFI28-.Ltext0
+ 1128 020c 0200     		.2byte	0x2
+ 1129 020e 7D       		.byte	0x7d
+ 1130 020f 08       		.sleb128 8
+ 1131 0210 38010000 		.4byte	.LCFI28-.Ltext0
+ 1132 0214 3A010000 		.4byte	.LCFI29-.Ltext0
+ 1133 0218 0200     		.2byte	0x2
+ 1134 021a 7D       		.byte	0x7d
+ 1135 021b 18       		.sleb128 24
+ 1136 021c 3A010000 		.4byte	.LCFI29-.Ltext0
+ 1137 0220 58010000 		.4byte	.LFE13-.Ltext0
+ 1138 0224 0200     		.2byte	0x2
+ 1139 0226 77       		.byte	0x77
+ 1140 0227 18       		.sleb128 24
+ 1141 0228 00000000 		.4byte	0x0
+ 1142 022c 00000000 		.4byte	0x0
+ 1143              	.LLST10:
+ 1144 0230 58010000 		.4byte	.LFB14-.Ltext0
+ 1145 0234 5A010000 		.4byte	.LCFI30-.Ltext0
+ 1146 0238 0200     		.2byte	0x2
+ 1147 023a 7D       		.byte	0x7d
+ 1148 023b 00       		.sleb128 0
+ 1149 023c 5A010000 		.4byte	.LCFI30-.Ltext0
+ 1150 0240 5C010000 		.4byte	.LCFI31-.Ltext0
+ 1151 0244 0200     		.2byte	0x2
+ 1152 0246 7D       		.byte	0x7d
+ 1153 0247 08       		.sleb128 8
+ 1154 0248 5C010000 		.4byte	.LCFI31-.Ltext0
+ 1155 024c 5E010000 		.4byte	.LCFI32-.Ltext0
+ 1156 0250 0200     		.2byte	0x2
+ 1157 0252 7D       		.byte	0x7d
+ 1158 0253 18       		.sleb128 24
+ 1159 0254 5E010000 		.4byte	.LCFI32-.Ltext0
+ 1160 0258 7C010000 		.4byte	.LFE14-.Ltext0
+ 1161 025c 0200     		.2byte	0x2
+ 1162 025e 77       		.byte	0x77
+ARM GAS  c:\Temp\cctGqfAZ.s 			page 35
+
+
+ 1163 025f 18       		.sleb128 24
+ 1164 0260 00000000 		.4byte	0x0
+ 1165 0264 00000000 		.4byte	0x0
+ 1166              	.LLST11:
+ 1167 0268 7C010000 		.4byte	.LFB15-.Ltext0
+ 1168 026c 7E010000 		.4byte	.LCFI33-.Ltext0
+ 1169 0270 0200     		.2byte	0x2
+ 1170 0272 7D       		.byte	0x7d
+ 1171 0273 00       		.sleb128 0
+ 1172 0274 7E010000 		.4byte	.LCFI33-.Ltext0
+ 1173 0278 80010000 		.4byte	.LCFI34-.Ltext0
+ 1174 027c 0200     		.2byte	0x2
+ 1175 027e 7D       		.byte	0x7d
+ 1176 027f 08       		.sleb128 8
+ 1177 0280 80010000 		.4byte	.LCFI34-.Ltext0
+ 1178 0284 82010000 		.4byte	.LCFI35-.Ltext0
+ 1179 0288 0200     		.2byte	0x2
+ 1180 028a 7D       		.byte	0x7d
+ 1181 028b 18       		.sleb128 24
+ 1182 028c 82010000 		.4byte	.LCFI35-.Ltext0
+ 1183 0290 A0010000 		.4byte	.LFE15-.Ltext0
+ 1184 0294 0200     		.2byte	0x2
+ 1185 0296 77       		.byte	0x77
+ 1186 0297 18       		.sleb128 24
+ 1187 0298 00000000 		.4byte	0x0
+ 1188 029c 00000000 		.4byte	0x0
+ 1189              	.LLST12:
+ 1190 02a0 A0010000 		.4byte	.LFB16-.Ltext0
+ 1191 02a4 A2010000 		.4byte	.LCFI36-.Ltext0
+ 1192 02a8 0200     		.2byte	0x2
+ 1193 02aa 7D       		.byte	0x7d
+ 1194 02ab 00       		.sleb128 0
+ 1195 02ac A2010000 		.4byte	.LCFI36-.Ltext0
+ 1196 02b0 A4010000 		.4byte	.LCFI37-.Ltext0
+ 1197 02b4 0200     		.2byte	0x2
+ 1198 02b6 7D       		.byte	0x7d
+ 1199 02b7 08       		.sleb128 8
+ 1200 02b8 A4010000 		.4byte	.LCFI37-.Ltext0
+ 1201 02bc A6010000 		.4byte	.LCFI38-.Ltext0
+ 1202 02c0 0200     		.2byte	0x2
+ 1203 02c2 7D       		.byte	0x7d
+ 1204 02c3 18       		.sleb128 24
+ 1205 02c4 A6010000 		.4byte	.LCFI38-.Ltext0
+ 1206 02c8 C4010000 		.4byte	.LFE16-.Ltext0
+ 1207 02cc 0200     		.2byte	0x2
+ 1208 02ce 77       		.byte	0x77
+ 1209 02cf 18       		.sleb128 24
+ 1210 02d0 00000000 		.4byte	0x0
+ 1211 02d4 00000000 		.4byte	0x0
+ 1212              	.LLST13:
+ 1213 02d8 C4010000 		.4byte	.LFB17-.Ltext0
+ 1214 02dc C6010000 		.4byte	.LCFI39-.Ltext0
+ 1215 02e0 0200     		.2byte	0x2
+ 1216 02e2 7D       		.byte	0x7d
+ 1217 02e3 00       		.sleb128 0
+ 1218 02e4 C6010000 		.4byte	.LCFI39-.Ltext0
+ 1219 02e8 C8010000 		.4byte	.LCFI40-.Ltext0
+ARM GAS  c:\Temp\cctGqfAZ.s 			page 36
+
+
+ 1220 02ec 0200     		.2byte	0x2
+ 1221 02ee 7D       		.byte	0x7d
+ 1222 02ef 08       		.sleb128 8
+ 1223 02f0 C8010000 		.4byte	.LCFI40-.Ltext0
+ 1224 02f4 CA010000 		.4byte	.LCFI41-.Ltext0
+ 1225 02f8 0200     		.2byte	0x2
+ 1226 02fa 7D       		.byte	0x7d
+ 1227 02fb 18       		.sleb128 24
+ 1228 02fc CA010000 		.4byte	.LCFI41-.Ltext0
+ 1229 0300 E8010000 		.4byte	.LFE17-.Ltext0
+ 1230 0304 0200     		.2byte	0x2
+ 1231 0306 77       		.byte	0x77
+ 1232 0307 18       		.sleb128 24
+ 1233 0308 00000000 		.4byte	0x0
+ 1234 030c 00000000 		.4byte	0x0
+ 1235              	.LLST14:
+ 1236 0310 E8010000 		.4byte	.LFB18-.Ltext0
+ 1237 0314 EA010000 		.4byte	.LCFI42-.Ltext0
+ 1238 0318 0200     		.2byte	0x2
+ 1239 031a 7D       		.byte	0x7d
+ 1240 031b 00       		.sleb128 0
+ 1241 031c EA010000 		.4byte	.LCFI42-.Ltext0
+ 1242 0320 EC010000 		.4byte	.LCFI43-.Ltext0
+ 1243 0324 0200     		.2byte	0x2
+ 1244 0326 7D       		.byte	0x7d
+ 1245 0327 08       		.sleb128 8
+ 1246 0328 EC010000 		.4byte	.LCFI43-.Ltext0
+ 1247 032c EE010000 		.4byte	.LCFI44-.Ltext0
+ 1248 0330 0200     		.2byte	0x2
+ 1249 0332 7D       		.byte	0x7d
+ 1250 0333 18       		.sleb128 24
+ 1251 0334 EE010000 		.4byte	.LCFI44-.Ltext0
+ 1252 0338 0C020000 		.4byte	.LFE18-.Ltext0
+ 1253 033c 0200     		.2byte	0x2
+ 1254 033e 77       		.byte	0x77
+ 1255 033f 18       		.sleb128 24
+ 1256 0340 00000000 		.4byte	0x0
+ 1257 0344 00000000 		.4byte	0x0
+ 1258              	.LLST15:
+ 1259 0348 0C020000 		.4byte	.LFB19-.Ltext0
+ 1260 034c 0E020000 		.4byte	.LCFI45-.Ltext0
+ 1261 0350 0200     		.2byte	0x2
+ 1262 0352 7D       		.byte	0x7d
+ 1263 0353 00       		.sleb128 0
+ 1264 0354 0E020000 		.4byte	.LCFI45-.Ltext0
+ 1265 0358 10020000 		.4byte	.LCFI46-.Ltext0
+ 1266 035c 0200     		.2byte	0x2
+ 1267 035e 7D       		.byte	0x7d
+ 1268 035f 08       		.sleb128 8
+ 1269 0360 10020000 		.4byte	.LCFI46-.Ltext0
+ 1270 0364 12020000 		.4byte	.LCFI47-.Ltext0
+ 1271 0368 0200     		.2byte	0x2
+ 1272 036a 7D       		.byte	0x7d
+ 1273 036b 18       		.sleb128 24
+ 1274 036c 12020000 		.4byte	.LCFI47-.Ltext0
+ 1275 0370 36020000 		.4byte	.LFE19-.Ltext0
+ 1276 0374 0200     		.2byte	0x2
+ARM GAS  c:\Temp\cctGqfAZ.s 			page 37
+
+
+ 1277 0376 77       		.byte	0x77
+ 1278 0377 18       		.sleb128 24
+ 1279 0378 00000000 		.4byte	0x0
+ 1280 037c 00000000 		.4byte	0x0
+ 1281              	.LLST16:
+ 1282 0380 38020000 		.4byte	.LFB20-.Ltext0
+ 1283 0384 3A020000 		.4byte	.LCFI48-.Ltext0
+ 1284 0388 0200     		.2byte	0x2
+ 1285 038a 7D       		.byte	0x7d
+ 1286 038b 00       		.sleb128 0
+ 1287 038c 3A020000 		.4byte	.LCFI48-.Ltext0
+ 1288 0390 3C020000 		.4byte	.LCFI49-.Ltext0
+ 1289 0394 0200     		.2byte	0x2
+ 1290 0396 7D       		.byte	0x7d
+ 1291 0397 08       		.sleb128 8
+ 1292 0398 3C020000 		.4byte	.LCFI49-.Ltext0
+ 1293 039c 3E020000 		.4byte	.LCFI50-.Ltext0
+ 1294 03a0 0200     		.2byte	0x2
+ 1295 03a2 7D       		.byte	0x7d
+ 1296 03a3 18       		.sleb128 24
+ 1297 03a4 3E020000 		.4byte	.LCFI50-.Ltext0
+ 1298 03a8 62020000 		.4byte	.LFE20-.Ltext0
+ 1299 03ac 0200     		.2byte	0x2
+ 1300 03ae 77       		.byte	0x77
+ 1301 03af 18       		.sleb128 24
+ 1302 03b0 00000000 		.4byte	0x0
+ 1303 03b4 00000000 		.4byte	0x0
+ 1304              	.LLST17:
+ 1305 03b8 64020000 		.4byte	.LFB21-.Ltext0
+ 1306 03bc 66020000 		.4byte	.LCFI51-.Ltext0
+ 1307 03c0 0200     		.2byte	0x2
+ 1308 03c2 7D       		.byte	0x7d
+ 1309 03c3 00       		.sleb128 0
+ 1310 03c4 66020000 		.4byte	.LCFI51-.Ltext0
+ 1311 03c8 68020000 		.4byte	.LCFI52-.Ltext0
+ 1312 03cc 0200     		.2byte	0x2
+ 1313 03ce 7D       		.byte	0x7d
+ 1314 03cf 08       		.sleb128 8
+ 1315 03d0 68020000 		.4byte	.LCFI52-.Ltext0
+ 1316 03d4 6A020000 		.4byte	.LCFI53-.Ltext0
+ 1317 03d8 0200     		.2byte	0x2
+ 1318 03da 7D       		.byte	0x7d
+ 1319 03db 18       		.sleb128 24
+ 1320 03dc 6A020000 		.4byte	.LCFI53-.Ltext0
+ 1321 03e0 8C020000 		.4byte	.LFE21-.Ltext0
+ 1322 03e4 0200     		.2byte	0x2
+ 1323 03e6 77       		.byte	0x77
+ 1324 03e7 18       		.sleb128 24
+ 1325 03e8 00000000 		.4byte	0x0
+ 1326 03ec 00000000 		.4byte	0x0
+ 1327              		.file 2 "c:\\program files\\codesourcery\\sourcery g++ lite\\bin\\../lib/gcc/arm-none-eabi/4.5.1/.
+ 1328              		.section	.debug_info
+ 1329 0000 44050000 		.4byte	0x544
+ 1330 0004 0200     		.2byte	0x2
+ 1331 0006 00000000 		.4byte	.Ldebug_abbrev0
+ 1332 000a 04       		.byte	0x4
+ 1333 000b 01       		.uleb128 0x1
+ARM GAS  c:\Temp\cctGqfAZ.s 			page 38
+
+
+ 1334 000c 24000000 		.4byte	.LASF44
+ 1335 0010 01       		.byte	0x1
+ 1336 0011 E7000000 		.4byte	.LASF45
+ 1337 0015 B1010000 		.4byte	.LASF46
+ 1338 0019 00000000 		.4byte	.Ltext0
+ 1339 001d 8C020000 		.4byte	.Letext0
+ 1340 0021 00000000 		.4byte	.Ldebug_line0
+ 1341 0025 02       		.uleb128 0x2
+ 1342 0026 01       		.byte	0x1
+ 1343 0027 06       		.byte	0x6
+ 1344 0028 00020000 		.4byte	.LASF0
+ 1345 002c 03       		.uleb128 0x3
+ 1346 002d 3C010000 		.4byte	.LASF2
+ 1347 0031 02       		.byte	0x2
+ 1348 0032 2A       		.byte	0x2a
+ 1349 0033 37000000 		.4byte	0x37
+ 1350 0037 02       		.uleb128 0x2
+ 1351 0038 01       		.byte	0x1
+ 1352 0039 08       		.byte	0x8
+ 1353 003a 90000000 		.4byte	.LASF1
+ 1354 003e 03       		.uleb128 0x3
+ 1355 003f 4B010000 		.4byte	.LASF3
+ 1356 0043 02       		.byte	0x2
+ 1357 0044 35       		.byte	0x35
+ 1358 0045 49000000 		.4byte	0x49
+ 1359 0049 02       		.uleb128 0x2
+ 1360 004a 02       		.byte	0x2
+ 1361 004b 05       		.byte	0x5
+ 1362 004c D2010000 		.4byte	.LASF4
+ 1363 0050 03       		.uleb128 0x3
+ 1364 0051 DC010000 		.4byte	.LASF5
+ 1365 0055 02       		.byte	0x2
+ 1366 0056 36       		.byte	0x36
+ 1367 0057 5B000000 		.4byte	0x5b
+ 1368 005b 02       		.uleb128 0x2
+ 1369 005c 02       		.byte	0x2
+ 1370 005d 07       		.byte	0x7
+ 1371 005e CC000000 		.4byte	.LASF6
+ 1372 0062 03       		.uleb128 0x3
+ 1373 0063 53010000 		.4byte	.LASF7
+ 1374 0067 02       		.byte	0x2
+ 1375 0068 4F       		.byte	0x4f
+ 1376 0069 6D000000 		.4byte	0x6d
+ 1377 006d 02       		.uleb128 0x2
+ 1378 006e 04       		.byte	0x4
+ 1379 006f 05       		.byte	0x5
+ 1380 0070 EE010000 		.4byte	.LASF8
+ 1381 0074 03       		.uleb128 0x3
+ 1382 0075 E5010000 		.4byte	.LASF9
+ 1383 0079 02       		.byte	0x2
+ 1384 007a 50       		.byte	0x50
+ 1385 007b 7F000000 		.4byte	0x7f
+ 1386 007f 02       		.uleb128 0x2
+ 1387 0080 04       		.byte	0x4
+ 1388 0081 07       		.byte	0x7
+ 1389 0082 BA000000 		.4byte	.LASF10
+ 1390 0086 02       		.uleb128 0x2
+ARM GAS  c:\Temp\cctGqfAZ.s 			page 39
+
+
+ 1391 0087 08       		.byte	0x8
+ 1392 0088 05       		.byte	0x5
+ 1393 0089 7A010000 		.4byte	.LASF11
+ 1394 008d 02       		.uleb128 0x2
+ 1395 008e 08       		.byte	0x8
+ 1396 008f 07       		.byte	0x7
+ 1397 0090 25010000 		.4byte	.LASF12
+ 1398 0094 04       		.uleb128 0x4
+ 1399 0095 04       		.byte	0x4
+ 1400 0096 05       		.byte	0x5
+ 1401 0097 696E7400 		.ascii	"int\000"
+ 1402 009b 02       		.uleb128 0x2
+ 1403 009c 04       		.byte	0x4
+ 1404 009d 07       		.byte	0x7
+ 1405 009e 18010000 		.4byte	.LASF13
+ 1406 00a2 05       		.uleb128 0x5
+ 1407 00a3 01       		.byte	0x1
+ 1408 00a4 74000000 		.4byte	.LASF14
+ 1409 00a8 01       		.byte	0x1
+ 1410 00a9 BB01     		.2byte	0x1bb
+ 1411 00ab 01       		.byte	0x1
+ 1412 00ac 74000000 		.4byte	0x74
+ 1413 00b0 00000000 		.4byte	.LFB0
+ 1414 00b4 10000000 		.4byte	.LFE0
+ 1415 00b8 02       		.byte	0x2
+ 1416 00b9 7D       		.byte	0x7d
+ 1417 00ba 00       		.sleb128 0
+ 1418 00bb CE000000 		.4byte	0xce
+ 1419 00bf 06       		.uleb128 0x6
+ 1420 00c0 44010000 		.4byte	.LASF16
+ 1421 00c4 01       		.byte	0x1
+ 1422 00c5 BD01     		.2byte	0x1bd
+ 1423 00c7 74000000 		.4byte	0x74
+ 1424 00cb 01       		.byte	0x1
+ 1425 00cc 54       		.byte	0x54
+ 1426 00cd 00       		.byte	0x0
+ 1427 00ce 07       		.uleb128 0x7
+ 1428 00cf 01       		.byte	0x1
+ 1429 00d0 7E000000 		.4byte	.LASF17
+ 1430 00d4 01       		.byte	0x1
+ 1431 00d5 CE01     		.2byte	0x1ce
+ 1432 00d7 01       		.byte	0x1
+ 1433 00d8 10000000 		.4byte	.LFB1
+ 1434 00dc 18000000 		.4byte	.LFE1
+ 1435 00e0 02       		.byte	0x2
+ 1436 00e1 7D       		.byte	0x7d
+ 1437 00e2 00       		.sleb128 0
+ 1438 00e3 F6000000 		.4byte	0xf6
+ 1439 00e7 08       		.uleb128 0x8
+ 1440 00e8 47000000 		.4byte	.LASF19
+ 1441 00ec 01       		.byte	0x1
+ 1442 00ed CE01     		.2byte	0x1ce
+ 1443 00ef 74000000 		.4byte	0x74
+ 1444 00f3 01       		.byte	0x1
+ 1445 00f4 53       		.byte	0x53
+ 1446 00f5 00       		.byte	0x0
+ 1447 00f6 05       		.uleb128 0x5
+ARM GAS  c:\Temp\cctGqfAZ.s 			page 40
+
+
+ 1448 00f7 01       		.byte	0x1
+ 1449 00f8 60000000 		.4byte	.LASF15
+ 1450 00fc 01       		.byte	0x1
+ 1451 00fd DD01     		.2byte	0x1dd
+ 1452 00ff 01       		.byte	0x1
+ 1453 0100 74000000 		.4byte	0x74
+ 1454 0104 18000000 		.4byte	.LFB2
+ 1455 0108 28000000 		.4byte	.LFE2
+ 1456 010c 02       		.byte	0x2
+ 1457 010d 7D       		.byte	0x7d
+ 1458 010e 00       		.sleb128 0
+ 1459 010f 22010000 		.4byte	0x122
+ 1460 0113 06       		.uleb128 0x6
+ 1461 0114 44010000 		.4byte	.LASF16
+ 1462 0118 01       		.byte	0x1
+ 1463 0119 DF01     		.2byte	0x1df
+ 1464 011b 74000000 		.4byte	0x74
+ 1465 011f 01       		.byte	0x1
+ 1466 0120 54       		.byte	0x54
+ 1467 0121 00       		.byte	0x0
+ 1468 0122 07       		.uleb128 0x7
+ 1469 0123 01       		.byte	0x1
+ 1470 0124 6A000000 		.4byte	.LASF18
+ 1471 0128 01       		.byte	0x1
+ 1472 0129 F001     		.2byte	0x1f0
+ 1473 012b 01       		.byte	0x1
+ 1474 012c 28000000 		.4byte	.LFB3
+ 1475 0130 30000000 		.4byte	.LFE3
+ 1476 0134 02       		.byte	0x2
+ 1477 0135 7D       		.byte	0x7d
+ 1478 0136 00       		.sleb128 0
+ 1479 0137 4A010000 		.4byte	0x14a
+ 1480 013b 08       		.uleb128 0x8
+ 1481 013c 6B010000 		.4byte	.LASF20
+ 1482 0140 01       		.byte	0x1
+ 1483 0141 F001     		.2byte	0x1f0
+ 1484 0143 74000000 		.4byte	0x74
+ 1485 0147 01       		.byte	0x1
+ 1486 0148 53       		.byte	0x53
+ 1487 0149 00       		.byte	0x0
+ 1488 014a 09       		.uleb128 0x9
+ 1489 014b 01       		.byte	0x1
+ 1490 014c AC000000 		.4byte	.LASF21
+ 1491 0150 01       		.byte	0x1
+ 1492 0151 FD01     		.2byte	0x1fd
+ 1493 0153 01       		.byte	0x1
+ 1494 0154 74000000 		.4byte	0x74
+ 1495 0158 30000000 		.4byte	.LFB4
+ 1496 015c 50000000 		.4byte	.LFE4
+ 1497 0160 00000000 		.4byte	.LLST0
+ 1498 0164 78010000 		.4byte	0x178
+ 1499 0168 06       		.uleb128 0x6
+ 1500 0169 44010000 		.4byte	.LASF16
+ 1501 016d 01       		.byte	0x1
+ 1502 016e FF01     		.2byte	0x1ff
+ 1503 0170 74000000 		.4byte	0x74
+ 1504 0174 02       		.byte	0x2
+ARM GAS  c:\Temp\cctGqfAZ.s 			page 41
+
+
+ 1505 0175 91       		.byte	0x91
+ 1506 0176 74       		.sleb128 -12
+ 1507 0177 00       		.byte	0x0
+ 1508 0178 0A       		.uleb128 0xa
+ 1509 0179 01       		.byte	0x1
+ 1510 017a 0A010000 		.4byte	.LASF22
+ 1511 017e 01       		.byte	0x1
+ 1512 017f 0C02     		.2byte	0x20c
+ 1513 0181 01       		.byte	0x1
+ 1514 0182 50000000 		.4byte	.LFB5
+ 1515 0186 68000000 		.4byte	.LFE5
+ 1516 018a 38000000 		.4byte	.LLST1
+ 1517 018e A2010000 		.4byte	0x1a2
+ 1518 0192 08       		.uleb128 0x8
+ 1519 0193 30000000 		.4byte	.LASF23
+ 1520 0197 01       		.byte	0x1
+ 1521 0198 0C02     		.2byte	0x20c
+ 1522 019a 74000000 		.4byte	0x74
+ 1523 019e 02       		.byte	0x2
+ 1524 019f 91       		.byte	0x91
+ 1525 01a0 74       		.sleb128 -12
+ 1526 01a1 00       		.byte	0x0
+ 1527 01a2 09       		.uleb128 0x9
+ 1528 01a3 01       		.byte	0x1
+ 1529 01a4 9E000000 		.4byte	.LASF24
+ 1530 01a8 01       		.byte	0x1
+ 1531 01a9 1802     		.2byte	0x218
+ 1532 01ab 01       		.byte	0x1
+ 1533 01ac 74000000 		.4byte	0x74
+ 1534 01b0 68000000 		.4byte	.LFB6
+ 1535 01b4 88000000 		.4byte	.LFE6
+ 1536 01b8 70000000 		.4byte	.LLST2
+ 1537 01bc D0010000 		.4byte	0x1d0
+ 1538 01c0 06       		.uleb128 0x6
+ 1539 01c1 44010000 		.4byte	.LASF16
+ 1540 01c5 01       		.byte	0x1
+ 1541 01c6 1A02     		.2byte	0x21a
+ 1542 01c8 74000000 		.4byte	0x74
+ 1543 01cc 02       		.byte	0x2
+ 1544 01cd 91       		.byte	0x91
+ 1545 01ce 74       		.sleb128 -12
+ 1546 01cf 00       		.byte	0x0
+ 1547 01d0 0A       		.uleb128 0xa
+ 1548 01d1 01       		.byte	0x1
+ 1549 01d2 88010000 		.4byte	.LASF25
+ 1550 01d6 01       		.byte	0x1
+ 1551 01d7 2702     		.2byte	0x227
+ 1552 01d9 01       		.byte	0x1
+ 1553 01da 88000000 		.4byte	.LFB7
+ 1554 01de A0000000 		.4byte	.LFE7
+ 1555 01e2 A8000000 		.4byte	.LLST3
+ 1556 01e6 FA010000 		.4byte	0x1fa
+ 1557 01ea 08       		.uleb128 0x8
+ 1558 01eb 3F000000 		.4byte	.LASF26
+ 1559 01ef 01       		.byte	0x1
+ 1560 01f0 2702     		.2byte	0x227
+ 1561 01f2 74000000 		.4byte	0x74
+ARM GAS  c:\Temp\cctGqfAZ.s 			page 42
+
+
+ 1562 01f6 02       		.byte	0x2
+ 1563 01f7 91       		.byte	0x91
+ 1564 01f8 74       		.sleb128 -12
+ 1565 01f9 00       		.byte	0x0
+ 1566 01fa 09       		.uleb128 0x9
+ 1567 01fb 01       		.byte	0x1
+ 1568 01fc 1E020000 		.4byte	.LASF27
+ 1569 0200 01       		.byte	0x1
+ 1570 0201 3302     		.2byte	0x233
+ 1571 0203 01       		.byte	0x1
+ 1572 0204 74000000 		.4byte	0x74
+ 1573 0208 A0000000 		.4byte	.LFB8
+ 1574 020c C0000000 		.4byte	.LFE8
+ 1575 0210 E0000000 		.4byte	.LLST4
+ 1576 0214 28020000 		.4byte	0x228
+ 1577 0218 06       		.uleb128 0x6
+ 1578 0219 44010000 		.4byte	.LASF16
+ 1579 021d 01       		.byte	0x1
+ 1580 021e 3502     		.2byte	0x235
+ 1581 0220 74000000 		.4byte	0x74
+ 1582 0224 02       		.byte	0x2
+ 1583 0225 91       		.byte	0x91
+ 1584 0226 74       		.sleb128 -12
+ 1585 0227 00       		.byte	0x0
+ 1586 0228 0A       		.uleb128 0xa
+ 1587 0229 01       		.byte	0x1
+ 1588 022a 5B010000 		.4byte	.LASF28
+ 1589 022e 01       		.byte	0x1
+ 1590 022f 4202     		.2byte	0x242
+ 1591 0231 01       		.byte	0x1
+ 1592 0232 C0000000 		.4byte	.LFB9
+ 1593 0236 D8000000 		.4byte	.LFE9
+ 1594 023a 18010000 		.4byte	.LLST5
+ 1595 023e 52020000 		.4byte	0x252
+ 1596 0242 08       		.uleb128 0x8
+ 1597 0243 56000000 		.4byte	.LASF29
+ 1598 0247 01       		.byte	0x1
+ 1599 0248 4202     		.2byte	0x242
+ 1600 024a 74000000 		.4byte	0x74
+ 1601 024e 02       		.byte	0x2
+ 1602 024f 91       		.byte	0x91
+ 1603 0250 74       		.sleb128 -12
+ 1604 0251 00       		.byte	0x0
+ 1605 0252 09       		.uleb128 0x9
+ 1606 0253 01       		.byte	0x1
+ 1607 0254 9C010000 		.4byte	.LASF30
+ 1608 0258 01       		.byte	0x1
+ 1609 0259 4E02     		.2byte	0x24e
+ 1610 025b 01       		.byte	0x1
+ 1611 025c 74000000 		.4byte	0x74
+ 1612 0260 D8000000 		.4byte	.LFB10
+ 1613 0264 F8000000 		.4byte	.LFE10
+ 1614 0268 50010000 		.4byte	.LLST6
+ 1615 026c 80020000 		.4byte	0x280
+ 1616 0270 06       		.uleb128 0x6
+ 1617 0271 44010000 		.4byte	.LASF16
+ 1618 0275 01       		.byte	0x1
+ARM GAS  c:\Temp\cctGqfAZ.s 			page 43
+
+
+ 1619 0276 5002     		.2byte	0x250
+ 1620 0278 74000000 		.4byte	0x74
+ 1621 027c 02       		.byte	0x2
+ 1622 027d 91       		.byte	0x91
+ 1623 027e 74       		.sleb128 -12
+ 1624 027f 00       		.byte	0x0
+ 1625 0280 0A       		.uleb128 0xa
+ 1626 0281 01       		.byte	0x1
+ 1627 0282 16000000 		.4byte	.LASF31
+ 1628 0286 01       		.byte	0x1
+ 1629 0287 5D02     		.2byte	0x25d
+ 1630 0289 01       		.byte	0x1
+ 1631 028a F8000000 		.4byte	.LFB11
+ 1632 028e 10010000 		.4byte	.LFE11
+ 1633 0292 88010000 		.4byte	.LLST7
+ 1634 0296 AA020000 		.4byte	0x2aa
+ 1635 029a 08       		.uleb128 0x8
+ 1636 029b DF000000 		.4byte	.LASF32
+ 1637 029f 01       		.byte	0x1
+ 1638 02a0 5D02     		.2byte	0x25d
+ 1639 02a2 74000000 		.4byte	0x74
+ 1640 02a6 02       		.byte	0x2
+ 1641 02a7 91       		.byte	0x91
+ 1642 02a8 74       		.sleb128 -12
+ 1643 02a9 00       		.byte	0x0
+ 1644 02aa 09       		.uleb128 0x9
+ 1645 02ab 01       		.byte	0x1
+ 1646 02ac 96010000 		.4byte	.LASF33
+ 1647 02b0 01       		.byte	0x1
+ 1648 02b1 6B02     		.2byte	0x26b
+ 1649 02b3 01       		.byte	0x1
+ 1650 02b4 74000000 		.4byte	0x74
+ 1651 02b8 10010000 		.4byte	.LFB12
+ 1652 02bc 32010000 		.4byte	.LFE12
+ 1653 02c0 C0010000 		.4byte	.LLST8
+ 1654 02c4 E7020000 		.4byte	0x2e7
+ 1655 02c8 08       		.uleb128 0x8
+ 1656 02c9 30000000 		.4byte	.LASF23
+ 1657 02cd 01       		.byte	0x1
+ 1658 02ce 6B02     		.2byte	0x26b
+ 1659 02d0 74000000 		.4byte	0x74
+ 1660 02d4 02       		.byte	0x2
+ 1661 02d5 91       		.byte	0x91
+ 1662 02d6 6C       		.sleb128 -20
+ 1663 02d7 06       		.uleb128 0x6
+ 1664 02d8 44010000 		.4byte	.LASF16
+ 1665 02dc 01       		.byte	0x1
+ 1666 02dd 6D02     		.2byte	0x26d
+ 1667 02df 74000000 		.4byte	0x74
+ 1668 02e3 02       		.byte	0x2
+ 1669 02e4 91       		.byte	0x91
+ 1670 02e5 74       		.sleb128 -12
+ 1671 02e6 00       		.byte	0x0
+ 1672 02e7 09       		.uleb128 0x9
+ 1673 02e8 01       		.byte	0x1
+ 1674 02e9 88000000 		.4byte	.LASF34
+ 1675 02ed 01       		.byte	0x1
+ARM GAS  c:\Temp\cctGqfAZ.s 			page 44
+
+
+ 1676 02ee 7B02     		.2byte	0x27b
+ 1677 02f0 01       		.byte	0x1
+ 1678 02f1 74000000 		.4byte	0x74
+ 1679 02f5 34010000 		.4byte	.LFB13
+ 1680 02f9 58010000 		.4byte	.LFE13
+ 1681 02fd F8010000 		.4byte	.LLST9
+ 1682 0301 24030000 		.4byte	0x324
+ 1683 0305 08       		.uleb128 0x8
+ 1684 0306 30000000 		.4byte	.LASF23
+ 1685 030a 01       		.byte	0x1
+ 1686 030b 7B02     		.2byte	0x27b
+ 1687 030d 50000000 		.4byte	0x50
+ 1688 0311 02       		.byte	0x2
+ 1689 0312 91       		.byte	0x91
+ 1690 0313 6E       		.sleb128 -18
+ 1691 0314 06       		.uleb128 0x6
+ 1692 0315 44010000 		.4byte	.LASF16
+ 1693 0319 01       		.byte	0x1
+ 1694 031a 7D02     		.2byte	0x27d
+ 1695 031c 74000000 		.4byte	0x74
+ 1696 0320 02       		.byte	0x2
+ 1697 0321 91       		.byte	0x91
+ 1698 0322 74       		.sleb128 -12
+ 1699 0323 00       		.byte	0x0
+ 1700 0324 09       		.uleb128 0x9
+ 1701 0325 01       		.byte	0x1
+ 1702 0326 0E000000 		.4byte	.LASF35
+ 1703 032a 01       		.byte	0x1
+ 1704 032b 8B02     		.2byte	0x28b
+ 1705 032d 01       		.byte	0x1
+ 1706 032e 62000000 		.4byte	0x62
+ 1707 0332 58010000 		.4byte	.LFB14
+ 1708 0336 7C010000 		.4byte	.LFE14
+ 1709 033a 30020000 		.4byte	.LLST10
+ 1710 033e 61030000 		.4byte	0x361
+ 1711 0342 08       		.uleb128 0x8
+ 1712 0343 30000000 		.4byte	.LASF23
+ 1713 0347 01       		.byte	0x1
+ 1714 0348 8B02     		.2byte	0x28b
+ 1715 034a 3E000000 		.4byte	0x3e
+ 1716 034e 02       		.byte	0x2
+ 1717 034f 91       		.byte	0x91
+ 1718 0350 6E       		.sleb128 -18
+ 1719 0351 06       		.uleb128 0x6
+ 1720 0352 44010000 		.4byte	.LASF16
+ 1721 0356 01       		.byte	0x1
+ 1722 0357 8D02     		.2byte	0x28d
+ 1723 0359 74000000 		.4byte	0x74
+ 1724 035d 02       		.byte	0x2
+ 1725 035e 91       		.byte	0x91
+ 1726 035f 74       		.sleb128 -12
+ 1727 0360 00       		.byte	0x0
+ 1728 0361 09       		.uleb128 0x9
+ 1729 0362 01       		.byte	0x1
+ 1730 0363 AA010000 		.4byte	.LASF36
+ 1731 0367 01       		.byte	0x1
+ 1732 0368 9B02     		.2byte	0x29b
+ARM GAS  c:\Temp\cctGqfAZ.s 			page 45
+
+
+ 1733 036a 01       		.byte	0x1
+ 1734 036b 74000000 		.4byte	0x74
+ 1735 036f 7C010000 		.4byte	.LFB15
+ 1736 0373 A0010000 		.4byte	.LFE15
+ 1737 0377 68020000 		.4byte	.LLST11
+ 1738 037b 9E030000 		.4byte	0x39e
+ 1739 037f 08       		.uleb128 0x8
+ 1740 0380 30000000 		.4byte	.LASF23
+ 1741 0384 01       		.byte	0x1
+ 1742 0385 9B02     		.2byte	0x29b
+ 1743 0387 74000000 		.4byte	0x74
+ 1744 038b 02       		.byte	0x2
+ 1745 038c 91       		.byte	0x91
+ 1746 038d 6C       		.sleb128 -20
+ 1747 038e 06       		.uleb128 0x6
+ 1748 038f 44010000 		.4byte	.LASF16
+ 1749 0393 01       		.byte	0x1
+ 1750 0394 9D02     		.2byte	0x29d
+ 1751 0396 74000000 		.4byte	0x74
+ 1752 039a 02       		.byte	0x2
+ 1753 039b 91       		.byte	0x91
+ 1754 039c 74       		.sleb128 -12
+ 1755 039d 00       		.byte	0x0
+ 1756 039e 09       		.uleb128 0x9
+ 1757 039f 01       		.byte	0x1
+ 1758 03a0 0C020000 		.4byte	.LASF37
+ 1759 03a4 01       		.byte	0x1
+ 1760 03a5 AB02     		.2byte	0x2ab
+ 1761 03a7 01       		.byte	0x1
+ 1762 03a8 2C000000 		.4byte	0x2c
+ 1763 03ac A0010000 		.4byte	.LFB16
+ 1764 03b0 C4010000 		.4byte	.LFE16
+ 1765 03b4 A0020000 		.4byte	.LLST12
+ 1766 03b8 DB030000 		.4byte	0x3db
+ 1767 03bc 08       		.uleb128 0x8
+ 1768 03bd 09000000 		.4byte	.LASF38
+ 1769 03c1 01       		.byte	0x1
+ 1770 03c2 AB02     		.2byte	0x2ab
+ 1771 03c4 DB030000 		.4byte	0x3db
+ 1772 03c8 02       		.byte	0x2
+ 1773 03c9 91       		.byte	0x91
+ 1774 03ca 6C       		.sleb128 -20
+ 1775 03cb 06       		.uleb128 0x6
+ 1776 03cc 44010000 		.4byte	.LASF16
+ 1777 03d0 01       		.byte	0x1
+ 1778 03d1 AD02     		.2byte	0x2ad
+ 1779 03d3 2C000000 		.4byte	0x2c
+ 1780 03d7 02       		.byte	0x2
+ 1781 03d8 91       		.byte	0x91
+ 1782 03d9 77       		.sleb128 -9
+ 1783 03da 00       		.byte	0x0
+ 1784 03db 0B       		.uleb128 0xb
+ 1785 03dc 04       		.byte	0x4
+ 1786 03dd 2C000000 		.4byte	0x2c
+ 1787 03e1 09       		.uleb128 0x9
+ 1788 03e2 01       		.byte	0x1
+ 1789 03e3 2E020000 		.4byte	.LASF39
+ARM GAS  c:\Temp\cctGqfAZ.s 			page 46
+
+
+ 1790 03e7 01       		.byte	0x1
+ 1791 03e8 BB02     		.2byte	0x2bb
+ 1792 03ea 01       		.byte	0x1
+ 1793 03eb 50000000 		.4byte	0x50
+ 1794 03ef C4010000 		.4byte	.LFB17
+ 1795 03f3 E8010000 		.4byte	.LFE17
+ 1796 03f7 D8020000 		.4byte	.LLST13
+ 1797 03fb 1E040000 		.4byte	0x41e
+ 1798 03ff 08       		.uleb128 0x8
+ 1799 0400 09000000 		.4byte	.LASF38
+ 1800 0404 01       		.byte	0x1
+ 1801 0405 BB02     		.2byte	0x2bb
+ 1802 0407 1E040000 		.4byte	0x41e
+ 1803 040b 02       		.byte	0x2
+ 1804 040c 91       		.byte	0x91
+ 1805 040d 6C       		.sleb128 -20
+ 1806 040e 06       		.uleb128 0x6
+ 1807 040f 44010000 		.4byte	.LASF16
+ 1808 0413 01       		.byte	0x1
+ 1809 0414 BD02     		.2byte	0x2bd
+ 1810 0416 50000000 		.4byte	0x50
+ 1811 041a 02       		.byte	0x2
+ 1812 041b 91       		.byte	0x91
+ 1813 041c 76       		.sleb128 -10
+ 1814 041d 00       		.byte	0x0
+ 1815 041e 0B       		.uleb128 0xb
+ 1816 041f 04       		.byte	0x4
+ 1817 0420 50000000 		.4byte	0x50
+ 1818 0424 09       		.uleb128 0x9
+ 1819 0425 01       		.byte	0x1
+ 1820 0426 36000000 		.4byte	.LASF40
+ 1821 042a 01       		.byte	0x1
+ 1822 042b CB02     		.2byte	0x2cb
+ 1823 042d 01       		.byte	0x1
+ 1824 042e 74000000 		.4byte	0x74
+ 1825 0432 E8010000 		.4byte	.LFB18
+ 1826 0436 0C020000 		.4byte	.LFE18
+ 1827 043a 10030000 		.4byte	.LLST14
+ 1828 043e 61040000 		.4byte	0x461
+ 1829 0442 08       		.uleb128 0x8
+ 1830 0443 09000000 		.4byte	.LASF38
+ 1831 0447 01       		.byte	0x1
+ 1832 0448 CB02     		.2byte	0x2cb
+ 1833 044a 61040000 		.4byte	0x461
+ 1834 044e 02       		.byte	0x2
+ 1835 044f 91       		.byte	0x91
+ 1836 0450 6C       		.sleb128 -20
+ 1837 0451 06       		.uleb128 0x6
+ 1838 0452 44010000 		.4byte	.LASF16
+ 1839 0456 01       		.byte	0x1
+ 1840 0457 CD02     		.2byte	0x2cd
+ 1841 0459 74000000 		.4byte	0x74
+ 1842 045d 02       		.byte	0x2
+ 1843 045e 91       		.byte	0x91
+ 1844 045f 74       		.sleb128 -12
+ 1845 0460 00       		.byte	0x0
+ 1846 0461 0B       		.uleb128 0xb
+ARM GAS  c:\Temp\cctGqfAZ.s 			page 47
+
+
+ 1847 0462 04       		.byte	0x4
+ 1848 0463 74000000 		.4byte	0x74
+ 1849 0467 09       		.uleb128 0x9
+ 1850 0468 01       		.byte	0x1
+ 1851 0469 15020000 		.4byte	.LASF41
+ 1852 046d 01       		.byte	0x1
+ 1853 046e DC02     		.2byte	0x2dc
+ 1854 0470 01       		.byte	0x1
+ 1855 0471 74000000 		.4byte	0x74
+ 1856 0475 0C020000 		.4byte	.LFB19
+ 1857 0479 36020000 		.4byte	.LFE19
+ 1858 047d 48030000 		.4byte	.LLST15
+ 1859 0481 B3040000 		.4byte	0x4b3
+ 1860 0485 08       		.uleb128 0x8
+ 1861 0486 30000000 		.4byte	.LASF23
+ 1862 048a 01       		.byte	0x1
+ 1863 048b DC02     		.2byte	0x2dc
+ 1864 048d 2C000000 		.4byte	0x2c
+ 1865 0491 02       		.byte	0x2
+ 1866 0492 91       		.byte	0x91
+ 1867 0493 6F       		.sleb128 -17
+ 1868 0494 08       		.uleb128 0x8
+ 1869 0495 09000000 		.4byte	.LASF38
+ 1870 0499 01       		.byte	0x1
+ 1871 049a DC02     		.2byte	0x2dc
+ 1872 049c DB030000 		.4byte	0x3db
+ 1873 04a0 02       		.byte	0x2
+ 1874 04a1 91       		.byte	0x91
+ 1875 04a2 68       		.sleb128 -24
+ 1876 04a3 06       		.uleb128 0x6
+ 1877 04a4 44010000 		.4byte	.LASF16
+ 1878 04a8 01       		.byte	0x1
+ 1879 04a9 DE02     		.2byte	0x2de
+ 1880 04ab 74000000 		.4byte	0x74
+ 1881 04af 02       		.byte	0x2
+ 1882 04b0 91       		.byte	0x91
+ 1883 04b1 74       		.sleb128 -12
+ 1884 04b2 00       		.byte	0x0
+ 1885 04b3 09       		.uleb128 0x9
+ 1886 04b4 01       		.byte	0x1
+ 1887 04b5 00000000 		.4byte	.LASF42
+ 1888 04b9 01       		.byte	0x1
+ 1889 04ba ED02     		.2byte	0x2ed
+ 1890 04bc 01       		.byte	0x1
+ 1891 04bd 74000000 		.4byte	0x74
+ 1892 04c1 38020000 		.4byte	.LFB20
+ 1893 04c5 62020000 		.4byte	.LFE20
+ 1894 04c9 80030000 		.4byte	.LLST16
+ 1895 04cd FF040000 		.4byte	0x4ff
+ 1896 04d1 08       		.uleb128 0x8
+ 1897 04d2 30000000 		.4byte	.LASF23
+ 1898 04d6 01       		.byte	0x1
+ 1899 04d7 ED02     		.2byte	0x2ed
+ 1900 04d9 50000000 		.4byte	0x50
+ 1901 04dd 02       		.byte	0x2
+ 1902 04de 91       		.byte	0x91
+ 1903 04df 6E       		.sleb128 -18
+ARM GAS  c:\Temp\cctGqfAZ.s 			page 48
+
+
+ 1904 04e0 08       		.uleb128 0x8
+ 1905 04e1 09000000 		.4byte	.LASF38
+ 1906 04e5 01       		.byte	0x1
+ 1907 04e6 ED02     		.2byte	0x2ed
+ 1908 04e8 1E040000 		.4byte	0x41e
+ 1909 04ec 02       		.byte	0x2
+ 1910 04ed 91       		.byte	0x91
+ 1911 04ee 68       		.sleb128 -24
+ 1912 04ef 06       		.uleb128 0x6
+ 1913 04f0 44010000 		.4byte	.LASF16
+ 1914 04f4 01       		.byte	0x1
+ 1915 04f5 EF02     		.2byte	0x2ef
+ 1916 04f7 74000000 		.4byte	0x74
+ 1917 04fb 02       		.byte	0x2
+ 1918 04fc 91       		.byte	0x91
+ 1919 04fd 74       		.sleb128 -12
+ 1920 04fe 00       		.byte	0x0
+ 1921 04ff 0C       		.uleb128 0xc
+ 1922 0500 01       		.byte	0x1
+ 1923 0501 F7010000 		.4byte	.LASF43
+ 1924 0505 01       		.byte	0x1
+ 1925 0506 FE02     		.2byte	0x2fe
+ 1926 0508 01       		.byte	0x1
+ 1927 0509 74000000 		.4byte	0x74
+ 1928 050d 64020000 		.4byte	.LFB21
+ 1929 0511 8C020000 		.4byte	.LFE21
+ 1930 0515 B8030000 		.4byte	.LLST17
+ 1931 0519 08       		.uleb128 0x8
+ 1932 051a 30000000 		.4byte	.LASF23
+ 1933 051e 01       		.byte	0x1
+ 1934 051f FE02     		.2byte	0x2fe
+ 1935 0521 74000000 		.4byte	0x74
+ 1936 0525 02       		.byte	0x2
+ 1937 0526 91       		.byte	0x91
+ 1938 0527 6C       		.sleb128 -20
+ 1939 0528 08       		.uleb128 0x8
+ 1940 0529 09000000 		.4byte	.LASF38
+ 1941 052d 01       		.byte	0x1
+ 1942 052e FE02     		.2byte	0x2fe
+ 1943 0530 61040000 		.4byte	0x461
+ 1944 0534 02       		.byte	0x2
+ 1945 0535 91       		.byte	0x91
+ 1946 0536 68       		.sleb128 -24
+ 1947 0537 06       		.uleb128 0x6
+ 1948 0538 44010000 		.4byte	.LASF16
+ 1949 053c 01       		.byte	0x1
+ 1950 053d 0003     		.2byte	0x300
+ 1951 053f 74000000 		.4byte	0x74
+ 1952 0543 02       		.byte	0x2
+ 1953 0544 91       		.byte	0x91
+ 1954 0545 74       		.sleb128 -12
+ 1955 0546 00       		.byte	0x0
+ 1956 0547 00       		.byte	0x0
+ 1957              		.section	.debug_abbrev
+ 1958 0000 01       		.uleb128 0x1
+ 1959 0001 11       		.uleb128 0x11
+ 1960 0002 01       		.byte	0x1
+ARM GAS  c:\Temp\cctGqfAZ.s 			page 49
+
+
+ 1961 0003 25       		.uleb128 0x25
+ 1962 0004 0E       		.uleb128 0xe
+ 1963 0005 13       		.uleb128 0x13
+ 1964 0006 0B       		.uleb128 0xb
+ 1965 0007 03       		.uleb128 0x3
+ 1966 0008 0E       		.uleb128 0xe
+ 1967 0009 1B       		.uleb128 0x1b
+ 1968 000a 0E       		.uleb128 0xe
+ 1969 000b 11       		.uleb128 0x11
+ 1970 000c 01       		.uleb128 0x1
+ 1971 000d 12       		.uleb128 0x12
+ 1972 000e 01       		.uleb128 0x1
+ 1973 000f 10       		.uleb128 0x10
+ 1974 0010 06       		.uleb128 0x6
+ 1975 0011 00       		.byte	0x0
+ 1976 0012 00       		.byte	0x0
+ 1977 0013 02       		.uleb128 0x2
+ 1978 0014 24       		.uleb128 0x24
+ 1979 0015 00       		.byte	0x0
+ 1980 0016 0B       		.uleb128 0xb
+ 1981 0017 0B       		.uleb128 0xb
+ 1982 0018 3E       		.uleb128 0x3e
+ 1983 0019 0B       		.uleb128 0xb
+ 1984 001a 03       		.uleb128 0x3
+ 1985 001b 0E       		.uleb128 0xe
+ 1986 001c 00       		.byte	0x0
+ 1987 001d 00       		.byte	0x0
+ 1988 001e 03       		.uleb128 0x3
+ 1989 001f 16       		.uleb128 0x16
+ 1990 0020 00       		.byte	0x0
+ 1991 0021 03       		.uleb128 0x3
+ 1992 0022 0E       		.uleb128 0xe
+ 1993 0023 3A       		.uleb128 0x3a
+ 1994 0024 0B       		.uleb128 0xb
+ 1995 0025 3B       		.uleb128 0x3b
+ 1996 0026 0B       		.uleb128 0xb
+ 1997 0027 49       		.uleb128 0x49
+ 1998 0028 13       		.uleb128 0x13
+ 1999 0029 00       		.byte	0x0
+ 2000 002a 00       		.byte	0x0
+ 2001 002b 04       		.uleb128 0x4
+ 2002 002c 24       		.uleb128 0x24
+ 2003 002d 00       		.byte	0x0
+ 2004 002e 0B       		.uleb128 0xb
+ 2005 002f 0B       		.uleb128 0xb
+ 2006 0030 3E       		.uleb128 0x3e
+ 2007 0031 0B       		.uleb128 0xb
+ 2008 0032 03       		.uleb128 0x3
+ 2009 0033 08       		.uleb128 0x8
+ 2010 0034 00       		.byte	0x0
+ 2011 0035 00       		.byte	0x0
+ 2012 0036 05       		.uleb128 0x5
+ 2013 0037 2E       		.uleb128 0x2e
+ 2014 0038 01       		.byte	0x1
+ 2015 0039 3F       		.uleb128 0x3f
+ 2016 003a 0C       		.uleb128 0xc
+ 2017 003b 03       		.uleb128 0x3
+ARM GAS  c:\Temp\cctGqfAZ.s 			page 50
+
+
+ 2018 003c 0E       		.uleb128 0xe
+ 2019 003d 3A       		.uleb128 0x3a
+ 2020 003e 0B       		.uleb128 0xb
+ 2021 003f 3B       		.uleb128 0x3b
+ 2022 0040 05       		.uleb128 0x5
+ 2023 0041 27       		.uleb128 0x27
+ 2024 0042 0C       		.uleb128 0xc
+ 2025 0043 49       		.uleb128 0x49
+ 2026 0044 13       		.uleb128 0x13
+ 2027 0045 11       		.uleb128 0x11
+ 2028 0046 01       		.uleb128 0x1
+ 2029 0047 12       		.uleb128 0x12
+ 2030 0048 01       		.uleb128 0x1
+ 2031 0049 40       		.uleb128 0x40
+ 2032 004a 0A       		.uleb128 0xa
+ 2033 004b 01       		.uleb128 0x1
+ 2034 004c 13       		.uleb128 0x13
+ 2035 004d 00       		.byte	0x0
+ 2036 004e 00       		.byte	0x0
+ 2037 004f 06       		.uleb128 0x6
+ 2038 0050 34       		.uleb128 0x34
+ 2039 0051 00       		.byte	0x0
+ 2040 0052 03       		.uleb128 0x3
+ 2041 0053 0E       		.uleb128 0xe
+ 2042 0054 3A       		.uleb128 0x3a
+ 2043 0055 0B       		.uleb128 0xb
+ 2044 0056 3B       		.uleb128 0x3b
+ 2045 0057 05       		.uleb128 0x5
+ 2046 0058 49       		.uleb128 0x49
+ 2047 0059 13       		.uleb128 0x13
+ 2048 005a 02       		.uleb128 0x2
+ 2049 005b 0A       		.uleb128 0xa
+ 2050 005c 00       		.byte	0x0
+ 2051 005d 00       		.byte	0x0
+ 2052 005e 07       		.uleb128 0x7
+ 2053 005f 2E       		.uleb128 0x2e
+ 2054 0060 01       		.byte	0x1
+ 2055 0061 3F       		.uleb128 0x3f
+ 2056 0062 0C       		.uleb128 0xc
+ 2057 0063 03       		.uleb128 0x3
+ 2058 0064 0E       		.uleb128 0xe
+ 2059 0065 3A       		.uleb128 0x3a
+ 2060 0066 0B       		.uleb128 0xb
+ 2061 0067 3B       		.uleb128 0x3b
+ 2062 0068 05       		.uleb128 0x5
+ 2063 0069 27       		.uleb128 0x27
+ 2064 006a 0C       		.uleb128 0xc
+ 2065 006b 11       		.uleb128 0x11
+ 2066 006c 01       		.uleb128 0x1
+ 2067 006d 12       		.uleb128 0x12
+ 2068 006e 01       		.uleb128 0x1
+ 2069 006f 40       		.uleb128 0x40
+ 2070 0070 0A       		.uleb128 0xa
+ 2071 0071 01       		.uleb128 0x1
+ 2072 0072 13       		.uleb128 0x13
+ 2073 0073 00       		.byte	0x0
+ 2074 0074 00       		.byte	0x0
+ARM GAS  c:\Temp\cctGqfAZ.s 			page 51
+
+
+ 2075 0075 08       		.uleb128 0x8
+ 2076 0076 05       		.uleb128 0x5
+ 2077 0077 00       		.byte	0x0
+ 2078 0078 03       		.uleb128 0x3
+ 2079 0079 0E       		.uleb128 0xe
+ 2080 007a 3A       		.uleb128 0x3a
+ 2081 007b 0B       		.uleb128 0xb
+ 2082 007c 3B       		.uleb128 0x3b
+ 2083 007d 05       		.uleb128 0x5
+ 2084 007e 49       		.uleb128 0x49
+ 2085 007f 13       		.uleb128 0x13
+ 2086 0080 02       		.uleb128 0x2
+ 2087 0081 0A       		.uleb128 0xa
+ 2088 0082 00       		.byte	0x0
+ 2089 0083 00       		.byte	0x0
+ 2090 0084 09       		.uleb128 0x9
+ 2091 0085 2E       		.uleb128 0x2e
+ 2092 0086 01       		.byte	0x1
+ 2093 0087 3F       		.uleb128 0x3f
+ 2094 0088 0C       		.uleb128 0xc
+ 2095 0089 03       		.uleb128 0x3
+ 2096 008a 0E       		.uleb128 0xe
+ 2097 008b 3A       		.uleb128 0x3a
+ 2098 008c 0B       		.uleb128 0xb
+ 2099 008d 3B       		.uleb128 0x3b
+ 2100 008e 05       		.uleb128 0x5
+ 2101 008f 27       		.uleb128 0x27
+ 2102 0090 0C       		.uleb128 0xc
+ 2103 0091 49       		.uleb128 0x49
+ 2104 0092 13       		.uleb128 0x13
+ 2105 0093 11       		.uleb128 0x11
+ 2106 0094 01       		.uleb128 0x1
+ 2107 0095 12       		.uleb128 0x12
+ 2108 0096 01       		.uleb128 0x1
+ 2109 0097 40       		.uleb128 0x40
+ 2110 0098 06       		.uleb128 0x6
+ 2111 0099 01       		.uleb128 0x1
+ 2112 009a 13       		.uleb128 0x13
+ 2113 009b 00       		.byte	0x0
+ 2114 009c 00       		.byte	0x0
+ 2115 009d 0A       		.uleb128 0xa
+ 2116 009e 2E       		.uleb128 0x2e
+ 2117 009f 01       		.byte	0x1
+ 2118 00a0 3F       		.uleb128 0x3f
+ 2119 00a1 0C       		.uleb128 0xc
+ 2120 00a2 03       		.uleb128 0x3
+ 2121 00a3 0E       		.uleb128 0xe
+ 2122 00a4 3A       		.uleb128 0x3a
+ 2123 00a5 0B       		.uleb128 0xb
+ 2124 00a6 3B       		.uleb128 0x3b
+ 2125 00a7 05       		.uleb128 0x5
+ 2126 00a8 27       		.uleb128 0x27
+ 2127 00a9 0C       		.uleb128 0xc
+ 2128 00aa 11       		.uleb128 0x11
+ 2129 00ab 01       		.uleb128 0x1
+ 2130 00ac 12       		.uleb128 0x12
+ 2131 00ad 01       		.uleb128 0x1
+ARM GAS  c:\Temp\cctGqfAZ.s 			page 52
+
+
+ 2132 00ae 40       		.uleb128 0x40
+ 2133 00af 06       		.uleb128 0x6
+ 2134 00b0 01       		.uleb128 0x1
+ 2135 00b1 13       		.uleb128 0x13
+ 2136 00b2 00       		.byte	0x0
+ 2137 00b3 00       		.byte	0x0
+ 2138 00b4 0B       		.uleb128 0xb
+ 2139 00b5 0F       		.uleb128 0xf
+ 2140 00b6 00       		.byte	0x0
+ 2141 00b7 0B       		.uleb128 0xb
+ 2142 00b8 0B       		.uleb128 0xb
+ 2143 00b9 49       		.uleb128 0x49
+ 2144 00ba 13       		.uleb128 0x13
+ 2145 00bb 00       		.byte	0x0
+ 2146 00bc 00       		.byte	0x0
+ 2147 00bd 0C       		.uleb128 0xc
+ 2148 00be 2E       		.uleb128 0x2e
+ 2149 00bf 01       		.byte	0x1
+ 2150 00c0 3F       		.uleb128 0x3f
+ 2151 00c1 0C       		.uleb128 0xc
+ 2152 00c2 03       		.uleb128 0x3
+ 2153 00c3 0E       		.uleb128 0xe
+ 2154 00c4 3A       		.uleb128 0x3a
+ 2155 00c5 0B       		.uleb128 0xb
+ 2156 00c6 3B       		.uleb128 0x3b
+ 2157 00c7 05       		.uleb128 0x5
+ 2158 00c8 27       		.uleb128 0x27
+ 2159 00c9 0C       		.uleb128 0xc
+ 2160 00ca 49       		.uleb128 0x49
+ 2161 00cb 13       		.uleb128 0x13
+ 2162 00cc 11       		.uleb128 0x11
+ 2163 00cd 01       		.uleb128 0x1
+ 2164 00ce 12       		.uleb128 0x12
+ 2165 00cf 01       		.uleb128 0x1
+ 2166 00d0 40       		.uleb128 0x40
+ 2167 00d1 06       		.uleb128 0x6
+ 2168 00d2 00       		.byte	0x0
+ 2169 00d3 00       		.byte	0x0
+ 2170 00d4 00       		.byte	0x0
+ 2171              		.section	.debug_pubnames,"",%progbits
+ 2172 0000 55010000 		.4byte	0x155
+ 2173 0004 0200     		.2byte	0x2
+ 2174 0006 00000000 		.4byte	.Ldebug_info0
+ 2175 000a 48050000 		.4byte	0x548
+ 2176 000e A2000000 		.4byte	0xa2
+ 2177 0012 5F5F6765 		.ascii	"__get_PSP\000"
+ 2177      745F5053 
+ 2177      5000
+ 2178 001c CE000000 		.4byte	0xce
+ 2179 0020 5F5F7365 		.ascii	"__set_PSP\000"
+ 2179      745F5053 
+ 2179      5000
+ 2180 002a F6000000 		.4byte	0xf6
+ 2181 002e 5F5F6765 		.ascii	"__get_MSP\000"
+ 2181      745F4D53 
+ 2181      5000
+ 2182 0038 22010000 		.4byte	0x122
+ARM GAS  c:\Temp\cctGqfAZ.s 			page 53
+
+
+ 2183 003c 5F5F7365 		.ascii	"__set_MSP\000"
+ 2183      745F4D53 
+ 2183      5000
+ 2184 0046 4A010000 		.4byte	0x14a
+ 2185 004a 5F5F6765 		.ascii	"__get_BASEPRI\000"
+ 2185      745F4241 
+ 2185      53455052 
+ 2185      4900
+ 2186 0058 78010000 		.4byte	0x178
+ 2187 005c 5F5F7365 		.ascii	"__set_BASEPRI\000"
+ 2187      745F4241 
+ 2187      53455052 
+ 2187      4900
+ 2188 006a A2010000 		.4byte	0x1a2
+ 2189 006e 5F5F6765 		.ascii	"__get_PRIMASK\000"
+ 2189      745F5052 
+ 2189      494D4153 
+ 2189      4B00
+ 2190 007c D0010000 		.4byte	0x1d0
+ 2191 0080 5F5F7365 		.ascii	"__set_PRIMASK\000"
+ 2191      745F5052 
+ 2191      494D4153 
+ 2191      4B00
+ 2192 008e FA010000 		.4byte	0x1fa
+ 2193 0092 5F5F6765 		.ascii	"__get_FAULTMASK\000"
+ 2193      745F4641 
+ 2193      554C544D 
+ 2193      41534B00 
+ 2194 00a2 28020000 		.4byte	0x228
+ 2195 00a6 5F5F7365 		.ascii	"__set_FAULTMASK\000"
+ 2195      745F4641 
+ 2195      554C544D 
+ 2195      41534B00 
+ 2196 00b6 52020000 		.4byte	0x252
+ 2197 00ba 5F5F6765 		.ascii	"__get_CONTROL\000"
+ 2197      745F434F 
+ 2197      4E54524F 
+ 2197      4C00
+ 2198 00c8 80020000 		.4byte	0x280
+ 2199 00cc 5F5F7365 		.ascii	"__set_CONTROL\000"
+ 2199      745F434F 
+ 2199      4E54524F 
+ 2199      4C00
+ 2200 00da AA020000 		.4byte	0x2aa
+ 2201 00de 5F5F5245 		.ascii	"__REV\000"
+ 2201      5600
+ 2202 00e4 E7020000 		.4byte	0x2e7
+ 2203 00e8 5F5F5245 		.ascii	"__REV16\000"
+ 2203      56313600 
+ 2204 00f0 24030000 		.4byte	0x324
+ 2205 00f4 5F5F5245 		.ascii	"__REVSH\000"
+ 2205      56534800 
+ 2206 00fc 61030000 		.4byte	0x361
+ 2207 0100 5F5F5242 		.ascii	"__RBIT\000"
+ 2207      495400
+ 2208 0107 9E030000 		.4byte	0x39e
+ 2209 010b 5F5F4C44 		.ascii	"__LDREXB\000"
+ARM GAS  c:\Temp\cctGqfAZ.s 			page 54
+
+
+ 2209      52455842 
+ 2209      00
+ 2210 0114 E1030000 		.4byte	0x3e1
+ 2211 0118 5F5F4C44 		.ascii	"__LDREXH\000"
+ 2211      52455848 
+ 2211      00
+ 2212 0121 24040000 		.4byte	0x424
+ 2213 0125 5F5F4C44 		.ascii	"__LDREXW\000"
+ 2213      52455857 
+ 2213      00
+ 2214 012e 67040000 		.4byte	0x467
+ 2215 0132 5F5F5354 		.ascii	"__STREXB\000"
+ 2215      52455842 
+ 2215      00
+ 2216 013b B3040000 		.4byte	0x4b3
+ 2217 013f 5F5F5354 		.ascii	"__STREXH\000"
+ 2217      52455848 
+ 2217      00
+ 2218 0148 FF040000 		.4byte	0x4ff
+ 2219 014c 5F5F5354 		.ascii	"__STREXW\000"
+ 2219      52455857 
+ 2219      00
+ 2220 0155 00000000 		.4byte	0x0
+ 2221              		.section	.debug_pubtypes,"",%progbits
+ 2222 0000 4C000000 		.4byte	0x4c
+ 2223 0004 0200     		.2byte	0x2
+ 2224 0006 00000000 		.4byte	.Ldebug_info0
+ 2225 000a 48050000 		.4byte	0x548
+ 2226 000e 2C000000 		.4byte	0x2c
+ 2227 0012 75696E74 		.ascii	"uint8_t\000"
+ 2227      385F7400 
+ 2228 001a 3E000000 		.4byte	0x3e
+ 2229 001e 696E7431 		.ascii	"int16_t\000"
+ 2229      365F7400 
+ 2230 0026 50000000 		.4byte	0x50
+ 2231 002a 75696E74 		.ascii	"uint16_t\000"
+ 2231      31365F74 
+ 2231      00
+ 2232 0033 62000000 		.4byte	0x62
+ 2233 0037 696E7433 		.ascii	"int32_t\000"
+ 2233      325F7400 
+ 2234 003f 74000000 		.4byte	0x74
+ 2235 0043 75696E74 		.ascii	"uint32_t\000"
+ 2235      33325F74 
+ 2235      00
+ 2236 004c 00000000 		.4byte	0x0
+ 2237              		.section	.debug_aranges,"",%progbits
+ 2238 0000 1C000000 		.4byte	0x1c
+ 2239 0004 0200     		.2byte	0x2
+ 2240 0006 00000000 		.4byte	.Ldebug_info0
+ 2241 000a 04       		.byte	0x4
+ 2242 000b 00       		.byte	0x0
+ 2243 000c 0000     		.2byte	0x0
+ 2244 000e 0000     		.2byte	0x0
+ 2245 0010 00000000 		.4byte	.Ltext0
+ 2246 0014 8C020000 		.4byte	.Letext0-.Ltext0
+ 2247 0018 00000000 		.4byte	0x0
+ARM GAS  c:\Temp\cctGqfAZ.s 			page 55
+
+
+ 2248 001c 00000000 		.4byte	0x0
+ 2249              		.section	.debug_str,"MS",%progbits,1
+ 2250              	.LASF42:
+ 2251 0000 5F5F5354 		.ascii	"__STREXH\000"
+ 2251      52455848 
+ 2251      00
+ 2252              	.LASF38:
+ 2253 0009 61646472 		.ascii	"addr\000"
+ 2253      00
+ 2254              	.LASF35:
+ 2255 000e 5F5F5245 		.ascii	"__REVSH\000"
+ 2255      56534800 
+ 2256              	.LASF31:
+ 2257 0016 5F5F7365 		.ascii	"__set_CONTROL\000"
+ 2257      745F434F 
+ 2257      4E54524F 
+ 2257      4C00
+ 2258              	.LASF44:
+ 2259 0024 474E5520 		.ascii	"GNU C 4.5.1\000"
+ 2259      4320342E 
+ 2259      352E3100 
+ 2260              	.LASF23:
+ 2261 0030 76616C75 		.ascii	"value\000"
+ 2261      6500
+ 2262              	.LASF40:
+ 2263 0036 5F5F4C44 		.ascii	"__LDREXW\000"
+ 2263      52455857 
+ 2263      00
+ 2264              	.LASF26:
+ 2265 003f 7072694D 		.ascii	"priMask\000"
+ 2265      61736B00 
+ 2266              	.LASF19:
+ 2267 0047 746F704F 		.ascii	"topOfProcStack\000"
+ 2267      6650726F 
+ 2267      63537461 
+ 2267      636B00
+ 2268              	.LASF29:
+ 2269 0056 6661756C 		.ascii	"faultMask\000"
+ 2269      744D6173 
+ 2269      6B00
+ 2270              	.LASF15:
+ 2271 0060 5F5F6765 		.ascii	"__get_MSP\000"
+ 2271      745F4D53 
+ 2271      5000
+ 2272              	.LASF18:
+ 2273 006a 5F5F7365 		.ascii	"__set_MSP\000"
+ 2273      745F4D53 
+ 2273      5000
+ 2274              	.LASF14:
+ 2275 0074 5F5F6765 		.ascii	"__get_PSP\000"
+ 2275      745F5053 
+ 2275      5000
+ 2276              	.LASF17:
+ 2277 007e 5F5F7365 		.ascii	"__set_PSP\000"
+ 2277      745F5053 
+ 2277      5000
+ 2278              	.LASF34:
+ARM GAS  c:\Temp\cctGqfAZ.s 			page 56
+
+
+ 2279 0088 5F5F5245 		.ascii	"__REV16\000"
+ 2279      56313600 
+ 2280              	.LASF1:
+ 2281 0090 756E7369 		.ascii	"unsigned char\000"
+ 2281      676E6564 
+ 2281      20636861 
+ 2281      7200
+ 2282              	.LASF24:
+ 2283 009e 5F5F6765 		.ascii	"__get_PRIMASK\000"
+ 2283      745F5052 
+ 2283      494D4153 
+ 2283      4B00
+ 2284              	.LASF21:
+ 2285 00ac 5F5F6765 		.ascii	"__get_BASEPRI\000"
+ 2285      745F4241 
+ 2285      53455052 
+ 2285      4900
+ 2286              	.LASF10:
+ 2287 00ba 6C6F6E67 		.ascii	"long unsigned int\000"
+ 2287      20756E73 
+ 2287      69676E65 
+ 2287      6420696E 
+ 2287      7400
+ 2288              	.LASF6:
+ 2289 00cc 73686F72 		.ascii	"short unsigned int\000"
+ 2289      7420756E 
+ 2289      7369676E 
+ 2289      65642069 
+ 2289      6E7400
+ 2290              	.LASF32:
+ 2291 00df 636F6E74 		.ascii	"control\000"
+ 2291      726F6C00 
+ 2292              	.LASF45:
+ 2293 00e7 2E2E2F43 		.ascii	"../CMSIS/CM3_V1P30_Core/core_cm3.c\000"
+ 2293      4D534953 
+ 2293      2F434D33 
+ 2293      5F563150 
+ 2293      33305F43 
+ 2294              	.LASF22:
+ 2295 010a 5F5F7365 		.ascii	"__set_BASEPRI\000"
+ 2295      745F4241 
+ 2295      53455052 
+ 2295      4900
+ 2296              	.LASF13:
+ 2297 0118 756E7369 		.ascii	"unsigned int\000"
+ 2297      676E6564 
+ 2297      20696E74 
+ 2297      00
+ 2298              	.LASF12:
+ 2299 0125 6C6F6E67 		.ascii	"long long unsigned int\000"
+ 2299      206C6F6E 
+ 2299      6720756E 
+ 2299      7369676E 
+ 2299      65642069 
+ 2300              	.LASF2:
+ 2301 013c 75696E74 		.ascii	"uint8_t\000"
+ 2301      385F7400 
+ARM GAS  c:\Temp\cctGqfAZ.s 			page 57
+
+
+ 2302              	.LASF16:
+ 2303 0144 72657375 		.ascii	"result\000"
+ 2303      6C7400
+ 2304              	.LASF3:
+ 2305 014b 696E7431 		.ascii	"int16_t\000"
+ 2305      365F7400 
+ 2306              	.LASF7:
+ 2307 0153 696E7433 		.ascii	"int32_t\000"
+ 2307      325F7400 
+ 2308              	.LASF28:
+ 2309 015b 5F5F7365 		.ascii	"__set_FAULTMASK\000"
+ 2309      745F4641 
+ 2309      554C544D 
+ 2309      41534B00 
+ 2310              	.LASF20:
+ 2311 016b 746F704F 		.ascii	"topOfMainStack\000"
+ 2311      664D6169 
+ 2311      6E537461 
+ 2311      636B00
+ 2312              	.LASF11:
+ 2313 017a 6C6F6E67 		.ascii	"long long int\000"
+ 2313      206C6F6E 
+ 2313      6720696E 
+ 2313      7400
+ 2314              	.LASF25:
+ 2315 0188 5F5F7365 		.ascii	"__set_PRIMASK\000"
+ 2315      745F5052 
+ 2315      494D4153 
+ 2315      4B00
+ 2316              	.LASF33:
+ 2317 0196 5F5F5245 		.ascii	"__REV\000"
+ 2317      5600
+ 2318              	.LASF30:
+ 2319 019c 5F5F6765 		.ascii	"__get_CONTROL\000"
+ 2319      745F434F 
+ 2319      4E54524F 
+ 2319      4C00
+ 2320              	.LASF36:
+ 2321 01aa 5F5F5242 		.ascii	"__RBIT\000"
+ 2321      495400
+ 2322              	.LASF46:
+ 2323 01b1 533A5C45 		.ascii	"S:\\Embedded Systems\\Warenscanner\000"
+ 2323      6D626564 
+ 2323      64656420 
+ 2323      53797374 
+ 2323      656D735C 
+ 2324              	.LASF4:
+ 2325 01d2 73686F72 		.ascii	"short int\000"
+ 2325      7420696E 
+ 2325      7400
+ 2326              	.LASF5:
+ 2327 01dc 75696E74 		.ascii	"uint16_t\000"
+ 2327      31365F74 
+ 2327      00
+ 2328              	.LASF9:
+ 2329 01e5 75696E74 		.ascii	"uint32_t\000"
+ 2329      33325F74 
+ARM GAS  c:\Temp\cctGqfAZ.s 			page 58
+
+
+ 2329      00
+ 2330              	.LASF8:
+ 2331 01ee 6C6F6E67 		.ascii	"long int\000"
+ 2331      20696E74 
+ 2331      00
+ 2332              	.LASF43:
+ 2333 01f7 5F5F5354 		.ascii	"__STREXW\000"
+ 2333      52455857 
+ 2333      00
+ 2334              	.LASF0:
+ 2335 0200 7369676E 		.ascii	"signed char\000"
+ 2335      65642063 
+ 2335      68617200 
+ 2336              	.LASF37:
+ 2337 020c 5F5F4C44 		.ascii	"__LDREXB\000"
+ 2337      52455842 
+ 2337      00
+ 2338              	.LASF41:
+ 2339 0215 5F5F5354 		.ascii	"__STREXB\000"
+ 2339      52455842 
+ 2339      00
+ 2340              	.LASF27:
+ 2341 021e 5F5F6765 		.ascii	"__get_FAULTMASK\000"
+ 2341      745F4641 
+ 2341      554C544D 
+ 2341      41534B00 
+ 2342              	.LASF39:
+ 2343 022e 5F5F4C44 		.ascii	"__LDREXH\000"
+ 2343      52455848 
+ 2343      00
+ 2344              		.ident	"GCC: (Sourcery G++ Lite 2010.09-51) 4.5.1"
+ARM GAS  c:\Temp\cctGqfAZ.s 			page 59
+
+
+DEFINED SYMBOLS
+                            *ABS*:00000000 core_cm3.c
+  c:\Temp\cctGqfAZ.s:23     .text:00000000 $t
+  c:\Temp\cctGqfAZ.s:28     .text:00000000 __get_PSP
+  c:\Temp\cctGqfAZ.s:58     .text:00000010 __set_PSP
+  c:\Temp\cctGqfAZ.s:82     .text:00000018 __get_MSP
+  c:\Temp\cctGqfAZ.s:111    .text:00000028 __set_MSP
+  c:\Temp\cctGqfAZ.s:135    .text:00000030 __get_BASEPRI
+  c:\Temp\cctGqfAZ.s:178    .text:00000050 __set_BASEPRI
+  c:\Temp\cctGqfAZ.s:215    .text:00000068 __get_PRIMASK
+  c:\Temp\cctGqfAZ.s:258    .text:00000088 __set_PRIMASK
+  c:\Temp\cctGqfAZ.s:295    .text:000000a0 __get_FAULTMASK
+  c:\Temp\cctGqfAZ.s:338    .text:000000c0 __set_FAULTMASK
+  c:\Temp\cctGqfAZ.s:375    .text:000000d8 __get_CONTROL
+  c:\Temp\cctGqfAZ.s:418    .text:000000f8 __set_CONTROL
+  c:\Temp\cctGqfAZ.s:455    .text:00000110 __REV
+  c:\Temp\cctGqfAZ.s:500    .text:00000134 __REV16
+  c:\Temp\cctGqfAZ.s:546    .text:00000158 __REVSH
+  c:\Temp\cctGqfAZ.s:592    .text:0000017c __RBIT
+  c:\Temp\cctGqfAZ.s:637    .text:000001a0 __LDREXB
+  c:\Temp\cctGqfAZ.s:682    .text:000001c4 __LDREXH
+  c:\Temp\cctGqfAZ.s:727    .text:000001e8 __LDREXW
+  c:\Temp\cctGqfAZ.s:772    .text:0000020c __STREXB
+  c:\Temp\cctGqfAZ.s:820    .text:00000238 __STREXH
+  c:\Temp\cctGqfAZ.s:868    .text:00000264 __STREXW
+                     .debug_frame:00000010 $d
+
+NO UNDEFINED SYMBOLS

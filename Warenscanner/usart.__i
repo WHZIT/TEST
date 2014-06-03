@@ -1,0 +1,1 @@
+-c -mcpu=cortex-m3 -mthumb -gdwarf-2 -MD -Wall -O0 -mapcs-frame -I../CMSIS -IC:/Programme/Keil/ARM/CMSIS/Include -IC:/Programme/Keil/ARM/Inc/NXP/LPC17xx -Wa,-alhms="usart.lst" -o usart.o "usart.c"

@@ -1,0 +1,1 @@
+-T ../CMSIS/CM3_V1P30_LPC17xx/startup/LPC17xx.ld -mcpu=cortex-m3 -mthumb -mthumb-interwork -Wl,-Map="./Warenscanner.map" -o Warenscanner.elf "main.o" "usart.o" "./core_cm3.o" "./system_lpc17xx.o" "./startup_lpc17xx.o" -nostartfiles -nodefaultlibs
